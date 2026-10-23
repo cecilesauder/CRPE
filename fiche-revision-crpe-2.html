@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Révision CRPE Français 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f1a;
+  --surface: #13162b;
+  --surface2: #1a1f38;
+  --border: rgba(255,255,255,0.07);
+  --p1: #4f9cf9;
+  --p1d: #1a3a6b;
+  --p2: #38c98a;
+  --p2d: #0d3d28;
+  --p3: #f4a642;
+  --p3d: #3d2800;
+  --ref: #c778dd;
+  --refd: #2d1040;
+  --warn: #f97316;
+  --text: #e8eaf0;
+  --muted: #7880a0;
+  --tag: #252a45;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #1a1f38, #0f1525);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(79,156,249,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-left h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.header-left h1 span { color: var(--p1); }
+.header-left p { font-size: 12px; color: var(--muted); margin-top: 2px; font-family: 'DM Mono', monospace; }
+.header-right { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.badge-p1 { background: var(--p1d); color: var(--p1); border: 1px solid var(--p1); }
+.badge-p2 { background: var(--p2d); color: var(--p2); border: 1px solid var(--p2); }
+.badge-p3 { background: var(--p3d); color: var(--p3); border: 1px solid var(--p3); }
+.badge-ref { background: var(--refd); color: var(--ref); border: 1px solid var(--ref); }
+
+/* ── GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.col-wide { grid-column: span 2; }
+.col-full { grid-column: span 3; }
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.card-p1 .card-header { background: linear-gradient(90deg, var(--p1d), transparent); color: var(--p1); border-bottom: 1px solid rgba(79,156,249,0.2); }
+.card-p2 .card-header { background: linear-gradient(90deg, var(--p2d), transparent); color: var(--p2); border-bottom: 1px solid rgba(56,201,138,0.2); }
+.card-p3 .card-header { background: linear-gradient(90deg, var(--p3d), transparent); color: var(--p3); border-bottom: 1px solid rgba(244,166,66,0.2); }
+.card-ref .card-header { background: linear-gradient(90deg, var(--refd), transparent); color: var(--ref); border-bottom: 1px solid rgba(199,120,221,0.2); }
+.card-warn .card-header { background: linear-gradient(90deg, rgba(249,115,22,0.15), transparent); color: var(--warn); border-bottom: 1px solid rgba(249,115,22,0.2); }
+.card-body { padding: 14px 16px; }
+
+/* ── NOTION ROW ── */
+.notion {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+.notion:last-child { border-bottom: none; padding-bottom: 0; }
+.notion-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.notion-content { flex: 1; }
+.notion-title { font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.notion-desc { color: var(--muted); font-size: 11.5px; line-height: 1.5; }
+.notion-formula {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  background: var(--tag);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 3px;
+  color: var(--text);
+  border-left: 2px solid currentColor;
+}
+.formula-p1 { border-left-color: var(--p1); }
+.formula-p2 { border-left-color: var(--p2); }
+.formula-p3 { border-left-color: var(--p3); }
+
+/* ── MANIP SYNTAXIQUE ── */
+.manip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.manip-card {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+}
+.manip-card h4 { font-size: 11px; color: var(--p1); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+.manip-card p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.manip-card .ex { color: var(--text); font-style: italic; font-size: 11px; margin-top: 3px; font-family: 'Lora', serif; }
+.manip-card .identifie { color: var(--p1); font-size: 10.5px; font-weight: 700; margin-top: 4px; }
+
+/* ── TEMPS TABLE ── */
+.temps-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.temps-table th { padding: 6px 8px; text-align: left; color: var(--p1); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid rgba(79,156,249,0.2); }
+.temps-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.temps-table tr:last-child td { border-bottom: none; }
+.temps-table .temps-name { font-weight: 700; color: var(--text); }
+.temps-table .temps-val { color: var(--muted); font-size: 11px; }
+.temps-table .temps-ex { color: var(--p1); font-family: 'Lora', serif; font-style: italic; font-size: 11px; }
+
+/* ── ACCORD TABLE ── */
+.accord-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.accord-row:last-child { border-bottom: none; }
+.accord-label { font-weight: 700; min-width: 100px; color: var(--text); }
+.accord-regle { color: var(--muted); font-size: 11.5px; flex: 1; }
+.accord-ex { font-family: 'Lora', serif; font-style: italic; color: var(--p2); font-size: 11px; }
+.arrow { color: var(--p2); font-size: 14px; flex-shrink: 0; }
+
+/* ── LEXIQUE ── */
+.lex-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.lex-item {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+}
+.lex-item h4 { font-size: 11px; color: var(--p2); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+.lex-item p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.lex-item .lex-ex { color: var(--text); font-style: italic; font-family: 'Lora', serif; font-size: 11px; margin-top: 3px; }
+
+/* ── REFS ── */
+.ref-cat { margin-bottom: 14px; }
+.ref-cat h4 { font-size: 10.5px; color: var(--ref); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; padding-bottom: 4px; border-bottom: 1px solid rgba(199,120,221,0.2); }
+.ref-item {
+  display: flex;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 11.5px;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.ref-item:last-child { border-bottom: none; }
+.ref-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ref); flex-shrink: 0; margin-top: 5px; }
+.ref-text { flex: 1; }
+.ref-auteur { font-weight: 700; color: var(--text); }
+.ref-titre { font-style: italic; font-family: 'Lora', serif; color: var(--ref); }
+.ref-note { color: var(--muted); font-size: 10.5px; display: block; margin-top: 1px; }
+.ref-theme {
+  font-size: 9.5px;
+  padding: 1px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-weight: 700;
+}
+.theme-other { background: rgba(199,120,221,0.15); color: var(--ref); }
+.theme-art { background: rgba(244,166,66,0.15); color: var(--p3); }
+.theme-mem { background: rgba(79,156,249,0.15); color: var(--p1); }
+.theme-id { background: rgba(56,201,138,0.15); color: var(--p2); }
+.theme-fam { background: rgba(249,115,22,0.15); color: var(--warn); }
+
+/* ── WARN BOX ── */
+.warn-list { list-style: none; }
+.warn-list li {
+  display: flex;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  align-items: flex-start;
+}
+.warn-list li:last-child { border-bottom: none; }
+.warn-icon { color: var(--warn); flex-shrink: 0; }
+.warn-text { color: var(--muted); }
+.warn-text strong { color: var(--text); }
+
+/* ── METHODO P3 ── */
+.methodo-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+}
+.step-num {
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--p3);
+  min-width: 22px;
+  flex-shrink: 0;
+}
+.step-content { flex: 1; }
+.step-content h4 { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.step-content p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.step-content .step-ex { font-family: 'Lora', serif; font-style: italic; color: var(--p3); font-size: 11px; display: block; margin-top: 3px; }
+
+/* ── PILL ── */
+.pill { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 700; margin: 2px 2px 0 0; }
+.pill-p1 { background: var(--p1d); color: var(--p1); }
+.pill-p2 { background: var(--p2d); color: var(--p2); }
+.pill-p3 { background: var(--p3d); color: var(--p3); }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after { content:''; flex:1; height:1px; background: var(--border); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .col-wide { grid-column: span 2; }
+  .col-full { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .col-wide, .col-full { grid-column: span 1; }
+  .manip-grid, .lex-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: white; color: #111; padding: 10px; }
+  .card { background: #f9f9f9; border: 1px solid #ccc; }
+  .card-header { background: #eee !important; color: #333 !important; }
+  .card-p1 .card-header { color: #1a3a6b !important; }
+  .card-p2 .card-header { color: #0d3d28 !important; }
+  .card-p3 .card-header { color: #3d2800 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>CRPE 2026 — Épreuve de <span>français</span></h1>
+    <p>Fiche de révision express · 3 parties · Terminologie Eduscol 2020</p>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-p1">Partie I · Grammaire 8 pts</span>
+    <span class="badge badge-p2">Partie II · Lexique 3 pts</span>
+    <span class="badge badge-p3">Partie III · Réflexion 9 pts</span>
+    <span class="badge badge-ref">Références littéraires</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PARTIE I                                  -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-label">Partie I — Étude de la langue</div>
+<div class="grid">
+
+  <!-- MANIPULATIONS SYNTAXIQUES -->
+  <div class="card card-p1 col-wide">
+    <div class="card-header">⚙ Les 4 manipulations syntaxiques — le cœur de tout</div>
+    <div class="card-body">
+      <div class="manip-grid">
+        <div class="manip-card">
+          <h4>① Suppression (effacement)</h4>
+          <p>Supprimer le groupe. Si la phrase reste grammaticale → <strong>complément de phrase</strong>. Si elle devient agrammaticale → <strong>complément du verbe</strong>.</p>
+          <div class="ex">« Hier, il est parti » → ✅ « Il est parti » = compl. de phrase</div>
+          <div class="ex">« Il mange *» → ❌ sans COD = complément du verbe</div>
+          <div class="identifie">→ Identifie : compl. de phrase vs compl. du verbe</div>
+        </div>
+        <div class="manip-card">
+          <h4>② Déplacement</h4>
+          <p>Déplacer le groupe en tête de phrase. Si possible → <strong>complément de phrase</strong>. Impossible pour les compléments du verbe.</p>
+          <div class="ex">« Le matin, elle lit » → ✅ déplaçable = compl. de phrase</div>
+          <div class="ex">*« La lettre, elle lit » → ❌ non déplaçable = COD</div>
+          <div class="identifie">→ Identifie : compl. de phrase (déplaçable + supprimable)</div>
+        </div>
+        <div class="manip-card">
+          <h4>③ Pronominalisation</h4>
+          <p>Remplacer par un pronom. Détermine la <strong>fonction</strong> du complément du verbe.</p>
+          <div class="ex">COD → le/la/les : « Il lit le livre → Il le lit »</div>
+          <div class="ex">COI (à) → lui/leur/y : « Il pense à elle → Il pense à elle / y »</div>
+          <div class="ex">COI (de) → en : « Il parle du projet → Il en parle »</div>
+          <div class="identifie">→ Identifie : COD / COI / COS</div>
+        </div>
+        <div class="manip-card">
+          <h4>④ Substitution / Encadrement</h4>
+          <p>Encadrer par « c'est… qui » (→ sujet) ou « c'est… que » (→ COD). Substituer par une autre classe pour vérifier la nature.</p>
+          <div class="ex">Sujet : « C'est elle qui lit » ✅</div>
+          <div class="ex">COD : « C'est la lettre qu'elle lit » ✅</div>
+          <div class="identifie">→ Identifie : sujet / COD / nature d'un groupe</div>
+        </div>
+      </div>
+      <div style="margin-top:10px; padding:8px 12px; background:rgba(249,115,22,0.08); border-radius:6px; border-left:3px solid var(--warn); font-size:11.5px; color:var(--warn);">
+        ⚠ INTERDIT au jury : « parce que ça répond à la question où/quand/comment ». TOUJOURS proposer une manipulation syntaxique explicite.
+      </div>
+    </div>
+  </div>
+
+  <!-- FONCTIONS CLÉS -->
+  <div class="card card-p1">
+    <div class="card-header">📌 Fonctions syntaxiques à maîtriser</div>
+    <div class="card-body">
+      <div class="notion">
+        <div class="notion-icon">🔵</div>
+        <div class="notion-content">
+          <div class="notion-title">Complément de phrase</div>
+          <div class="notion-desc">Déplaçable + supprimable. Valeurs : temps, lieu, manière, cause, but… Anciennement CCL/CCT.</div>
+          <div class="notion-formula formula-p1">Hier / Là-bas / Doucement + verbe → ok</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">🔷</div>
+        <div class="notion-content">
+          <div class="notion-title">COD / COI</div>
+          <div class="notion-desc">Non déplaçable, non supprimable. COD → le/la/les. COI → lui/leur/y/en.</div>
+          <div class="notion-formula formula-p1">Pronominalisez toujours pour justifier</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">🟣</div>
+        <div class="notion-content">
+          <div class="notion-title">Attribut du sujet / du COD</div>
+          <div class="notion-desc">Attr. sujet : verbe d'état (être, sembler, paraître, devenir…) + adj/nom. Attr. COD : verbe de jugement/perception + adj/nom qualifiant le COD.</div>
+          <div class="notion-formula formula-p1">Il semble fatigué / On la juge coupable</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">🟡</div>
+        <div class="notion-content">
+          <div class="notion-title">Apposition</div>
+          <div class="notion-desc">Nom ou GN détaché, désigne la même réalité que le nom qu'il complète. Souvent entre virgules.</div>
+          <div class="notion-formula formula-p1">Wang-Fô, vieil imposteur, ...</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">🔶</div>
+        <div class="notion-content">
+          <div class="notion-title">Complément du nom</div>
+          <div class="notion-desc">GN prépositionnel caractérisant un nom. Non déplaçable, non supprimable sans changer le sens.</div>
+          <div class="notion-formula formula-p1">La lettre de son père / les portes du palais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NATURES DE PROPOSITIONS -->
+  <div class="card card-p1">
+    <div class="card-header">🔗 Nature des propositions</div>
+    <div class="card-body">
+      <div class="notion">
+        <div class="notion-icon">📎</div>
+        <div class="notion-content">
+          <div class="notion-title">Indépendante</div>
+          <div class="notion-desc">Ne dépend d'aucune autre. Peut être coordonnée (mais/et/or…) ou juxtaposée.</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">🔍</div>
+        <div class="notion-content">
+          <div class="notion-title">Sub. relative — déterminative</div>
+          <div class="notion-desc">Introduite par pronom relatif (qui/que/dont/où…). Restreint le sens. Non supprimable.</div>
+          <div class="notion-formula formula-p1">les lettres [que son père avait écrites]</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">💬</div>
+        <div class="notion-content">
+          <div class="notion-title">Sub. relative — appositive (explicative)</div>
+          <div class="notion-desc">Entre virgules. Supprimable sans changer le sens du nom. Ajoute une info.</div>
+          <div class="notion-formula formula-p1">Mathilde, [qui aimait lire], ...</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">📋</div>
+        <div class="notion-content">
+          <div class="notion-title">Sub. conjonctive complétive</div>
+          <div class="notion-desc">Introduite par « que ». Sujet ou COD d'un verbe. Souvent avec verbes de pensée/déclaration/sentiment.</div>
+          <div class="notion-formula formula-p1">Elle pense [qu'il reviendra] → COD</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">⏰</div>
+        <div class="notion-content">
+          <div class="notion-title">Sub. conjonctive circonstancielle</div>
+          <div class="notion-desc">Introduite par conjonction de subordination (quand, parce que, bien que, si…). Valeur : temps, cause, concession, condition, but, conséquence.</div>
+          <div class="notion-formula formula-p1">Bien que + subjonctif / Si + indicatif</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-icon">🏃</div>
+        <div class="notion-content">
+          <div class="notion-title">Proposition participiale absolue</div>
+          <div class="notion-desc">Sujet propre ≠ sujet principal + participe. Valeur circonstancielle (temps, cause, concession).</div>
+          <div class="notion-formula formula-p1">Le soir venu / La pluie tombant…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODES & TEMPS -->
+  <div class="card card-p1 col-wide">
+    <div class="card-header">⏱ Valeurs des temps et modes — les plus testés au CRPE</div>
+    <div class="card-body">
+      <table class="temps-table">
+        <thead>
+          <tr><th>Temps / Mode</th><th>Valeur principale</th><th>Piège fréquent</th><th>Exemple</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="temps-name">Présent indicatif</td>
+            <td class="temps-val">Énonciation, vérité générale, habitude, <strong style="color:var(--p1)">narration (historique)</strong></td>
+            <td class="temps-val" style="color:var(--warn)">Ne pas tout appeler « présent d'énonciation » !</td>
+            <td class="temps-ex">Il entre, saisit la lettre, lit… (narration)</td>
+          </tr>
+          <tr>
+            <td class="temps-name">Imparfait</td>
+            <td class="temps-val">Durée, arrière-plan, habitude, description dans un récit. Aspect imperfectif/sécant.</td>
+            <td class="temps-val" style="color:var(--warn)">Contraster avec passé simple (premier plan)</td>
+            <td class="temps-ex">Il lisait quand elle entra.</td>
+          </tr>
+          <tr>
+            <td class="temps-name">Passé simple</td>
+            <td class="temps-val">Action ponctuelle, premier plan du récit. Aspect global/perfectif.</td>
+            <td class="temps-val" style="color:var(--warn)">Uniquement à l'écrit (registre soutenu)</td>
+            <td class="temps-ex">Elle trouva les lettres.</td>
+          </tr>
+          <tr>
+            <td class="temps-name">Plus-que-parfait</td>
+            <td class="temps-val">Antériorité par rapport à un passé. Action accomplie avant une autre passée.</td>
+            <td class="temps-val" style="color:var(--warn)">Ne pas le confondre avec le passé composé</td>
+            <td class="temps-ex">Quand il arriva, elle avait lu.</td>
+          </tr>
+          <tr>
+            <td class="temps-name">Conditionnel présent</td>
+            <td class="temps-val">Hypothèse (si + imparfait), atténuation polie, futur dans le passé, info non vérifiée (journalistique)</td>
+            <td class="temps-val" style="color:var(--warn)">Identifier la valeur exacte selon le contexte</td>
+            <td class="temps-ex">Si tu venais, je serais content.</td>
+          </tr>
+          <tr>
+            <td class="temps-name">Subjonctif présent</td>
+            <td class="temps-val">Souhait, doute, nécessité, crainte. Requis après certains verbes et conjonctions.</td>
+            <td class="temps-val" style="color:var(--warn)">bien que, pour que, sans que → subjonctif</td>
+            <td class="temps-ex">Il faut qu'elle parte.</td>
+          </tr>
+          <tr>
+            <td class="temps-name">Subj. imparfait</td>
+            <td class="temps-val">Concordance des temps à l'écrit soutenu : subordonnée dépendant d'un verbe au passé.</td>
+            <td class="temps-val" style="color:var(--warn)">Reconnaître la forme : -ât, -ît, -ût, -âssent</td>
+            <td class="temps-ex">sans que personne ne s'en préoccupât</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACCORDS -->
+  <div class="card card-p1">
+    <div class="card-header">✅ Accords — les pièges du CRPE</div>
+    <div class="card-body">
+      <div class="accord-row">
+        <div class="accord-label">PP avec AVOIR</div>
+        <span class="arrow">→</span>
+        <div class="accord-regle">Accord avec le COD si COD <strong>avant</strong> le verbe. Invariable si COD après ou absent.</div>
+      </div>
+      <div class="accord-row" style="padding-left:16px;">
+        <div class="accord-ex">Les lettres qu'il avait écrites (que = lettres, fém. plur., avant)</div>
+      </div>
+      <div class="accord-row">
+        <div class="accord-label">PP pronominal</div>
+        <span class="arrow">→</span>
+        <div class="accord-regle">Accord avec le sujet SAUF si pronom réfléchi = COI.</div>
+      </div>
+      <div class="accord-row" style="padding-left:16px;">
+        <div class="accord-ex">Elles se sont levées ✅ / Elles se sont nui ✅ (nuire à = COI)</div>
+      </div>
+      <div class="accord-row">
+        <div class="accord-label">Adjectif couleur</div>
+        <span class="arrow">→</span>
+        <div class="accord-regle">Composé (vert foncé) → invariable. Employé comme adj. → accord. Nom (marron, crème) → invariable.</div>
+      </div>
+      <div class="accord-row" style="padding-left:16px;">
+        <div class="accord-ex">des yeux bleus ✅ / des robes vert foncé ✅ / des yeux noisette ✅</div>
+      </div>
+      <div class="accord-row">
+        <div class="accord-label">Tout adverbe</div>
+        <span class="arrow">→</span>
+        <div class="accord-regle">Devant adj. fém. commençant par consonne ou h aspiré → <em>toutes</em>. Devant voyelle → <em>tout</em> (invariable).</div>
+      </div>
+      <div class="accord-row" style="padding-left:16px;">
+        <div class="accord-ex">toutes étonnées / tout heureuses (h muet)</div>
+      </div>
+      <div class="accord-row">
+        <div class="accord-label">Réécriture</div>
+        <span class="arrow">→</span>
+        <div class="accord-regle">⚠ Changer le sujet ne change pas l'accord du PP avec AVOIR (accord reste avec COD antéposé).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASSES GRAMMATICALES RAPIDE -->
+  <div class="card card-p1">
+    <div class="card-header">🏷 Classes grammaticales — mémo rapide</div>
+    <div class="card-body">
+      <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;"><strong style="color:var(--p1)">Variables :</strong> nom · déterminant · adjectif · pronom · verbe</div>
+      <div style="font-size:11.5px; color:var(--muted); margin-bottom:10px;"><strong style="color:var(--p1)">Invariables :</strong> adverbe · préposition · conjonction (coord. / subord.) · interjection</div>
+      <div class="notion">
+        <div class="notion-content">
+          <div class="notion-title" style="font-size:11.5px;">Types de phrases (Eduscol 2020)</div>
+          <div class="notion-desc">Déclaratif · Interrogatif · Injonctif</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-content">
+          <div class="notion-title" style="font-size:11.5px;">Formes de phrases</div>
+          <div class="notion-desc">Affirmative/Négative · Passive/Active · Emphatique/Neutre · Exclamative</div>
+        </div>
+      </div>
+      <div class="notion">
+        <div class="notion-content">
+          <div class="notion-title" style="font-size:11.5px;">Figures clés</div>
+          <div class="notion-desc">Métaphore (sans outil) · Comparaison (avec outil) · Métonymie · Anaphore · Euphémisme · Litote · Hyperbole · Personnification · Antithèse</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PARTIE II                                 -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-label">Partie II — Lexique</div>
+<div class="grid">
+
+  <div class="card card-p2 col-wide">
+    <div class="card-header">🔤 Formation des mots & relations sémantiques</div>
+    <div class="card-body">
+      <div class="lex-grid">
+        <div class="lex-item">
+          <h4>Dérivation (affixation)</h4>
+          <p>Ajout d'un préfixe ou suffixe à une base. La plus courante.</p>
+          <div class="lex-ex">re-faire · chant-eur · é-panch-ement</div>
+        </div>
+        <div class="lex-item">
+          <h4>Composition</h4>
+          <p>Assemblage de deux bases lexicales autonomes.</p>
+          <div class="lex-ex">porte-monnaie · chou-fleur · arc-en-ciel</div>
+        </div>
+        <div class="lex-item">
+          <h4>Conversion (dérivation impropre)</h4>
+          <p>Changement de classe sans modification formelle.</p>
+          <div class="lex-ex">le coucher du soleil (verbe → nom) · un bleu (adj → nom)</div>
+        </div>
+        <div class="lex-item">
+          <h4>Polysémie vs homonymie</h4>
+          <p>Polysémie : même mot, plusieurs sens. Homonymie : mots distincts, même son.</p>
+          <div class="lex-ex">bouche (sens multiples) · ver/verre/vers (homophones)</div>
+        </div>
+        <div class="lex-item">
+          <h4>Synonymie / Antonymie</h4>
+          <p>Synonyme = sens proche (préciser la nuance). Antonyme = sens opposé.</p>
+          <div class="lex-ex">sérénité ≈ quiétude / tranquillité · ≠ agitation</div>
+        </div>
+        <div class="lex-item">
+          <h4>Hyperonymie / Hyponymie</h4>
+          <p>Hyperonyme = terme général. Hyponyme = terme inclus.</p>
+          <div class="lex-ex">animal (hyperonyme) → chien/chat (hyponymes)</div>
+        </div>
+        <div class="lex-item">
+          <h4>Sens dénoté / connoté</h4>
+          <p>Dénoté = sens du dictionnaire (neutre). Connoté = valeurs affectives, culturelles, symboliques.</p>
+          <div class="lex-ex">rose [dénoté: fleur] [connoté: amour, féminité]</div>
+        </div>
+        <div class="lex-item">
+          <h4>Champ lexical</h4>
+          <p>Ensemble de mots relevant d'un même thème (toutes classes confondues).</p>
+          <div class="lex-ex">champ de la mer : vague, marin, côte, nager, sel…</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:6px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--p2);">Préfixes latins/grecs à connaître</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          <span class="pill pill-p2">pré- = avant</span><span class="pill pill-p2">post- = après</span><span class="pill pill-p2">anti- = contre</span><span class="pill pill-p2">re- = de nouveau</span><span class="pill pill-p2">dé-/dis- = négation</span><span class="pill pill-p2">in-/im- = négation</span><span class="pill pill-p2">ex-/é- = hors de</span><span class="pill pill-p2">poly- = plusieurs</span><span class="pill pill-p2">mono- = un seul</span><span class="pill pill-p2">micro- = petit</span><span class="pill pill-p2">auto- = soi-même</span><span class="pill pill-p2">trans- = à travers</span>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
+          <span class="pill pill-p2">-tion/-ation = action</span><span class="pill pill-p2">-eur/-eur = agent</span><span class="pill pill-p2">-ité/-té = qualité abs.</span><span class="pill pill-p2">-ment = action/manière</span><span class="pill pill-p2">-able/-ible = possibilité</span><span class="pill pill-p2">-iste = adhérent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-p2">
+    <div class="card-header">💡 Méthode pour la question lexicale</div>
+    <div class="card-body">
+      <div class="methodo-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Identifier la classe grammaticale</h4>
+            <p>Nom / Verbe / Adjectif / Adverbe. Le préciser d'emblée.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Décomposer le mot</h4>
+            <p>Base/radical + préfixe + suffixe. Donner le sens de chaque morphème.</p>
+            <span class="step-ex">é + panch + ement → ex-(hors de) + pancher + -ment (action)</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Donner le sens EN CONTEXTE</h4>
+            <p>Le sens du mot dans la phrase, pas le sens générique du dictionnaire.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Pour les figures de style</h4>
+            <p>Nommer le procédé, identifier les termes comparés, expliquer les connotations, donner le sens dans le texte.</p>
+            <span class="step-ex">Ne pas juste dire « comparaison » → expliquer ce qu'elle signifie ici.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Synonymes : toujours nuancer</h4>
+            <p>Un synonyme ≠ mot identique. Expliquer la nuance (registre, intensité, connotation).</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px; padding:8px 10px; background:rgba(249,115,22,0.08); border-radius:6px; border-left:3px solid var(--warn); font-size:11px; color:var(--warn);">
+        ⚠ Ne pas confondre <strong>suffixe flexionnel</strong> (marque grammaticale, ex. -ons de « nous mangeons ») et <strong>suffixe dérivationnel</strong> (forme un nouveau mot, ex. -ment de « épanchement »).
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  PARTIE III                                -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-label">Partie III — Réflexion rédigée (9 pts)</div>
+<div class="grid">
+
+  <div class="card card-p3">
+    <div class="card-header">📐 Méthode du développement structuré</div>
+    <div class="card-body">
+      <div class="methodo-steps">
+        <div class="step">
+          <div class="step-num">①</div>
+          <div class="step-content">
+            <h4>Lire la question 3 fois</h4>
+            <p>Identifier le thème, la citation de départ, les mots-clés. Délimiter le champ de la réflexion.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">②</div>
+          <div class="step-content">
+            <h4>Introduction (15 min)</h4>
+            <p>Amorce (contextualiser la citation) → Question générale → Problématique précise → Annonce du plan.</p>
+            <span class="step-ex">Ne jamais commencer par « Je vais vous parler de… »</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">③</div>
+          <div class="step-content">
+            <h4>2 ou 3 parties argumentées</h4>
+            <p>Argument → Exemple précis (auteur + titre + contenu) → Lien avec le texte support. Transition entre parties.</p>
+            <span class="step-ex">Exemple précis : titre + auteur + élément du texte exploité</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">④</div>
+          <div class="step-content">
+            <h4>Conclusion</h4>
+            <p>Bilan de la démonstration + ouverture (vers un autre angle, une autre œuvre, les programmes).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">⑤</div>
+          <div class="step-content">
+            <h4>Relecture obligatoire</h4>
+            <p>Orthographe, syntaxe, cohérence. Jusqu'à 2 pts de malus pour les copies non relues.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERENCES LITTERAIRES -->
+  <div class="card card-ref col-wide">
+    <div class="card-header">📚 Références littéraires — les incontournables Partie III</div>
+    <div class="card-body">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 24px;">
+        <div>
+          <div class="ref-cat">
+            <h4>🔍 Connaissance de l'autre / autrui</h4>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Marguerite Yourcenar</span> — <span class="ref-titre">Nouvelles orientales</span>
+                <span class="ref-note">Wang-Fô, art et mensonge du réel. Texte tombé en 2025 G1.</span>
+              </div>
+              <span class="ref-theme theme-other">Autrui</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Proust</span> — <span class="ref-titre">À la recherche du temps perdu</span>
+                <span class="ref-note">La lecture comme accès à une intériorité inconnue. Mémoire, temps, altérité.</span>
+              </div>
+              <span class="ref-theme theme-mem">Mémoire</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Daniel Pennac</span> — <span class="ref-titre">Comme un roman</span>
+                <span class="ref-note">Les droits du lecteur. Lecture plaisir, accès à soi et à l'autre.</span>
+              </div>
+              <span class="ref-theme theme-id">Identité</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Annie Ernaux</span> — <span class="ref-titre">La Place / Les Années</span>
+                <span class="ref-note">Connaissance du père (La Place), mémoire collective. Prix Nobel 2022.</span>
+              </div>
+              <span class="ref-theme theme-fam">Famille</span>
+            </div>
+          </div>
+
+          <div class="ref-cat">
+            <h4>🎨 Art, écriture et représentation du réel</h4>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Flaubert</span> — <span class="ref-titre">Madame Bovary</span>
+                <span class="ref-note">Emma, lectrice, confond littérature et réalité. L'art comme mensonge ?</span>
+              </div>
+              <span class="ref-theme theme-art">Art</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Zola</span> — <span class="ref-titre">L'Œuvre</span>
+                <span class="ref-note">L'artiste et l'impossible représentation du réel. Naturalisme.</span>
+              </div>
+              <span class="ref-theme theme-art">Art</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Maupassant</span> — <span class="ref-titre">Pierre et Jean (Préface)</span>
+                <span class="ref-note">« La vérité… c'est de donner l'illusion complète du vrai. » Réalisme/illusion.</span>
+              </div>
+              <span class="ref-theme theme-art">Art</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="ref-cat">
+            <h4>🪞 Se construire / identité / enfance</h4>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Rousseau</span> — <span class="ref-titre">Les Confessions</span>
+                <span class="ref-note">Autobiographie fondatrice. Connaissance de soi par l'écriture.</span>
+              </div>
+              <span class="ref-theme theme-id">Identité</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Colette</span> — <span class="ref-titre">Les Vrilles de la vigne</span>
+                <span class="ref-note">Bourgogne natale, mémoire, écriture comme retour aux sources. Cité en corrigé 2025.</span>
+              </div>
+              <span class="ref-theme theme-mem">Mémoire</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Georges Perec</span> — <span class="ref-titre">W ou le souvenir d'enfance</span>
+                <span class="ref-note">Mémoire lacunaire, identité, ce qu'on ne peut pas connaître de soi.</span>
+              </div>
+              <span class="ref-theme theme-mem">Mémoire</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Montaigne</span> — <span class="ref-titre">Essais</span>
+                <span class="ref-note">« Chaque homme porte la forme entière de l'humaine condition. » Se connaître par l'autre.</span>
+              </div>
+              <span class="ref-theme theme-id">Identité</span>
+            </div>
+          </div>
+
+          <div class="ref-cat">
+            <h4>👨‍👩‍👧 Famille / transmission / silence</h4>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Hervé Guibert</span> — <span class="ref-titre">À l'ami qui ne m'a pas sauvé la vie</span>
+                <span class="ref-note">Écriture, maladie, connaissance de l'autre dans sa disparition.</span>
+              </div>
+              <span class="ref-theme theme-other">Autrui</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Romain Gary</span> — <span class="ref-titre">La Promesse de l'aube</span>
+                <span class="ref-note">Relation mère-fils, mensonge, identité construite par l'amour de l'autre.</span>
+              </div>
+              <span class="ref-theme theme-fam">Famille</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Virginia Woolf</span> — <span class="ref-titre">Les Vagues / Mrs Dalloway</span>
+                <span class="ref-note">Intériorité multiple, opacité de l'autre, flux de conscience.</span>
+              </div>
+              <span class="ref-theme theme-other">Autrui</span>
+            </div>
+          </div>
+
+          <div class="ref-cat">
+            <h4>📖 Références EVAR (Éducation à la Vie Affective &amp; Relationnelle — programme fév. 2025)</h4>
+
+            <div style="font-size:10px; color:var(--p1); text-transform:uppercase; letter-spacing:0.07em; padding:4px 0 3px; font-weight:700;">Cycle 1 (maternelle)</div>
+
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Anna Llenas</span> — <span class="ref-titre">La couleur des émotions</span>
+                <span class="ref-note">Album phare pour nommer et reconnaître les émotions. Le monstre des couleurs associe une couleur à chaque émotion. Incontournable en cycle 1.</span>
+              </div>
+              <span class="ref-theme theme-id">C1</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Collectif</span> — <span class="ref-titre">La petite bibliothèque des émotions</span> (6 vol.)
+                <span class="ref-note">6 petits livres dédiés chacun à une émotion (colère, tristesse, joie, peur, jalousie, honte). Outil pédagogique direct pour verbaliser le ressenti en cycle 1.</span>
+              </div>
+              <span class="ref-theme theme-id">C1</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Mai Lan Chapiron</span> — <span class="ref-titre">Mon corps</span>
+                <span class="ref-note">Découverte et appropriation du corps, consentement, intégrité corporelle. Cycle 1 et début cycle 2. Ancrage fort dans les attendus EVAR (axe corps et intimité).</span>
+              </div>
+              <span class="ref-theme theme-id">C1–C2</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Mai Lan Chapiron</span> — <span class="ref-titre">Interdit de me faire mal</span>
+                <span class="ref-note">Protection de l'enfant, droits du corps, violence. Abordable dès la maternelle. Lien direct avec l'axe EVAR « sécurité affective et protection ».</span>
+              </div>
+              <span class="ref-theme theme-id">C1–C2</span>
+            </div>
+
+            <div style="font-size:10px; color:var(--p2); text-transform:uppercase; letter-spacing:0.07em; padding:8px 0 3px; font-weight:700;">Cycles 2 &amp; 3</div>
+
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Collectif</span> — <span class="ref-titre">Les petits illustrés de l'intimité</span> (3 tomes)
+                <span class="ref-note">Série documentaire illustrée sur l'intimité (corps, pudeur, relations). Adapté aux cycles 2 et 3. Permet d'aborder l'éducation affective et relationnelle de façon progressive et concrète.</span>
+              </div>
+              <span class="ref-theme theme-id">C2–C3</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Mai Lan Chapiron</span> — <span class="ref-titre">Le Loup</span>
+                <span class="ref-note">Thème de la manipulation affective et du danger. Aborde la notion de consentement et de relation saine/malsaine. Cycle 2-3, langage accessible et fort impact visuel.</span>
+              </div>
+              <span class="ref-theme theme-id">C2–C3</span>
+            </div>
+            <div class="ref-item">
+              <div class="ref-dot"></div>
+              <div class="ref-text">
+                <span class="ref-auteur">Édouard Durand (texte) · Mai Lan Chapiron (ill.)</span> — <span class="ref-titre">Tes droits et tes besoins</span>
+                <span class="ref-note">Écrit par le magistrat cofondateur de la CIIVISE. Explique aux enfants leurs droits fondamentaux, leurs besoins affectifs, le droit à la protection. Référence clé pour les axes EVAR « droits » et « relations ».</span>
+              </div>
+              <span class="ref-theme theme-id">C2–C3</span>
+            </div>
+
+            <div style="margin-top:8px; padding:7px 10px; background:rgba(79,156,249,0.07); border-radius:6px; border-left:2px solid var(--p1); font-size:10.5px; color:var(--muted);">
+              💡 <strong style="color:var(--text)">Rappel EVAR :</strong> Le programme (fév. 2025) organise l'éducation à la vie affective et relationnelle autour de 4 axes : <em>les émotions · le corps et l'intimité · les relations · les droits et la protection</em>. Ces références couvrent les 4 axes et les 3 cycles.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--  BANDE ERREURS FRÉQUENTES                  -->
+<!-- ══════════════════════════════════════════ -->
+<div class="section-label">Ce que le jury sanctionne · Rappels transversaux</div>
+<div class="grid">
+  <div class="card card-warn col-full">
+    <div class="card-header">⚠ Erreurs éliminatoires ou fortement pénalisées — rapports de jury 2022–2025</div>
+    <div class="card-body" style="column-count:2; column-gap:24px;">
+      <ul class="warn-list">
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Identifier les fonctions par le sens</strong> (« parce que ça dit quand ») sans manipulation syntaxique.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Tout présent = présent d'énonciation.</strong> Distinguer : narration, habitude, vérité générale.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Confondre nature et fonction.</strong> Nature = ce qu'est le mot. Fonction = son rôle dans la phrase.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>PP avec avoir accordé avec le sujet</strong> ou non accordé alors que COD est antéposé.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Oublier des changements en réécriture</strong> (accord PP resté incorrect, possessif non modifié).</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Partie III sans problématique</strong> réelle → développement = liste de remarques sans fil.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Exemples inventés ou erronés</strong> (Candide de Zola *). Un exemple faux = pénalité.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Paraphrase du texte</strong> sans analyse dans la Partie III.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Langage familier :</strong> « du coup », « ça montre que », « on peut voir que ».</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Écrire « pronom »</strong> sans préciser : personnel / relatif / démonstratif / COD / COI…</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Ne pas citer le texte</strong> dans la Partie III alors que la question y renvoie explicitement.</span></li>
+        <li><span class="warn-icon">✗</span><span class="warn-text"><strong>Copie non relue</strong> : fautes répétées, accords manquants → jusqu'à -2 pts.</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center; padding:20px; font-size:11px; color:var(--muted); font-family:'DM Mono', monospace;">
+  Fiche de révision CRPE 2026 — Épreuve de français · Fondée sur la terminologie Eduscol 2020 et les rapports de jury 2022–2025 · Usage pédagogique
+</div>
+
+</body>
+</html>

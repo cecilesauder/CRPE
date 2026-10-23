@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>CRPE 2026 – Sujet type · Épreuve de français</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --bleu: #003366;
+    --bleu-clair: #1a5276;
+    --rouge: #c0392b;
+    --or: #b8860b;
+    --gris-clair: #f5f6fa;
+    --gris-moyen: #dde3ed;
+    --corrige: #1b4f0f;
+    --corrige-bg: #f0f9f0;
+  }
+
+  body {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #1a1a2e;
+    background: #e8eaf0;
+    margin: 0;
+    padding: 24px 16px;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto 48px auto;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    overflow: hidden;
+  }
+
+  /* ── EN-TÊTE ── */
+  .bandeau-top {
+    background: var(--bleu);
+    color: #fff;
+    padding: 18px 32px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid var(--or);
+  }
+  .bandeau-top .mariannes { font-size: 11px; opacity: 0.85; line-height: 1.4; }
+  .bandeau-top .titre-epreuve { text-align: center; flex: 1; padding: 0 24px; }
+  .bandeau-top .titre-epreuve h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 4px;
+  }
+  .bandeau-top .titre-epreuve p { font-size: 11.5px; margin: 0; opacity: 0.9; }
+  .bandeau-top .infos-epreuve { font-size: 11px; text-align: right; line-height: 1.6; opacity: 0.9; }
+
+  .sous-bandeau {
+    background: var(--bleu-clair);
+    color: #e8f0f8;
+    font-size: 11.5px;
+    padding: 7px 32px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── CONTENU PRINCIPAL ── */
+  .contenu { padding: 28px 36px 32px; }
+
+  .consignes-cadre {
+    background: var(--gris-clair);
+    border-left: 4px solid var(--bleu);
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .consignes-cadre p { margin: 0 0 4px; }
+  .consignes-cadre strong { color: var(--bleu); }
+
+  /* ── TEXTE ── */
+  .texte-bloc {
+    border: 1.5px solid var(--gris-moyen);
+    border-radius: 3px;
+    padding: 22px 26px;
+    margin-bottom: 28px;
+    background: #fcfcff;
+    position: relative;
+  }
+  .texte-titre {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bleu);
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--gris-moyen);
+  }
+  .texte-body {
+    font-family: 'Merriweather', serif;
+    font-size: 12.5px;
+    line-height: 1.85;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .texte-body p { margin: 0 0 10px; }
+  .num-ligne {
+    display: inline-block;
+    min-width: 22px;
+    color: #999;
+    font-size: 10px;
+    font-family: sans-serif;
+    vertical-align: top;
+    margin-right: 4px;
+    margin-top: 3px;
+  }
+  .ligne-texte { display: flex; align-items: flex-start; margin-bottom: 3px; }
+  .texte-source {
+    text-align: right;
+    font-size: 11.5px;
+    font-style: italic;
+    color: #555;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--gris-moyen);
+  }
+
+  /* ── PARTIES ── */
+  .partie-header {
+    background: var(--bleu);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 3px 3px 0 0;
+    margin: 28px 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .partie-header .partie-num {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+  }
+  .partie-header .partie-titre {
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .partie-header .partie-pts {
+    margin-left: auto;
+    font-size: 11.5px;
+    opacity: 0.9;
+    background: rgba(255,255,255,0.15);
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+
+  .partie-corps {
+    border: 1px solid var(--gris-moyen);
+    border-top: none;
+    padding: 18px 22px 22px;
+    border-radius: 0 0 3px 3px;
+    margin-bottom: 4px;
+  }
+
+  .question {
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--gris-moyen);
+  }
+  .question:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .question-numero {
+    font-weight: 700;
+    color: var(--bleu);
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .question-pts {
+    font-size: 10.5px;
+    color: #888;
+    font-weight: 400;
+  }
+  .question-enonce {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 6px;
+  }
+  .citation-sujet {
+    border-left: 3px solid var(--or);
+    background: #fffdf0;
+    padding: 8px 14px;
+    font-style: italic;
+    font-size: 12.5px;
+    margin: 8px 0;
+    font-family: 'Merriweather', serif;
+    line-height: 1.7;
+    color: #333;
+  }
+  .sous-question {
+    margin: 6px 0 6px 20px;
+    font-size: 13px;
+  }
+
+  /* ── CORRECTION ── */
+  .page-correction .bandeau-top {
+    background: var(--corrige);
+    border-bottom-color: #3a8a1e;
+  }
+  .page-correction .sous-bandeau {
+    background: #2d6e16;
+  }
+  .page-correction .partie-header { background: var(--corrige); }
+  .page-correction .consignes-cadre { border-left-color: var(--corrige); }
+
+  .corrige-intro {
+    background: #eaf7e8;
+    border: 1px solid #a8d8a0;
+    border-radius: 3px;
+    padding: 12px 18px;
+    margin-bottom: 22px;
+    font-size: 12.5px;
+    color: #1b4f0f;
+  }
+
+  .corrige-question {
+    margin-bottom: 22px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .corrige-q-header {
+    background: #dff0db;
+    padding: 7px 16px;
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--corrige);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .corrige-q-header .pts-tag {
+    margin-left: auto;
+    background: var(--corrige);
+    color: #fff;
+    font-size: 10.5px;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .corrige-q-corps {
+    background: var(--corrige-bg);
+    border: 1px solid #c8e6c0;
+    border-top: none;
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .corrige-q-corps p { margin: 0 0 8px; }
+  .corrige-q-corps p:last-child { margin-bottom: 0; }
+
+  .attendu {
+    background: #fff;
+    border-left: 3px solid var(--corrige);
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 12.5px;
+    font-style: italic;
+  }
+
+  .erreurs-frequentes {
+    background: #fff8f0;
+    border: 1px solid #f0c070;
+    border-radius: 3px;
+    padding: 8px 14px;
+    margin: 10px 0 4px;
+    font-size: 12px;
+    color: #7a4d00;
+  }
+  .erreurs-frequentes strong { color: #c07000; }
+
+  table.tableau-corrige {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 8px 0;
+  }
+  table.tableau-corrige th {
+    background: #c8e6c0;
+    color: var(--corrige);
+    padding: 6px 10px;
+    text-align: left;
+    font-weight: 700;
+    border: 1px solid #a8d0a0;
+  }
+  table.tableau-corrige td {
+    padding: 6px 10px;
+    border: 1px solid #c8e6c0;
+    vertical-align: top;
+  }
+  table.tableau-corrige tr:nth-child(even) td { background: #f4fbf2; }
+
+  .plan-partie {
+    background: #fff;
+    border: 1px solid #c8e6c0;
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin: 10px 0;
+  }
+  .plan-partie h4 { margin: 0 0 6px; color: var(--corrige); font-size: 12.5px; }
+  .plan-partie p { margin: 0 0 4px; font-size: 12.5px; }
+
+  .baremos {
+    background: #f5f5f5;
+    border-radius: 3px;
+    padding: 10px 16px;
+    margin-top: 14px;
+    font-size: 11.5px;
+    color: #555;
+  }
+  .baremos strong { color: #333; }
+
+  .avis-jury {
+    background: #fff3cd;
+    border-left: 4px solid var(--or);
+    padding: 10px 16px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #5d4e00;
+    border-radius: 0 3px 3px 0;
+  }
+  .avis-jury strong { color: var(--or); }
+
+  /* ── PIED DE PAGE ── */
+  .pied-page {
+    background: var(--gris-clair);
+    border-top: 1px solid var(--gris-moyen);
+    padding: 8px 32px;
+    font-size: 10.5px;
+    color: #888;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; margin: 0; }
+    .page-correction { page-break-before: always; }
+    .bandeau-top, .partie-header, .corrige-q-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE 1 : SUJET                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page" id="sujet">
+
+  <div class="bandeau-top">
+    <div class="mariannes">
+      Ministère de l'Éducation nationale<br>
+      de l'Enseignement supérieur<br>
+      et de la Recherche
+    </div>
+    <div class="titre-epreuve">
+      <h1>Concours de recrutement de professeurs des écoles</h1>
+      <p>Épreuve écrite disciplinaire de français &mdash; Session 2026</p>
+    </div>
+    <div class="infos-epreuve">
+      Durée : 3 heures<br>
+      Coefficient : 1<br>
+      Note sur 20<br>
+      Note éliminatoire : ≤ 5
+    </div>
+  </div>
+  <div class="sous-bandeau">
+    <span>Groupement académique 1 &mdash; Sujet type d'entraînement</span>
+    <span>Académies de métropole et de La Réunion</span>
+  </div>
+
+  <div class="contenu">
+
+    <div class="consignes-cadre">
+      <p>L'épreuve prend appui sur le texte ci-dessous (extrait de roman). Elle comporte trois parties :</p>
+      <p><strong>Partie I</strong> — Étude de la langue (syntaxe, grammaire, orthographe) &mdash; <strong>8 points</strong></p>
+      <p><strong>Partie II</strong> — Lexique et compréhension lexicale &mdash; <strong>3 points</strong></p>
+      <p><strong>Partie III</strong> — Réflexion à partir du texte (développement rédigé et structuré) &mdash; <strong>9 points</strong></p>
+      <p>Il est conseillé de consacrer environ 1h à la Partie I, 30 min à la Partie II et 1h30 à la Partie III. Le soin apporté à la copie, la qualité de l'expression et le respect de l'orthographe font partie des critères d'évaluation de l'ensemble de l'épreuve.</p>
+    </div>
+
+    <!-- TEXTE -->
+    <div class="texte-bloc">
+      <div class="texte-titre">Texte support</div>
+      <div class="texte-body">
+
+        <div class="ligne-texte"><span class="num-ligne">1</span><span>Elle avait longtemps repoussé ce moment. Depuis que les enfants avaient grandi, depuis que la maison</span></div>
+        <div class="ligne-texte"><span class="num-ligne">2</span><span>s'était vidée de leurs rires et de leurs disputes bruyantes, Mathilde vivait dans un silence qu'elle avait</span></div>
+        <div class="ligne-texte"><span class="num-ligne">3</span><span>appris à apprivoiser. Elle ne se plaignait pas. Elle traversait les jours avec une sorte de sérénité acquise</span></div>
+        <div class="ligne-texte"><span class="num-ligne">4</span><span>durement, qui n'était pas le bonheur, mais qui lui ressemblait de loin.</span></div>
+        <br>
+        <div class="ligne-texte"><span class="num-ligne">5</span><span>Ce matin-là pourtant, en ouvrant le tiroir du bureau que son père avait laissé derrière lui, elle avait</span></div>
+        <div class="ligne-texte"><span class="num-ligne">6</span><span>trouvé des lettres. Pas des lettres à elle — des lettres que son père avait écrites et jamais envoyées,</span></div>
+        <div class="ligne-texte"><span class="num-ligne">7</span><span>adressées à une femme dont Mathilde ne connaissait pas le nom. Cette découverte la bouleversa.</span></div>
+        <br>
+        <div class="ligne-texte"><span class="num-ligne">8</span><span>Elle s'assit sur le vieux fauteuil rouge, celui dont le tissu s'effilochait depuis des années sans que</span></div>
+        <div class="ligne-texte"><span class="num-ligne">9</span><span>personne ne s'en préoccupât. Elle lut la première lettre d'une traite. L'écriture de son père — cette</span></div>
+        <div class="ligne-texte"><span class="num-ligne">10</span><span>graphie penchée et pressée qu'elle aurait reconnue entre mille — lui parla soudain d'un homme qu'elle</span></div>
+        <div class="ligne-texte"><span class="num-ligne">11</span><span>n'avait jamais vraiment connu.</span></div>
+        <br>
+        <div class="ligne-texte"><span class="num-ligne">12</span><span>Dans ces pages jaunies, il n'était pas le père qu'elle avait côtoyé pendant quarante ans : silencieux,</span></div>
+        <div class="ligne-texte"><span class="num-ligne">13</span><span>méthodique, peu enclin aux épanchements. Il était autre chose. Il était quelqu'un qui aimait, qui craignait,</span></div>
+        <div class="ligne-texte"><span class="num-ligne">14</span><span>qui espérait. La langue de ces lettres était belle, vive, parfois gauche de tendresse. Elle avait lu, relu,</span></div>
+        <div class="ligne-texte"><span class="num-ligne">15</span><span>sans pouvoir s'arrêter, comme on remonte une rivière pour trouver sa source.</span></div>
+        <br>
+        <div class="ligne-texte"><span class="num-ligne">16</span><span>Le soir venu, Mathilde rangea les lettres dans le tiroir. Elle n'en parlerait à personne. Ces mots</span></div>
+        <div class="ligne-texte"><span class="num-ligne">17</span><span>appartenaient à une intimité qu'elle venait de traverser sans y avoir été invitée — et pourtant, elle se</span></div>
+        <div class="ligne-texte"><span class="num-ligne">18</span><span>sentait moins seule qu'auparavant. Quelque chose s'était ouvert en elle, une porte dont elle n'avait pas</span></div>
+        <div class="ligne-texte"><span class="num-ligne">19</span><span>soupçonné l'existence : la certitude que les êtres qu'on croyait connaître restent, à jamais, des inconnus</span></div>
+        <div class="ligne-texte"><span class="num-ligne">20</span><span>partiels. Et cette idée, loin de l'accabler, lui apportait une étrange consolation.</span></div>
+
+        <div class="texte-source">
+          [Texte inédit, rédigé pour cet entraînement dans la veine des textes proposés au CRPE 2022-2025]<br>
+          Extrait fictif — Marie Lenoir, <em>Les tiroirs fermés</em>, 2024, pp. 47-48.
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE I -->
+    <div class="partie-header">
+      <span class="partie-num">Partie I</span>
+      <span class="partie-titre">Étude de la langue</span>
+      <span class="partie-pts">8 points</span>
+    </div>
+    <div class="partie-corps">
+
+      <div class="question">
+        <div class="question-numero">1. <span class="question-pts">(2,5 points)</span></div>
+        <div class="question-enonce">Dans l'extrait suivant :</div>
+        <div class="citation-sujet">
+          « Cette découverte la bouleversa. Elle s'assit sur le vieux fauteuil rouge, celui dont le tissu s'effilochait depuis des années sans que personne ne s'en préoccupât. »
+          (lignes 7 à 9)
+        </div>
+        <div class="sous-question"><strong>a.</strong> Relevez toutes les formes verbales de cet extrait, donnez leur infinitif, leur mode et leur temps.</div>
+        <div class="sous-question"><strong>b.</strong> Justifiez l'emploi du subjonctif imparfait dans « s'en préoccupât ».</div>
+      </div>
+
+      <div class="question">
+        <div class="question-numero">2. <span class="question-pts">(2 points)</span></div>
+        <div class="question-enonce">
+          Récrivez ce passage en remplaçant <em>« elle »</em> par <em>« ils »</em> et en faisant toutes les modifications nécessaires :
+        </div>
+        <div class="citation-sujet">
+          « Elle lut la première lettre d'une traite. L'écriture de son père — cette graphie penchée et pressée qu'elle aurait reconnue entre mille — lui parla soudain d'un homme qu'elle n'avait jamais vraiment connu. »
+          (lignes 9 à 11)
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-numero">3. <span class="question-pts">(2 points)</span></div>
+        <div class="question-enonce">Dans la phrase suivante, délimitez et donnez la nature de chaque proposition :</div>
+        <div class="citation-sujet">
+          « Quelque chose s'était ouvert en elle, une porte dont elle n'avait pas soupçonné l'existence : la certitude que les êtres qu'on croyait connaître restent, à jamais, des inconnus partiels. »
+          (lignes 18 à 20)
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-numero">4. <span class="question-pts">(1,5 point)</span></div>
+        <div class="question-enonce">
+          Dans les phrases suivantes, indiquez la nature et la fonction des groupes soulignés, et proposez une manipulation syntaxique qui justifie chaque fonction :
+        </div>
+        <div class="citation-sujet">
+          a) « Elle traversait les jours avec <u>une sorte de sérénité acquise durement</u> » (lignes 3-4)<br>
+          b) « Ces mots appartenaient à <u>une intimité qu'elle venait de traverser</u> » (lignes 16-17)<br>
+          c) « <u>Le soir venu</u>, Mathilde rangea les lettres dans le tiroir. » (ligne 16)
+        </div>
+      </div>
+
+    </div><!-- fin partie-corps I -->
+
+    <!-- PARTIE II -->
+    <div class="partie-header">
+      <span class="partie-num">Partie II</span>
+      <span class="partie-titre">Lexique et compréhension lexicale</span>
+      <span class="partie-pts">3 points</span>
+    </div>
+    <div class="partie-corps">
+
+      <div class="question">
+        <div class="question-numero">1. <span class="question-pts">(1 point)</span></div>
+        <div class="question-enonce">
+          Expliquez la formation et le sens du mot <em>« épanchements »</em> (ligne 13). Vous préciserez la classe grammaticale du mot, son radical, les affixes mobilisés et leur sens.
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-numero">2. <span class="question-pts">(1 point)</span></div>
+        <div class="question-enonce">
+          Le mot <em>« sérénité »</em> (ligne 3) et le mot <em>« consolation »</em> (ligne 20) appartiennent au même champ lexical. Lequel ? Proposez deux synonymes de <em>« sérénité »</em> en tenant compte du contexte, et expliquez leur nuance respective.
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-numero">3. <span class="question-pts">(1 point)</span></div>
+        <div class="question-enonce">
+          Expliquez le sens de la comparaison <em>« comme on remonte une rivière pour trouver sa source »</em> (ligne 15) en vous appuyant sur les valeurs connotatives des termes employés et sur le contexte du passage.
+        </div>
+      </div>
+
+    </div><!-- fin partie-corps II -->
+
+    <!-- PARTIE III -->
+    <div class="partie-header">
+      <span class="partie-num">Partie III</span>
+      <span class="partie-titre">Réflexion — développement rédigé et structuré</span>
+      <span class="partie-pts">9 points</span>
+    </div>
+    <div class="partie-corps">
+
+      <div class="question">
+        <div class="question-numero"></div>
+        <div class="question-enonce">
+          <strong>Question :</strong> La narratrice déclare : <em>« la certitude que les êtres qu'on croyait connaître restent, à jamais, des inconnus partiels. Et cette idée, loin de l'accabler, lui apportait une étrange consolation. »</em>
+        </div>
+        <div class="citation-sujet">
+          En vous appuyant sur cette réflexion extraite du texte, sur votre culture personnelle, vos lectures et vos réflexions, vous interrogerez le rôle que jouent la lecture et l'écriture dans la connaissance de l'autre et de soi-même. Vous présenterez votre développement de façon rédigée, organisée et argumentée.
+        </div>
+        <p style="font-size:12.5px; color:#555; margin-top:10px;">
+          <em>Cette question s'inscrit dans le questionnement « Se chercher, se construire » et « Avec autrui : familles, amis, réseaux » des programmes de cycle 4. Elle invite à mobiliser des exemples issus de la littérature, des arts ou de la réflexion personnelle. Toute référence pertinente et maîtrisée sera valorisée.</em>
+        </p>
+      </div>
+
+    </div><!-- fin partie-corps III -->
+
+  </div><!-- fin contenu -->
+
+  <div class="pied-page">
+    <span>CRPE 2026 &mdash; Épreuve disciplinaire de français &mdash; Sujet type d'entraînement</span>
+    <span>Document à usage pédagogique — Non officiel</span>
+  </div>
+
+</div><!-- fin page sujet -->
+
+
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE 2 : CORRECTION DÉTAILLÉE                       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page page-correction" id="correction">
+
+  <div class="bandeau-top">
+    <div class="mariannes">
+      Corrigé détaillé<br>
+      à usage pédagogique<br>
+      Non officiel
+    </div>
+    <div class="titre-epreuve">
+      <h1>Corrigé — Sujet type CRPE 2026</h1>
+      <p>Épreuve écrite disciplinaire de français &mdash; Proposition de correction commentée</p>
+    </div>
+    <div class="infos-epreuve">
+      Fondé sur les annales<br>
+      2022 – 2025<br>
+      et rapports de jury
+    </div>
+  </div>
+  <div class="sous-bandeau">
+    <span>Les attentes mentionnées s'appuient sur : La <em>Grammaire du français — terminologie grammaticale</em> (Eduscol, 2020) et <em>La grammaire du français du CP à la 6e</em> (Eduscol, 2022)</span>
+  </div>
+
+  <div class="contenu">
+
+    <div class="corrige-intro">
+      <strong>Note liminaire aux candidats :</strong> Ce corrigé est une proposition. Il n'y a pas de réponse unique : toute analyse pertinente, rigoureuse et rédigée en langue soignée sera valorisée. Le jury attend des <em>manipulations syntaxiques explicites</em> (encadrement, pronominalisation, suppression, déplacement) et non des critères sémantiques seuls. Les termes grammaticaux doivent être précis (ne pas écrire « pronom » : préciser « pronom personnel complément d'objet indirect »).
+    </div>
+
+    <!-- PARTIE I CORRECTION -->
+    <div class="partie-header">
+      <span class="partie-num">Correction — Partie I</span>
+      <span class="partie-titre">Étude de la langue</span>
+      <span class="partie-pts">8 points</span>
+    </div>
+    <div class="partie-corps">
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 1 &mdash; Formes verbales et emploi du subjonctif imparfait
+          <span class="pts-tag">2,5 points</span>
+        </div>
+        <div class="corrige-q-corps">
+          <p><strong>a. Relevé et analyse des formes verbales :</strong></p>
+
+          <table class="tableau-corrige">
+            <thead>
+              <tr><th>Forme verbale</th><th>Infinitif</th><th>Mode</th><th>Temps</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>bouleversa</td><td>bouleverser</td><td>Indicatif</td><td>Passé simple</td></tr>
+              <tr><td>s'assit</td><td>s'asseoir</td><td>Indicatif</td><td>Passé simple</td></tr>
+              <tr><td>s'effilochait</td><td>s'effilocher</td><td>Indicatif</td><td>Imparfait</td></tr>
+              <tr><td>préoccupât</td><td>préoccuper</td><td>Subjonctif</td><td>Imparfait</td></tr>
+            </tbody>
+          </table>
+
+          <p><strong>b. Justification de l'emploi du subjonctif imparfait :</strong></p>
+          <div class="attendu">
+            Le subjonctif imparfait est ici exigé par la conjonction de subordination <em>« sans que »</em>, qui impose le subjonctif. La concordance des temps (règle de la concordance des temps à l'écrit soutenu) requiert l'emploi du subjonctif imparfait dans une proposition subordonnée dépendant d'un verbe principal au passé (ici l'imparfait <em>« s'effilochait »</em>) : action simultanée ou postérieure au passé = subjonctif imparfait. Dans un registre courant oral ou écrit familier, on pourrait trouver le subjonctif présent (<em>« préoccupe »</em>), mais le texte relève d'un registre soutenu.
+          </div>
+          <div class="erreurs-frequentes">
+            <strong>⚠ Erreurs fréquentes relevées par les jurys :</strong> ne pas identifier le subjonctif imparfait (le confondre avec l'imparfait de l'indicatif), ou justifier uniquement par « la subordonnée avec <em>que</em> » sans nommer <em>« sans que »</em> et sa valeur de subordination.
+          </div>
+          <div class="baremos">
+            <strong>Barème indicatif :</strong> tableau des 4 formes verbales (1 pt : 0,25 par forme) + justification du subjonctif avec concordance des temps (1 pt) + remarque sur le registre (0,5 pt)
+          </div>
+        </div>
+      </div>
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 2 &mdash; Réécriture (elle → ils)
+          <span class="pts-tag">2 points</span>
+        </div>
+        <div class="corrige-q-corps">
+          <p><strong>Texte réécrit :</strong></p>
+          <div class="attendu">
+            « <strong>Ils lurent</strong> la première lettre d'une traite. L'écriture de <strong>leur père</strong> — cette graphie penchée et pressée qu'<strong>ils auraient reconnue</strong> entre mille — <strong>leur parla</strong> soudain d'un homme qu'<strong>ils n'avaient jamais vraiment connu</strong>. »
+          </div>
+
+          <p><strong>Analyse des modifications :</strong></p>
+          <ul style="font-size:12.5px; line-height:1.7; padding-left:20px;">
+            <li><em>Elle lut</em> → <strong>Ils lurent</strong> (passé simple, 3e pers. plur. de <em>lire</em>)</li>
+            <li><em>son père</em> → <strong>leur père</strong> (déterminant possessif, 3e pers. plur.)</li>
+            <li><em>qu'elle aurait reconnue</em> → <strong>qu'ils auraient reconnue</strong> — <strong>⚠ important :</strong> le participe passé <em>reconnue</em> s'accorde avec le COD antéposé <em>que</em> (mis pour <em>graphie</em>, féminin singulier) : l'accord ne change pas. Le pronom sujet change mais pas l'accord du participe.</li>
+            <li><em>lui parla</em> → <strong>leur parla</strong> (COI de 3e pers. plur.)</li>
+            <li><em>qu'elle n'avait jamais vraiment connu</em> → <strong>qu'ils n'avaient jamais vraiment connu</strong> — <strong>⚠ important :</strong> <em>connu</em> reste invariable car le COD <em>que</em> (mis pour <em>homme</em>, masculin singulier) n'affecte pas l'accord ici avec l'auxiliaire avoir ; mais après vérification : le COD est bien antéposé (<em>que</em> mis pour <em>homme</em>, masc. sing.) → accord <em>connu</em> reste au masculin singulier, pas de changement.</li>
+          </ul>
+          <div class="erreurs-frequentes">
+            <strong>⚠ Piège principal :</strong> accorder <em>« reconnue »</em> au masculin pluriel (<em>*reconnus</em>) est une erreur grave. L'accord du participe passé avec avoir se fait avec le COD antéposé (<em>que</em> = <em>graphie</em>, féminin singulier), indépendamment du changement du sujet.
+          </div>
+          <div class="baremos">
+            <strong>Barème indicatif :</strong> chaque modification correcte et justifiée = 0,4 pt × 5 = 2 pts. Un oubli de modification ou un mauvais accord = -0,25.
+          </div>
+        </div>
+      </div>
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 3 &mdash; Analyse des propositions de la phrase complexe
+          <span class="pts-tag">2 points</span>
+        </div>
+        <div class="corrige-q-corps">
+          <p><strong>Démarche :</strong> partir d'abord de la structure d'ensemble (propositions indépendantes / subordonnées), puis identifier les imbrications.</p>
+
+          <p><strong>Structure :</strong></p>
+          <div class="attendu" style="font-family:monospace; font-size:12px; line-height:1.9;">
+            [Quelque chose s'était ouvert en elle], [une porte [dont elle n'avait pas soupçonné l'existence]] : [la certitude [que [les êtres [qu'on croyait connaître] ] restent, à jamais, des inconnus partiels] ]
+          </div>
+
+          <table class="tableau-corrige">
+            <thead>
+              <tr><th>Proposition</th><th>Nature</th><th>Fonction / remarque</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>« Quelque chose s'était ouvert en elle »</td><td>Proposition indépendante</td><td>Proposition principale de la phrase complexe</td></tr>
+              <tr><td>« une porte dont elle n'avait pas soupçonné l'existence »</td><td>Groupe nominal + proposition subordonnée relative déterminative</td><td>La relative est introduite par <em>dont</em> (pronom relatif), complément de <em>l'existence</em> (COI de <em>soupçonner</em>) ; le GN « une porte » est apposé à « quelque chose »</td></tr>
+              <tr><td>« que les êtres qu'on croyait connaître restent, à jamais, des inconnus partiels »</td><td>Proposition subordonnée conjonctive complétive</td><td>COD du nom <em>certitude</em> (nominale complétive)</td></tr>
+              <tr><td>« qu'on croyait connaître »</td><td>Proposition subordonnée relative déterminative</td><td>Épithète du nom <em>êtres</em> ; <em>que</em> est pronom relatif COD de <em>croyait</em></td></tr>
+            </tbody>
+          </table>
+
+          <div class="erreurs-frequentes">
+            <strong>⚠ Points de vigilance :</strong> ne pas oublier l'apposition (« une porte ») et la relative enchâssée dans la complétive. Le jury valorise une présentation rédigée plutôt qu'un simple listage avec crochets non commenté.
+          </div>
+        </div>
+      </div>
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 4 &mdash; Nature, fonction et manipulations syntaxiques
+          <span class="pts-tag">1,5 point</span>
+        </div>
+        <div class="corrige-q-corps">
+
+          <p><strong>a) « une sorte de sérénité acquise durement » (lignes 3-4)</strong></p>
+          <div class="attendu">
+            <strong>Nature :</strong> groupe nominal (GN) <br>
+            <strong>Fonction :</strong> complément d'objet direct (COD) du verbe <em>traversait</em><br>
+            <strong>Manipulation :</strong> pronominalisation → <em>Elle la traversait</em> (pronom personnel COD <em>la</em>). Non déplaçable en tête de phrase (*<em>Une sorte de sérénité, elle traversait</em> n'est pas naturel sans topicalisation), non supprimable sans changer le sens de la phrase.
+          </div>
+
+          <p><strong>b) « une intimité qu'elle venait de traverser » (lignes 16-17)</strong></p>
+          <div class="attendu">
+            <strong>Nature :</strong> groupe nominal prépositionnel (GNP), introduit par la préposition <em>à</em><br>
+            <strong>Fonction :</strong> complément d'objet indirect (COI) du verbe <em>appartenaient</em> (appartenir à)<br>
+            <strong>Manipulation :</strong> pronominalisation → <em>Ces mots y appartenaient</em> (pronom <em>y</em>). Non supprimable sans rendre la phrase incomplète, non déplaçable en tête de phrase.
+          </div>
+          <p style="font-size:12px; color:#555;">NB : la relative <em>« qu'elle venait de traverser »</em> est une proposition subordonnée relative déterminative, épithète du nom <em>intimité</em>.</p>
+
+          <p><strong>c) « Le soir venu » (ligne 16)</strong></p>
+          <div class="attendu">
+            <strong>Nature :</strong> proposition participiale absolue (groupe participial absolu, ou construction participiale détachée)<br>
+            <strong>Fonction :</strong> complément de phrase à valeur temporelle (temps)<br>
+            <strong>Manipulation :</strong> déplaçable (<em>Mathilde rangea les lettres dans le tiroir, le soir venu</em>) et supprimable (<em>Mathilde rangea les lettres dans le tiroir</em>). On peut le remplacer par une subordonnée temporelle : <em>Quand le soir fut venu, Mathilde…</em>
+          </div>
+          <div class="erreurs-frequentes">
+            <strong>⚠ Erreurs fréquentes :</strong> appeler (c) un « complément circonstanciel de temps » sans préciser complément de phrase ni proposer la manipulation est insuffisant. Confondre la proposition participiale avec un simple GN est pénalisé.
+          </div>
+          <div class="avis-jury">
+            <strong>💬 Rappel du jury (sessions 2023-2025) :</strong> les critères sémantiques (« répondre à la question quand ? ») ne suffisent pas à identifier une fonction. La manipulation syntaxique (déplacement + suppression) est exigée pour les compléments de phrase ; la pronominalisation l'est pour les compléments du verbe. Répondre « parce que ça répond à la question où/quand/comment » est pénalisé.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin partie-corps correction I -->
+
+    <!-- PARTIE II CORRECTION -->
+    <div class="partie-header">
+      <span class="partie-num">Correction — Partie II</span>
+      <span class="partie-titre">Lexique et compréhension lexicale</span>
+      <span class="partie-pts">3 points</span>
+    </div>
+    <div class="partie-corps">
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 1 &mdash; Formation du mot « épanchements »
+          <span class="pts-tag">1 point</span>
+        </div>
+        <div class="corrige-q-corps">
+          <p><strong>Classe grammaticale :</strong> nom commun masculin pluriel.</p>
+          <p><strong>Formation (morphologie dérivationnelle) :</strong></p>
+          <div class="attendu">
+            Base : verbe <em>épancher</em> (du latin <em>expandere</em>, « répandre »).<br>
+            Suffixe nominal : <em>-ment</em>, qui forme des noms d'action ou de manière à partir de bases verbales (ex. : <em>déplac-ement</em>, <em>étonn-ement</em>).<br>
+            Préfixe : <em>é-</em> (variante de <em>ex-</em>, du latin, marquant l'idée d'« hors de », d'extériorisation).<br>
+            Sens : un <em>épanchement</em> désigne l'action de répandre ses sentiments, ses émotions à l'extérieur de soi, de les exprimer librement. Le pluriel <em>les épanchements</em> insiste sur la répétition ou la multiplicité de ces manifestations affectives.
+          </div>
+          <div class="erreurs-frequentes">
+            <strong>⚠ Piège :</strong> ne pas confondre le suffixe <em>-ment</em> (morphème grammatical d'infinitif des verbes du 1er groupe, ex. : <em>aimer</em>) avec le suffixe nominal <em>-ment</em> (ex. : <em>épanchement</em>). Ici c'est un suffixe dérivationnel formant un nom, pas un morphème flexionnel.
+          </div>
+        </div>
+      </div>
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 2 &mdash; Champ lexical et synonymes de « sérénité »
+          <span class="pts-tag">1 point</span>
+        </div>
+        <div class="corrige-q-corps">
+          <p><strong>Champ lexical :</strong> <em>sérénité</em> et <em>consolation</em> appartiennent au champ lexical de la paix intérieure / apaisement / équilibre émotionnel.</p>
+          <p><strong>Deux synonymes de « sérénité » en contexte :</strong></p>
+          <table class="tableau-corrige">
+            <thead><tr><th>Synonyme</th><th>Nuance</th></tr></thead>
+            <tbody>
+              <tr><td>tranquillité</td><td>Insiste sur l'absence de trouble extérieur ; plus neutre, peut désigner un état passager ou superficiel.</td></tr>
+              <tr><td>quiétude</td><td>Plus littéraire, désigne un état de paix profonde et durable ; proche de la sérénité mais avec une connotation de retrait du monde.</td></tr>
+            </tbody>
+          </table>
+          <p><em>Apaisement</em>, <em>calme</em>, <em>équanimité</em> sont aussi acceptables si la nuance est expliquée.</p>
+          <div class="erreurs-frequentes">
+            <strong>⚠ Vigilance :</strong> « bonheur » n'est pas un synonyme de « sérénité » dans ce contexte — le texte dit précisément que la sérénité de Mathilde « n'était pas le bonheur ».
+          </div>
+        </div>
+      </div>
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Question 3 &mdash; Explication de la comparaison « comme on remonte une rivière pour trouver sa source »
+          <span class="pts-tag">1 point</span>
+        </div>
+        <div class="corrige-q-corps">
+          <p><strong>Procédé :</strong> comparaison (outil comparatif : <em>comme</em>).</p>
+          <div class="attendu">
+            L'action de lire et de relire les lettres est comparée au mouvement de quelqu'un qui remonte le cours d'une rivière pour en trouver l'origine. Cette comparaison active plusieurs valeurs connotatives :<br><br>
+            — <em>« remonter »</em> : mouvement de retour en arrière dans le temps, vers un passé ignoré ; effort et ténacité impliqués.<br>
+            — <em>« la rivière »</em> : métaphore courante pour le flux du temps ou de la vie ; connotations de continuité, de profondeur, parfois d'opacité.<br>
+            — <em>« trouver sa source »</em> : la source est l'origine, le commencement, la vérité première ; chercher la source, c'est chercher à comprendre les causes, les racines d'un être ou d'une situation.<br><br>
+            Dans le contexte, Mathilde ne peut s'arrêter de lire parce que chaque lettre la ramène vers la vie intérieure secrète de son père, vers une origine ignorée de sa personnalité. La comparaison exprime donc une quête de l'origine et une irrésistibilité de la lecture.
+          </div>
+          <div class="avis-jury">
+            <strong>💬 Attente du jury :</strong> ne pas se contenter de paraphraser. Il faut identifier le procédé (comparaison, et non métaphore) et analyser les connotations des termes clés.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin correction II -->
+
+    <!-- PARTIE III CORRECTION -->
+    <div class="partie-header">
+      <span class="partie-num">Correction — Partie III</span>
+      <span class="partie-titre">Réflexion : lecture, écriture et connaissance de l'autre et de soi</span>
+      <span class="partie-pts">9 points</span>
+    </div>
+    <div class="partie-corps">
+
+      <div class="corrige-question">
+        <div class="corrige-q-header">
+          Cadrage du sujet et proposition de plan
+          <span class="pts-tag">9 points</span>
+        </div>
+        <div class="corrige-q-corps">
+
+          <p><strong>Reformulation de la problématique :</strong> La rencontre avec les mots de l'autre (ici les lettres du père) révèle que toute personne est, en partie, un être opaque et inconnu. Loin d'être décevante, cette découverte console. Comment la lecture et l'écriture permettent-elles d'approcher l'autre et de mieux se connaître soi-même, tout en préservant une part irréductible de mystère ?</p>
+
+          <p><strong>Rappel méthodologique :</strong> le jury attend une introduction (amorce → problématique → annonce du plan), un développement en deux ou trois parties avec des exemples précis, une conclusion (bilan + ouverture). Chaque partie doit s'appuyer sur le texte ET sur des références extérieures maîtrisées.</p>
+
+          <div class="plan-partie">
+            <h4>Introduction (proposée)</h4>
+            <p>Amorce : partir de la découverte de Mathilde — les lettres du père révèlent un étranger. Transition vers la question : la littérature, les textes, permettent-ils vraiment de « connaître » l'autre, ou n'en donnent-ils qu'une image partielle ? Problématique : Dans quelle mesure la lecture et l'écriture constituent-elles des voies d'accès à l'autre et à soi-même, tout en nous confrontant aux limites de toute connaissance d'autrui ? Plan : I. Lire et écrire, c'est pénétrer dans l'intériorité de l'autre / II. Pourtant, cette connaissance reste toujours partielle et ouvre sur une conscience nouvelle de soi.</p>
+          </div>
+
+          <div class="plan-partie">
+            <h4>Partie I — Lecture et écriture comme fenêtres sur l'intériorité de l'autre</h4>
+            <p><strong>Argument 1 :</strong> La lecture donne accès à des voix intimes qu'on ne pourrait entendre autrement. Dans le texte, les lettres offrent à Mathilde une version inédite de son père : « il était quelqu'un qui aimait, qui craignait, qui espérait » (l. 13-14). La langue écrite sert d'espace de déploiement de l'intériorité.</p>
+            <p><strong>Argument 2 :</strong> La grande littérature offre des modèles d'accès à l'autre. <em>La Princesse de Clèves</em> de Mme de Lafayette (1678) explore l'intériorité féminine avec une finesse psychologique inédite en son temps. Marcel Proust, dans <em>Du côté de chez Swann</em>, montre que la lecture permet de vivre des vies que l'on ne vivra jamais. Virginia Woolf (<em>Les Vagues</em>) fait entendre des consciences multiples comme autant de voix distinctes.</p>
+            <p><strong>Argument 3 :</strong> L'écriture (journaux intimes, lettres, autobiographies) permet également à l'auteur de se connaître en s'exposant à l'autre. Jean-Jacques Rousseau, dans ses <em>Confessions</em>, inaugure le projet de se faire « connaître » tel qu'il est, avec ses contradictions.</p>
+          </div>
+
+          <div class="plan-partie">
+            <h4>Partie II — Une connaissance toujours partielle qui enrichit plutôt qu'elle ne déçoit</h4>
+            <p><strong>Argument 1 :</strong> Le texte le dit explicitement : les êtres « restent, à jamais, des inconnus partiels ». La littérature ne résout pas ce mystère mais l'apprivoise. Comme Mathilde, le lecteur tire une « étrange consolation » de cette opacité. Georges Perec, dans <em>W ou le souvenir d'enfance</em>, explore la mémoire lacunaire et les blancs irréductibles d'une vie.</p>
+            <p><strong>Argument 2 :</strong> La rencontre avec l'autre dans le texte constitue un miroir de soi-même. Mathilde, en lisant les lettres de son père, se découvre elle aussi : elle « se sentait moins seule ». La lecture de l'autre nous revient, transformée, en connaissance de soi. C'est ce qu'affirme Daniel Pennac dans <em>Comme un roman</em> : lire, c'est se connaître en se perdant.</p>
+            <p><strong>Argument 3 :</strong> Lien possible avec l'EVAR (programme 2025) : en classe, la littérature de jeunesse remplit exactement ce rôle. En cycle 2 et 3, des albums comme <em>Le Tunnel</em> d'Anthony Browne ou <em>Max et les maximonstres</em> de Maurice Sendak permettent aux élèves d'explorer leurs propres émotions à travers la fiction de l'autre, de développer leur empathie et leurs compétences psychosociales — axes centraux du programme EVAR (février 2025).</p>
+          </div>
+
+          <div class="plan-partie">
+            <h4>Conclusion (proposée)</h4>
+            <p>Bilan : Lire et écrire, c'est s'approcher de l'autre — de ses désirs, de ses peurs, de ses silences — sans jamais épuiser ce mystère. C'est précisément cet inachèvement qui rend la rencontre littéraire précieuse : elle nous laisse ouverts, disponibles, moins seuls. Ouverture : À l'école primaire, enseigner la littérature, c'est former des lecteurs capables de cette disponibilité à l'autre et à eux-mêmes — mission fondamentale du professeur des écoles, au cœur des programmes de français et du programme EVAR.</p>
+          </div>
+
+          <div class="baremos">
+            <strong>Barème indicatif de la Partie III (9 pts) :</strong><br>
+            Qualité de la problématisation et pertinence de l'introduction : 1,5 pt<br>
+            Cohérence et structuration du plan (transitions, annonces) : 1,5 pt<br>
+            Qualité des arguments et pertinence des exemples (texte + culture) : 3 pts<br>
+            Richesse et précision des références littéraires/culturelles : 1 pt<br>
+            Qualité de la langue (syntaxe, orthographe, lexique) : 2 pts<br>
+            <em>Malus orthographe/syntaxe : jusqu'à -2 pts pour les copies présentant de nombreuses erreurs.</em>
+          </div>
+
+          <div class="avis-jury">
+            <strong>💬 Points valorisés / pénalisés par les jurys 2023-2025 :</strong><br>
+            ✅ Valorisé : exemples précis et maîtrisés (auteur + titre + contenu), lien explicite avec le texte, structuration claire, introduction et conclusion réelles, référence aux programmes.<br>
+            ❌ Pénalisé : exemples erronés (*Candide de Zola), paraphrase du texte sans analyse, absence de problématique, développement sans exemples, plan-catalogue sans progression, langage familier (« du coup », « ça nous montre »), copies non relues avec erreurs répétées.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin correction III -->
+
+  </div><!-- fin contenu correction -->
+
+  <div class="pied-page">
+    <span>Corrigé pédagogique CRPE 2026 — Fondé sur les annales 2022-2025 et rapports de jury</span>
+    <span>Document non officiel — Usage pédagogique</span>
+  </div>
+
+</div><!-- fin page correction -->
+
+</body>
+</html>
