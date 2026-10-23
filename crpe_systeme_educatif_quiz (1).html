@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRPE 2026 — Système éducatif & Valeurs de la République</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu: #1a2e5c;
+    --bleu-clair: #2d4a8a;
+    --rouge: #c0392b;
+    --or: #c9a84c;
+    --creme: #f7f3ec;
+    --creme-fonce: #ede7d9;
+    --texte: #1c1c1e;
+    --gris: #6b6b6b;
+    --vert: #1a6b3c;
+    --vert-clair: #e8f5ee;
+    --rouge-clair: #fce8e6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background-color: var(--creme);
+    color: var(--texte);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--bleu);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #002395 33.3%, #fff 33.3% 66.6%, #ED2939 66.6%);
+  }
+  header .label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.6rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: #fff;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  header .subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* NAV TABS */
+  .tabs {
+    display: flex;
+    background: var(--bleu);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.85rem 1rem;
+    background: none;
+    border: none;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.03em;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.85); }
+  .tab-btn.active {
+    color: var(--or);
+    border-bottom-color: var(--or);
+  }
+
+  /* MAIN */
+  main { max-width: 860px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+
+  /* PANEL */
+  .panel { display: none; animation: fadeIn 0.3s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--bleu);
+    margin-bottom: 0.3rem;
+  }
+  .section-intro {
+    font-size: 0.88rem;
+    color: var(--gris);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* CARDS */
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--bleu);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .card.or { border-left-color: var(--or); }
+  .card.rouge { border-left-color: var(--rouge); }
+  .card.vert { border-left-color: var(--vert); }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--bleu);
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card.or h3 { color: #8a6a00; }
+  .card.rouge h3 { color: var(--rouge); }
+  .card.vert h3 { color: var(--vert); }
+
+  .tag {
+    display: inline-block;
+    background: var(--bleu);
+    color: #fff;
+    font-size: 0.65rem;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2em 0.6em;
+    border-radius: 3px;
+    margin-left: auto;
+  }
+  .card.or .tag { background: var(--or); color: #fff; }
+  .card.rouge .tag { background: var(--rouge); }
+  .card.vert .tag { background: var(--vert); }
+
+  ul.fiche {
+    list-style: none;
+    padding: 0;
+  }
+  ul.fiche li {
+    padding: 0.35rem 0 0.35rem 1.3rem;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--creme-fonce);
+  }
+  ul.fiche li:last-child { border-bottom: none; }
+  ul.fiche li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--or);
+    font-weight: 700;
+  }
+  ul.fiche li strong { color: var(--bleu); }
+
+  .highlight-box {
+    background: var(--creme-fonce);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+  .highlight-box .h-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--bleu);
+    margin-bottom: 0.4rem;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+  .mini-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.07);
+    font-size: 0.85rem;
+  }
+  .mini-card .mc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--bleu);
+    margin-bottom: 0.5rem;
+  }
+  .mini-card ul { list-style: none; }
+  .mini-card ul li { padding: 0.2rem 0 0.2rem 1rem; position: relative; }
+  .mini-card ul li::before { content: '·'; position: absolute; left: 0; color: var(--or); font-size: 1.2rem; line-height: 1; }
+
+  .date-badge {
+    display: inline-block;
+    background: var(--bleu);
+    color: var(--or);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.15em 0.6em;
+    border-radius: 4px;
+    margin-right: 0.4rem;
+  }
+
+  /* QUIZ */
+  .quiz-progress-bar {
+    background: var(--creme-fonce);
+    border-radius: 999px;
+    height: 6px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--bleu), var(--bleu-clair));
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .quiz-counter {
+    text-align: right;
+    font-size: 0.78rem;
+    color: var(--gris);
+    margin-top: -1.2rem;
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+
+  .question-block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    display: none;
+  }
+  .question-block.active { display: block; animation: fadeIn 0.3s ease; }
+
+  .q-number {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.5rem;
+  }
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--bleu);
+    line-height: 1.4;
+    margin-bottom: 1.2rem;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 0.6rem; }
+  .option-btn {
+    background: var(--creme);
+    border: 2px solid var(--creme-fonce);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--texte);
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--bleu-clair);
+    background: #eef2ff;
+  }
+  .option-btn.correct {
+    background: var(--vert-clair);
+    border-color: var(--vert);
+    color: var(--vert);
+    font-weight: 600;
+  }
+  .option-btn.wrong {
+    background: var(--rouge-clair);
+    border-color: var(--rouge);
+    color: var(--rouge);
+  }
+  .option-btn:disabled { cursor: default; }
+
+  .explanation {
+    display: none;
+    background: #f0f4ff;
+    border-left: 3px solid var(--bleu-clair);
+    border-radius: 0 8px 8px 0;
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    color: var(--texte);
+  }
+  .explanation.show { display: block; animation: fadeIn 0.3s ease; }
+  .explanation strong { color: var(--bleu); }
+
+  .next-btn {
+    display: none;
+    margin-top: 1rem;
+    background: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+  }
+  .next-btn:hover { background: var(--bleu-clair); }
+  .next-btn.show { display: block; }
+
+  /* SCORE */
+  .score-panel {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+    animation: fadeIn 0.4s ease;
+  }
+  .score-panel.show { display: block; }
+  .score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--bleu);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    box-shadow: 0 4px 20px rgba(26,46,92,0.3);
+  }
+  .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--or);
+    line-height: 1;
+  }
+  .score-label {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .score-msg {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--bleu);
+    margin-bottom: 0.5rem;
+  }
+  .score-sub {
+    font-size: 0.88rem;
+    color: var(--gris);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .restart-btn {
+    background: var(--or);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 2rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .restart-btn:hover { background: #b8962a; }
+
+  /* MÉTHODE */
+  .method-step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--bleu);
+    color: var(--or);
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--bleu);
+    margin-bottom: 0.25rem;
+  }
+  .step-body { font-size: 0.88rem; color: var(--texte); line-height: 1.6; }
+
+  /* ALERT */
+  .alert {
+    background: #fff8e1;
+    border: 1.5px solid var(--or);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--gris);
+    font-style: italic;
+    border-top: 1px solid var(--creme-fonce);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">CRPE 2026 · Bac+5 · Épreuves d'admission</div>
+  <h1>Système éducatif &amp;<br>Valeurs de la République</h1>
+  <div class="subtitle">Fiche de révision · Quiz interactif · Épreuve d'entretien</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showPanel('fiche1')">🏛️ Système éducatif</button>
+  <button class="tab-btn" onclick="showPanel('fiche2')">⚖️ Valeurs &amp; Laïcité</button>
+  <button class="tab-btn" onclick="showPanel('methode')">🎤 Méthode oral</button>
+  <button class="tab-btn" onclick="showPanel('quiz')">📝 Quiz</button>
+</div>
+
+<main>
+
+<!-- ====== FICHE 1 : SYSTÈME ÉDUCATIF ====== -->
+<div id="fiche1" class="panel active">
+  <p class="section-title">Le système éducatif français</p>
+  <p class="section-intro">Maîtriser l'organisation de l'école, ses acteurs et ses textes fondateurs — indispensable pour l'entretien.</p>
+
+  <div class="card">
+    <h3>📐 Organisation des cycles <span class="tag">Fondamental</span></h3>
+    <ul class="fiche">
+      <li><strong>Cycle 1</strong> — École maternelle (TPS, PS, MS, GS) — 2 à 6 ans</li>
+      <li><strong>Cycle 2</strong> — CP, CE1, CE2 — apprentissages fondamentaux</li>
+      <li><strong>Cycle 3</strong> — CM1, CM2, 6e — consolidation (lien école/collège)</li>
+      <li><strong>Cycle 4</strong> — 5e, 4e, 3e — approfondissements</li>
+      <li>Les programmes sont définis par le <strong>Conseil supérieur des programmes (CSP)</strong></li>
+      <li>Programmes actuels : <strong>arrêté de 2015</strong>, avec actualisations (2020, 2023…)</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="mini-card">
+      <div class="mc-title">🏫 Acteurs de l'école</div>
+      <ul>
+        <li>Ministre de l'EN</li>
+        <li>Recteur / DASEN</li>
+        <li>IEN (Inspecteur EN)</li>
+        <li>Directeur d'école</li>
+        <li>Professeur des écoles</li>
+        <li>ATSEM, RASED, AESH</li>
+        <li>Conseil d'école</li>
+        <li>Parents d'élèves</li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <div class="mc-title">📜 Textes clés</div>
+      <ul>
+        <li>Loi Jules Ferry 1882 (laïcité)</li>
+        <li>Loi Haby 1975 (collège unique)</li>
+        <li>Loi Jospin 1989 (élève au centre)</li>
+        <li>Loi Fillon 2005 (socle commun)</li>
+        <li>Loi Peillon 2013 (refondation)</li>
+        <li>Loi Blanquer 2019 (instruction 3 ans, devoir de neutralité)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card or">
+    <h3>🎯 Le socle commun de connaissances, de compétences et de culture <span class="tag">Incontournable</span></h3>
+    <ul class="fiche">
+      <li><strong>Domaine 1</strong> — Les langages pour penser et communiquer</li>
+      <li><strong>Domaine 2</strong> — Les méthodes et outils pour apprendre</li>
+      <li><strong>Domaine 3</strong> — La formation de la personne et du citoyen</li>
+      <li><strong>Domaine 4</strong> — Les systèmes naturels et les systèmes techniques</li>
+      <li><strong>Domaine 5</strong> — Les représentations du monde et l'activité humaine</li>
+      <li>Défini par le <strong>décret de 2015</strong> — évalué sur tout le cursus de la scolarité obligatoire</li>
+    </ul>
+  </div>
+
+  <div class="card vert">
+    <h3>📊 Évaluation des élèves <span class="tag">À connaître</span></h3>
+    <ul class="fiche">
+      <li><strong>LSU</strong> (Livret Scolaire Unique) — outil numérique de suivi de maternelle à 3e</li>
+      <li><strong>Évaluations nationales</strong> CP, CE1, CM1 (depuis 2018) — diagnostiques</li>
+      <li>Échelle de référence : <strong>4 niveaux</strong> (non acquis, en cours, atteint, dépassé)</li>
+      <li>Principe : évaluation <strong>positive, bienveillante et explicite</strong></li>
+      <li><strong>Conseil de cycle</strong> : décisions de passage, de redoublement (limité)</li>
+    </ul>
+  </div>
+
+  <div class="card rouge">
+    <h3>🌍 Inclusion et besoins éducatifs particuliers <span class="tag">Important</span></h3>
+    <ul class="fiche">
+      <li><strong>Loi de 2005</strong> pour l'égalité des droits et des chances des personnes handicapées</li>
+      <li><strong>ULIS</strong> (Unité Localisée pour l'Inclusion Scolaire) dans les écoles</li>
+      <li><strong>AESH</strong> (Accompagnant Élève Situation Handicap) — PPS ou PAP</li>
+      <li><strong>PPRE</strong> (Programme Personnalisé de Réussite Éducative) pour difficultés scolaires</li>
+      <li><strong>RASED</strong> — Réseau d'Aides Spécialisées pour Élèves en Difficulté</li>
+      <li>École inclusive : <em>droit à la scolarisation pour tous</em></li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <div class="h-title">💡 La mission du professeur des écoles — à formuler à l'oral</div>
+    Le professeur des écoles est un <strong>fonctionnaire d'État</strong> chargé d'instruire, d'éduquer et de former les élèves de 3 à 11 ans (et 6e en cycle 3). Sa mission est définie par le <strong>référentiel des compétences professionnelles</strong> (arrêté du 1er juillet 2013) organisé en 14 compétences communes et spécifiques. Il est soumis aux <strong>obligations des agents publics</strong> : neutralité, laïcité, confidentialité, devoir de réserve.
+  </div>
+</div>
+
+<!-- ====== FICHE 2 : VALEURS ====== -->
+<div id="fiche2" class="panel">
+  <p class="section-title">Valeurs de la République &amp; Laïcité</p>
+  <p class="section-intro">La question sur les valeurs est <strong>systématique</strong> à l'entretien. Préparez des exemples concrets et des mises en situation.</p>
+
+  <div class="card">
+    <h3>🔵🔴 « Liberté, Égalité, Fraternité » à l'école <span class="tag">Fondamental</span></h3>
+    <ul class="fiche">
+      <li><strong>Liberté</strong> — liberté de conscience, d'opinion ; mais aussi liberté pédagogique du maître dans le cadre des programmes</li>
+      <li><strong>Égalité</strong> — égalité d'accès à l'instruction, non-discrimination, traitement équitable des élèves</li>
+      <li><strong>Fraternité</strong> — solidarité, vivre-ensemble, coopération, gestion des conflits</li>
+      <li>Ces valeurs se transmettent par l'<strong>Enseignement Moral et Civique (EMC)</strong> et dans le quotidien de classe</li>
+    </ul>
+  </div>
+
+  <div class="card or">
+    <h3>⚖️ La laïcité — définition et application <span class="tag">Incontournable</span></h3>
+    <ul class="fiche">
+      <li><strong>Loi de 1905</strong> : séparation des Églises et de l'État — neutralité de l'État en matière religieuse</li>
+      <li><strong>Loi Jules Ferry 1882</strong> : instruction publique laïque et obligatoire</li>
+      <li><strong>Loi de 2004</strong> : interdit les signes religieux <em>ostensibles</em> pour les <strong>élèves</strong> dans les écoles, collèges et lycées publics</li>
+      <li><strong>Charte de la laïcité à l'école</strong> (2013, B. Hamon) : affichée dans tous les établissements, 15 articles</li>
+      <li>Laïcité ≠ athéisme. Elle garantit la <strong>liberté de conscience</strong> de tous</li>
+      <li>L'enseignant est soumis à une <strong>stricte neutralité</strong> (religieuse, politique, syndicale) devant les élèves</li>
+    </ul>
+  </div>
+
+  <div class="alert">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>Distinction importante :</strong> La loi de 2004 interdit les signes religieux <em>ostensibles</em> aux <strong>élèves</strong>. Les parents accompagnateurs ne sont pas soumis à cette loi mais à une obligation de discrétion (circulaire Chatel 2012). Les enseignants sont soumis au <em>devoir de neutralité</em> en tant qu'agents publics (loi de 1983).</div>
+  </div>
+
+  <div class="card vert">
+    <h3>🤝 L'EMC — Enseignement Moral et Civique <span class="tag">À connaître</span></h3>
+    <ul class="fiche">
+      <li>Remplace l'<em>instruction civique et morale</em> — instauré par la <strong>loi de 2013</strong></li>
+      <li>Trois axes : <strong>sensibilité</strong>, <strong>droit et règle</strong>, <strong>jugement</strong>, <strong>engagement</strong></li>
+      <li>Objectif : former le <em>futur citoyen</em> — esprit critique, respect, coopération</li>
+      <li>Lien avec le <strong>parcours citoyen</strong> de l'élève (de l'école au lycée)</li>
+      <li>Se travaille dans toutes les disciplines, pas seulement en EMC</li>
+    </ul>
+  </div>
+
+  <div class="card rouge">
+    <h3>🚨 Situations sensibles — que faire ? <span class="tag">Mise en situation</span></h3>
+    <ul class="fiche">
+      <li><strong>Prosélytisme d'un élève</strong> → rappeler la charte de la laïcité avec calme, en parler au directeur si nécessaire</li>
+      <li><strong>Refus d'activité pour motif religieux</strong> → dialoguer, expliquer le cadre scolaire, associer les parents, en référer à l'IEN si besoin</li>
+      <li><strong>Commentaire politique d'un élève</strong> → ne pas prendre parti, présenter plusieurs points de vue, développer l'esprit critique</li>
+      <li><strong>Conflit entre élèves lié à la discrimination</strong> → appliquer le règlement, travailler sur les valeurs en classe</li>
+      <li>Principe général : <strong>dialogue d'abord, autorité institutionnelle ensuite</strong></li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="mini-card">
+      <div class="mc-title">📅 Dates à retenir</div>
+      <ul>
+        <li><span class="date-badge">1882</span> Jules Ferry : école laïque</li>
+        <li><span class="date-badge">1905</span> Séparation Église/État</li>
+        <li><span class="date-badge">2004</span> Signes religieux élèves</li>
+        <li><span class="date-badge">2013</span> Charte de la laïcité</li>
+        <li><span class="date-badge">2013</span> Loi de refondation</li>
+        <li><span class="date-badge">2019</span> Instruction dès 3 ans</li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <div class="mc-title">🏅 Valeurs républicaines à l'école</div>
+      <ul>
+        <li>Laïcité</li>
+        <li>Égalité filles/garçons</li>
+        <li>Non-discrimination</li>
+        <li>Respect de l'autre</li>
+        <li>Neutralité</li>
+        <li>Bien commun / service public</li>
+        <li>Lutte contre le harcèlement</li>
+        <li>Transition écologique (2023)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MÉTHODE ====== -->
+<div id="methode" class="panel">
+  <p class="section-title">Comment réussir l'entretien avec le jury</p>
+  <p class="section-intro">L'entretien dure 35 minutes au total. Il teste votre posture professionnelle autant que vos connaissances.</p>
+
+  <div class="card">
+    <h3>🗂️ Déroulement de la 2e partie de l'entretien</h3>
+    <ul class="fiche">
+      <li><strong>5 min</strong> : Présentation libre — parcours, motivations, expériences qui vous ont conduit au CRPE</li>
+      <li><strong>10 min</strong> : Échange avec le jury sur votre présentation</li>
+      <li><strong>20 min</strong> : Entretien — 2 questions dont <strong>une obligatoirement sur les valeurs de la République</strong></li>
+    </ul>
+  </div>
+
+  <div class="card or">
+    <h3>🎯 Préparer sa présentation de 5 minutes</h3>
+    <div class="method-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Votre parcours académique et professionnel</div>
+        <div class="step-body">Sélectionnez les éléments en lien avec l'enseignement ou l'éducation. Chaque expérience doit avoir un sens pour le jury.</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Vos motivations — pourquoi ce métier ?</div>
+        <div class="step-body">Soyez sincère et précise. Évitez les formules creuses (« j'aime les enfants »). Articulez avec des valeurs (transmission, égalité des chances, service public…).</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Une ou deux expériences marquantes</div>
+        <div class="step-body">Stage, bénévolat, tutorat, engagement associatif… Racontez une situation concrète avec ce que vous en avez appris.</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">Votre projet professionnel</div>
+        <div class="step-body">Montrez que vous avez réfléchi au métier : cycles préférés, type de public, valeurs que vous souhaitez transmettre.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card vert">
+    <h3>💬 Répondre à une question sur les valeurs de la République</h3>
+    <div class="method-step">
+      <div class="step-num">A</div>
+      <div class="step-content">
+        <div class="step-title">Identifier la valeur en jeu</div>
+        <div class="step-body">Laïcité ? Égalité ? Respect ? Non-discrimination ? Reformulez la situation en nommant la valeur concernée.</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">B</div>
+      <div class="step-content">
+        <div class="step-title">Ancrer dans les textes</div>
+        <div class="step-body">Citez la loi ou le texte de référence si vous le connaissez. Ex : « La charte de la laïcité de 2013 précise que… »</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">C</div>
+      <div class="step-content">
+        <div class="step-title">Proposer une réponse éducative concrète</div>
+        <div class="step-body">Comment réagiriez-vous en classe ? Quelles activités mettre en place ? Quels partenaires mobiliser ?</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-num">D</div>
+      <div class="step-content">
+        <div class="step-title">Rester nuancé et professionnel</div>
+        <div class="step-body">Le jury ne cherche pas un militant, mais un futur agent public capable de posture réflexive. Montrez que vous savez distinguer vos convictions personnelles de votre rôle professionnel.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <span class="alert-icon">💡</span>
+    <div><strong>Erreurs fréquentes à éviter :</strong> Réciter un cours sans l'adapter à la situation posée · Confondre laïcité et athéisme · Répondre de manière binaire à une mise en situation complexe · Parler des programmes sans connaître les cycles · Oublier de citer le rôle des parents et partenaires.</div>
+  </div>
+</div>
+
+<!-- ====== QUIZ ====== -->
+<div id="quiz" class="panel">
+  <p class="section-title">Quiz — Testez vos connaissances</p>
+  <p class="section-intro">15 questions sur le système éducatif, la laïcité et les valeurs de la République. Bonne chance !</p>
+
+  <div class="quiz-progress-bar">
+    <div class="quiz-progress-fill" id="progressFill" style="width: 0%"></div>
+  </div>
+  <div class="quiz-counter" id="quizCounter">Question 1 / 15</div>
+
+  <!-- Q1 -->
+  <div class="question-block active" id="q1">
+    <div class="q-number">Question 1 / 15</div>
+    <div class="q-text">En quelle année la loi Jules Ferry a-t-elle rendu l'instruction publique laïque et obligatoire ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q1')">1871</button>
+      <button class="option-btn" onclick="answer(this, true, 'q1')">1882</button>
+      <button class="option-btn" onclick="answer(this, false, 'q1')">1905</button>
+      <button class="option-btn" onclick="answer(this, false, 'q1')">1946</button>
+    </div>
+    <div class="explanation" id="exp1"><strong>1882 :</strong> Jules Ferry rend l'école primaire publique obligatoire (6–13 ans) et laïque — fin de l'enseignement religieux dans les écoles publiques et remplacement des crucifix par Marianne. La gratuité avait été instaurée en 1881. La loi de 1905 concerne la séparation des Églises et de l'État.</div>
+    <button class="next-btn" id="next1" onclick="nextQ(1)">Question suivante →</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-block" id="q2">
+    <div class="q-number">Question 2 / 15</div>
+    <div class="q-text">Combien de domaines comprend le Socle commun de connaissances, de compétences et de culture (2015) ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q2')">3</button>
+      <button class="option-btn" onclick="answer(this, false, 'q2')">4</button>
+      <button class="option-btn" onclick="answer(this, true, 'q2')">5</button>
+      <button class="option-btn" onclick="answer(this, false, 'q2')">7</button>
+    </div>
+    <div class="explanation" id="exp2"><strong>5 domaines :</strong> (1) Langages pour penser et communiquer, (2) Méthodes et outils pour apprendre, (3) Formation de la personne et du citoyen, (4) Systèmes naturels et techniques, (5) Représentations du monde et activité humaine. Ce socle structure la scolarité obligatoire de 3 à 16 ans.</div>
+    <button class="next-btn" id="next2" onclick="nextQ(2)">Question suivante →</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-block" id="q3">
+    <div class="q-number">Question 3 / 15</div>
+    <div class="q-text">La loi de 2004 interdit les signes religieux ostensibles à l'école. À qui s'applique-t-elle ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q3')">Aux élèves et aux enseignants</button>
+      <button class="option-btn" onclick="answer(this, true, 'q3')">Aux élèves uniquement</button>
+      <button class="option-btn" onclick="answer(this, false, 'q3')">Aux enseignants uniquement</button>
+      <button class="option-btn" onclick="answer(this, false, 'q3')">À tous les adultes de l'école</button>
+    </div>
+    <div class="explanation" id="exp3"><strong>Aux élèves uniquement.</strong> Les enseignants et agents publics sont soumis au devoir de neutralité depuis la loi de 1983 (fonctionnaires). Les parents accompagnateurs ne sont pas soumis à la loi de 2004 mais à une obligation de discrétion (circulaire Chatel 2012). La loi de 2004 ne s'applique qu'aux élèves dans les écoles, collèges et lycées publics.</div>
+    <button class="next-btn" id="next3" onclick="nextQ(3)">Question suivante →</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-block" id="q4">
+    <div class="q-number">Question 4 / 15</div>
+    <div class="q-text">Le cycle 3 (consolidation) regroupe quelles classes ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q4')">CE2, CM1, CM2</button>
+      <button class="option-btn" onclick="answer(this, true, 'q4')">CM1, CM2, 6e</button>
+      <button class="option-btn" onclick="answer(this, false, 'q4')">CM2, 6e, 5e</button>
+      <button class="option-btn" onclick="answer(this, false, 'q4')">CP, CE1, CE2</button>
+    </div>
+    <div class="explanation" id="exp4"><strong>CM1, CM2 et 6e.</strong> Depuis la réforme de 2015, le cycle 3 inclut le CM1, le CM2 et la classe de 6e, créant un lien fort entre l'école et le collège. CP, CE1, CE2 forment le cycle 2 (apprentissages fondamentaux). La maternelle forme le cycle 1. La 5e, 4e, 3e forment le cycle 4.</div>
+    <button class="next-btn" id="next4" onclick="nextQ(4)">Question suivante →</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-block" id="q5">
+    <div class="q-number">Question 5 / 15</div>
+    <div class="q-text">Quelle loi a instauré l'obligation d'instruction dès l'âge de 3 ans ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q5')">Loi Peillon 2013</button>
+      <button class="option-btn" onclick="answer(this, false, 'q5')">Loi Jospin 1989</button>
+      <button class="option-btn" onclick="answer(this, true, 'q5')">Loi Blanquer 2019</button>
+      <button class="option-btn" onclick="answer(this, false, 'q5')">Loi Fillon 2005</button>
+    </div>
+    <div class="explanation" id="exp5"><strong>Loi Blanquer (2019)</strong> dite « pour une école de la confiance » — elle abaisse l'âge de l'instruction obligatoire de 6 à 3 ans, rendant la maternelle obligatoire. Elle renforce aussi le devoir de neutralité des enseignants. La loi Peillon (2013) avait instauré les rythmes scolaires et l'EMC.</div>
+    <button class="next-btn" id="next5" onclick="nextQ(5)">Question suivante →</button>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-block" id="q6">
+    <div class="q-number">Question 6 / 15</div>
+    <div class="q-text">Qu'est-ce que le LSU ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q6')">Un programme de lutte contre le décrochage scolaire</button>
+      <button class="option-btn" onclick="answer(this, false, 'q6')">Un livret d'évaluation uniquement pour le primaire</button>
+      <button class="option-btn" onclick="answer(this, true, 'q6')">Un livret scolaire numérique de la maternelle à la 3e</button>
+      <button class="option-btn" onclick="answer(this, false, 'q6')">Un label pour les écoles engagées dans l'inclusion</button>
+    </div>
+    <div class="explanation" id="exp6"><strong>Livret Scolaire Unique (LSU)</strong> : outil numérique mis en place en 2016, il suit chaque élève de la maternelle jusqu'à la fin du collège (3e). Il regroupe les bilans de compétences par cycle, les résultats aux évaluations nationales et les informations sur le parcours de l'élève. Il est accessible aux familles.</div>
+    <button class="next-btn" id="next6" onclick="nextQ(6)">Question suivante →</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-block" id="q7">
+    <div class="q-number">Question 7 / 15</div>
+    <div class="q-text">La Charte de la laïcité à l'école a été publiée en quelle année ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q7')">2004</button>
+      <button class="option-btn" onclick="answer(this, false, 'q7')">2010</button>
+      <button class="option-btn" onclick="answer(this, true, 'q7')">2013</button>
+      <button class="option-btn" onclick="answer(this, false, 'q7')">2019</button>
+    </div>
+    <div class="explanation" id="exp7"><strong>2013</strong>, sous le ministère de Vincent Peillon. La Charte de la laïcité à l'école comporte <strong>15 articles</strong> et doit être affichée dans tous les espaces d'enseignement. Elle est remise à chaque élève et ses parents en début d'année. Elle précise les droits et devoirs de chacun face à la laïcité à l'école.</div>
+    <button class="next-btn" id="next7" onclick="nextQ(7)">Question suivante →</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-block" id="q8">
+    <div class="q-number">Question 8 / 15</div>
+    <div class="q-text">Parmi ces propositions, laquelle décrit correctement la laïcité ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q8')">La laïcité impose que tous les citoyens soient athées</button>
+      <button class="option-btn" onclick="answer(this, false, 'q8')">La laïcité interdit toute expression religieuse dans l'espace public</button>
+      <button class="option-btn" onclick="answer(this, true, 'q8')">La laïcité garantit la liberté de conscience et la neutralité de l'État</button>
+      <button class="option-btn" onclick="answer(this, false, 'q8')">La laïcité ne s'applique qu'aux agents publics</button>
+    </div>
+    <div class="explanation" id="exp8"><strong>La laïcité garantit la liberté de conscience.</strong> Elle ne combat pas la religion : elle protège la liberté de croire ou de ne pas croire. L'État est neutre vis-à-vis des religions. C'est une distinction fondamentale à maîtriser pour l'oral : laïcité ≠ athéisme, laïcité ≠ interdiction de la religion dans toute la vie publique.</div>
+    <button class="next-btn" id="next8" onclick="nextQ(8)">Question suivante →</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-block" id="q9">
+    <div class="q-number">Question 9 / 15</div>
+    <div class="q-text">Qu'est-ce qu'un PPRE ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q9')">Un Plan Pédagogique de Réussite en Établissement</button>
+      <button class="option-btn" onclick="answer(this, true, 'q9')">Un Programme Personnalisé de Réussite Éducative</button>
+      <button class="option-btn" onclick="answer(this, false, 'q9')">Un Protocole Pluridisciplinaire de Remédiation scolaire</button>
+      <button class="option-btn" onclick="answer(this, false, 'q9')">Un Parcours Progressif de Réinsertion en École</button>
+    </div>
+    <div class="explanation" id="exp9"><strong>Programme Personnalisé de Réussite Éducative.</strong> C'est un dispositif d'aide mis en place par l'équipe pédagogique pour les élèves qui risquent de ne pas maîtriser les connaissances du socle commun. Il est différent du PAP (Plan d'Accompagnement Personnalisé, pour les troubles des apprentissages comme la dyslexie) et du PPS (Projet Personnalisé de Scolarisation, pour le handicap).</div>
+    <button class="next-btn" id="next9" onclick="nextQ(9)">Question suivante →</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-block" id="q10">
+    <div class="q-number">Question 10 / 15</div>
+    <div class="q-text">Quelle loi a instauré le « collège unique » ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q10')">Loi Capelle-Fouchet 1963</button>
+      <button class="option-btn" onclick="answer(this, true, 'q10')">Loi Haby 1975</button>
+      <button class="option-btn" onclick="answer(this, false, 'q10')">Loi Jospin 1989</button>
+      <button class="option-btn" onclick="answer(this, false, 'q10')">Loi Fillon 2005</button>
+    </div>
+    <div class="explanation" id="exp10"><strong>Loi Haby (1975)</strong> : René Haby instaure le collège unique, mettant fin à la filière des cours complémentaires. L'objectif est que tous les élèves suivent un tronc commun au collège. La loi Jospin (1989) a placé l'élève au centre du système éducatif. La loi Fillon (2005) a instauré le socle commun de compétences.</div>
+    <button class="next-btn" id="next10" onclick="nextQ(10)">Question suivante →</button>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question-block" id="q11">
+    <div class="q-number">Question 11 / 15</div>
+    <div class="q-text">Combien d'articles comporte la Charte de la laïcité à l'école ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q11')">10</button>
+      <button class="option-btn" onclick="answer(this, true, 'q11')">15</button>
+      <button class="option-btn" onclick="answer(this, false, 'q11')">20</button>
+      <button class="option-btn" onclick="answer(this, false, 'q11')">7</button>
+    </div>
+    <div class="explanation" id="exp11"><strong>15 articles.</strong> La Charte de la laïcité (2013) comporte 15 articles organisés en 3 parties : les principes généraux de la laïcité, son application à l'école, et les droits et obligations des membres de la communauté éducative. Elle doit être affichée dans tous les locaux et espaces d'enseignement publics.</div>
+    <button class="next-btn" id="next11" onclick="nextQ(11)">Question suivante →</button>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question-block" id="q12">
+    <div class="q-number">Question 12 / 15</div>
+    <div class="q-text">Quel sigle désigne le dispositif de scolarisation des élèves en situation de handicap dans une école ordinaire ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q12')">RASED</button>
+      <button class="option-btn" onclick="answer(this, false, 'q12')">AESH</button>
+      <button class="option-btn" onclick="answer(this, true, 'q12')">ULIS</button>
+      <button class="option-btn" onclick="answer(this, false, 'q12')">SESSAD</button>
+    </div>
+    <div class="explanation" id="exp12"><strong>ULIS : Unité Localisée pour l'Inclusion Scolaire.</strong> Ce dispositif accueille des élèves avec des besoins éducatifs particuliers dans une école ordinaire, avec un enseignant spécialisé. À ne pas confondre avec : AESH (accompagnant individuel d'un élève), RASED (équipe de soutien itinérante), SESSAD (service médico-social extérieur à l'école).</div>
+    <button class="next-btn" id="next12" onclick="nextQ(12)">Question suivante →</button>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question-block" id="q13">
+    <div class="q-number">Question 13 / 15</div>
+    <div class="q-text">Un élève de CM1 refuse de participer à une séance de natation en invoquant des raisons religieuses. Quelle est la bonne posture de l'enseignant ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q13')">Accepter le refus pour respecter la liberté religieuse</button>
+      <button class="option-btn" onclick="answer(this, false, 'q13')">Sanctionner immédiatement l'élève pour insubordination</button>
+      <button class="option-btn" onclick="answer(this, true, 'q13')">Dialoguer, expliquer le cadre scolaire et associer les parents si nécessaire</button>
+      <button class="option-btn" onclick="answer(this, false, 'q13')">Supprimer la séance pour éviter le conflit</button>
+    </div>
+    <div class="explanation" id="exp13"><strong>Dialogue et cadre institutionnel.</strong> L'enseignant rappelle que les programmes scolaires sont obligatoires (EPS fait partie du programme). Il dialogue avec l'élève et les parents, explique la valeur éducative de l'activité, et fait appel au directeur ou à l'IEN en cas de persistance. Il ne cède pas au refus, mais ne sanctionne pas de manière punitive sans dialogue préalable.</div>
+    <button class="next-btn" id="next13" onclick="nextQ(13)">Question suivante →</button>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question-block" id="q14">
+    <div class="q-number">Question 14 / 15</div>
+    <div class="q-text">Quelle loi a introduit la notion d'« élève au centre du système éducatif » ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q14')">Loi Haby 1975</button>
+      <button class="option-btn" onclick="answer(this, true, 'q14')">Loi Jospin 1989</button>
+      <button class="option-btn" onclick="answer(this, false, 'q14')">Loi Fillon 2005</button>
+      <button class="option-btn" onclick="answer(this, false, 'q14')">Loi Peillon 2013</button>
+    </div>
+    <div class="explanation" id="exp14"><strong>Loi Jospin (1989)</strong> dite « loi d'orientation sur l'éducation » — célèbre pour avoir placé l'élève « au centre du système éducatif ». Elle a aussi créé les IUFM (instituts de formation des maîtres) et posé le principe du projet d'école. Une citation clé à retenir : <em>« L'élève est au cœur du système éducatif. »</em></div>
+    <button class="next-btn" id="next14" onclick="nextQ(14)">Question suivante →</button>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question-block" id="q15">
+    <div class="q-number">Question 15 / 15</div>
+    <div class="q-text">Parmi les 4 axes de l'Enseignement Moral et Civique (EMC), lequel N'existe PAS ?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(this, false, 'q15')">La sensibilité</button>
+      <button class="option-btn" onclick="answer(this, false, 'q15')">Le jugement</button>
+      <button class="option-btn" onclick="answer(this, true, 'q15')">L'obéissance</button>
+      <button class="option-btn" onclick="answer(this, false, 'q15')">L'engagement</button>
+    </div>
+    <div class="explanation" id="exp15"><strong>L'obéissance n'est pas un axe de l'EMC.</strong> Les 4 axes officiels sont : (1) <strong>La sensibilité</strong> — identifier et exprimer ses émotions, (2) <strong>Le droit et la règle</strong> — comprendre le sens des règles, (3) <strong>Le jugement</strong> — développer l'esprit critique, (4) <strong>L'engagement</strong> — agir en citoyen responsable. L'EMC vise la formation du citoyen, pas la soumission.</div>
+    <button class="next-btn" id="next15" onclick="showScore()">Voir mon résultat →</button>
+  </div>
+
+  <!-- SCORE -->
+  <div class="score-panel" id="scorePanel">
+    <div class="score-circle">
+      <div class="score-num" id="scoreNum">0</div>
+      <div class="score-label">/ 15</div>
+    </div>
+    <div class="score-msg" id="scoreMsg">Résultat</div>
+    <div class="score-sub" id="scoreSub"></div>
+    <button class="restart-btn" onclick="restartQuiz()">🔄 Recommencer le quiz</button>
+  </div>
+</div>
+
+</main>
+
+<footer>CRPE 2026 · Académie de Montpellier · Fiche de révision — Épreuve d'entretien</footer>
+
+<script>
+  // Tabs
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const idx = ['fiche1','fiche2','methode','quiz'].indexOf(id);
+    document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  }
+
+  // Quiz
+  let score = 0;
+  let currentQ = 1;
+  const total = 15;
+
+  function answer(btn, isCorrect, qId) {
+    const block = document.getElementById(qId);
+    const buttons = block.querySelectorAll('.option-btn');
+    buttons.forEach(b => b.disabled = true);
+
+    if (isCorrect) {
+      btn.classList.add('correct');
+      score++;
+    } else {
+      btn.classList.add('wrong');
+      // highlight correct answer
+      buttons.forEach(b => {
+        if (!b.classList.contains('wrong')) {
+          b.classList.add('correct');
+        }
+      });
+    }
+
+    const num = parseInt(qId.replace('q', ''));
+    document.getElementById('exp' + num).classList.add('show');
+    document.getElementById('next' + num).classList.add('show');
+  }
+
+  function nextQ(num) {
+    document.getElementById('q' + num).classList.remove('active');
+    const next = num + 1;
+    if (next <= total) {
+      document.getElementById('q' + next).classList.add('active');
+      currentQ = next;
+      updateProgress();
+    }
+  }
+
+  function updateProgress() {
+    const pct = ((currentQ - 1) / total) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('quizCounter').textContent = 'Question ' + currentQ + ' / ' + total;
+  }
+
+  function showScore() {
+    document.getElementById('q15').classList.remove('active');
+    document.getElementById('progressFill').style.width = '100%';
+    const panel = document.getElementById('scorePanel');
+    panel.classList.add('show');
+    document.getElementById('scoreNum').textContent = score;
+
+    let msg, sub;
+    if (score >= 13) {
+      msg = '🏆 Excellent ! Vous êtes prête.';
+      sub = 'Maîtrise solide du programme — continuez à pratiquer les mises en situation orales.';
+    } else if (score >= 10) {
+      msg = '👍 Bon score — quelques lacunes à combler.';
+      sub = 'Relisez les fiches sur les points ratés et refaites le quiz dans quelques jours.';
+    } else if (score >= 7) {
+      msg = '📚 Encourageant, mais il faut approfondir.';
+      sub = 'Concentrez-vous sur les dates des lois et la distinction des dispositifs (PPRE, PAP, PPS, ULIS…)';
+    } else {
+      msg = '💪 Il y a du travail — ne vous découragez pas !';
+      sub = 'Relisez les deux fiches en détail, notez les points clés, puis retentez le quiz.';
+    }
+    document.getElementById('scoreMsg').textContent = msg;
+    document.getElementById('scoreSub').textContent = sub;
+  }
+
+  function restartQuiz() {
+    score = 0;
+    currentQ = 1;
+    document.getElementById('scorePanel').classList.remove('show');
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('quizCounter').textContent = 'Question 1 / 15';
+
+    for (let i = 1; i <= total; i++) {
+      const block = document.getElementById('q' + i);
+      block.classList.remove('active');
+      block.querySelectorAll('.option-btn').forEach(b => {
+        b.disabled = false;
+        b.classList.remove('correct', 'wrong');
+      });
+      const exp = document.getElementById('exp' + i);
+      if (exp) exp.classList.remove('show');
+      const next = document.getElementById('next' + i);
+      if (next) next.classList.remove('show');
+    }
+    document.getElementById('q1').classList.add('active');
+  }
+</script>
+</body>
+</html>
