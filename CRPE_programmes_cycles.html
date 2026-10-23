@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRPE – Programmes Cycles 1·2·3</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c1: #FF6B35;
+    --c1-light: #FFF0EB;
+    --c1-mid: #FFD4C2;
+    --c2: #2196A6;
+    --c2-light: #E8F7F9;
+    --c2-mid: #B3E4EA;
+    --c3: #7C4DFF;
+    --c3-light: #F0EBFF;
+    --c3-mid: #D1C2FF;
+    --new: #22C55E;
+    --new-light: #F0FDF4;
+    --warn: #F59E0B;
+    --bg: #0F0F14;
+    --bg2: #16161F;
+    --bg3: #1E1E2A;
+    --text: #F0EFF8;
+    --muted: #8888AA;
+    --border: rgba(255,255,255,0.08);
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #0F0F14 0%, #1a0a2e 50%, #0f1a14 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(124,77,255,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 100px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(124,77,255,0.2);
+    border: 1px solid rgba(124,77,255,0.4);
+    color: #B794FF;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  h1 span.c1 { color: var(--c1); }
+  h1 span.c2 { color: var(--c2); }
+  h1 span.c3 { color: var(--c3); }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 600px;
+    margin-bottom: 28px;
+  }
+
+  /* ── NAV TABS ── */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    padding: 24px 32px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    flex-wrap: wrap;
+  }
+  .tab {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 10px 20px;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    bottom: -1px;
+    border: 1px solid transparent;
+    border-bottom: none;
+  }
+  .tab-c1 { background: transparent; color: var(--c1); }
+  .tab-c1.active { background: var(--c1); color: white; border-color: var(--c1); }
+  .tab-c2 { background: transparent; color: var(--c2); }
+  .tab-c2.active { background: var(--c2); color: white; border-color: var(--c2); }
+  .tab-c3 { background: transparent; color: var(--c3); }
+  .tab-c3.active { background: var(--c3); color: white; border-color: var(--c3); }
+  .tab-synth { background: transparent; color: var(--muted); }
+  .tab-synth.active { background: var(--bg3); color: var(--text); border-color: var(--border); }
+  .tab:hover:not(.active) { background: rgba(255,255,255,0.05); }
+
+  /* ── PANELS ── */
+  .panel { display: none; padding: 28px 32px 48px; animation: fadeIn 0.3s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── SECTION TITLE ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cycle-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+  .badge-c1 { background: var(--c1); color: white; }
+  .badge-c2 { background: var(--c2); color: white; }
+  .badge-c3 { background: var(--c3); color: white; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; }
+  .section-classes { color: var(--muted); font-size: 13px; }
+
+  /* ── GRID ── */
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 0;
+  }
+  .card.c1::before { background: var(--c1); }
+  .card.c2::before { background: var(--c2); }
+  .card.c3::before { background: var(--c3); }
+  .card.new-prog::before { background: var(--new); }
+  .card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .new-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--new);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 100px;
+  }
+  .card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .card ul li {
+    color: var(--muted);
+    font-size: 13px;
+    padding-left: 16px;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+    opacity: 0.5;
+  }
+  .card ul li strong { color: var(--text); font-weight: 500; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .hl-new { background: var(--new-light); border-color: rgba(34,197,94,0.3); color: #166534; }
+  .hl-warn { background: #FFFBEB; border-color: rgba(245,158,11,0.3); color: #92400E; }
+  .hl-purple { background: rgba(124,77,255,0.08); border-color: rgba(124,77,255,0.2); color: #C4B5FD; }
+  .hl-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .hl-text { font-size: 13px; line-height: 1.5; }
+  .hl-text strong { display: block; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 3px; }
+
+  /* ── HORAIRES ── */
+  .horaire-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .horaire-pill {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid;
+  }
+  .pill-fr { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.3); color: #FF9F7E; }
+  .pill-ma { background: rgba(33,150,166,0.1); border-color: rgba(33,150,166,0.3); color: #5ECAD9; }
+  .pill-em { background: rgba(124,77,255,0.1); border-color: rgba(124,77,255,0.3); color: #B794FF; }
+  .pill-autre { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: var(--muted); }
+
+  /* ── EVAR SECTION ── */
+  .evar-banner {
+    background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(16,185,129,0.06));
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .evar-banner::after {
+    content: 'NOUVEAU 2025';
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--new);
+    border: 1px solid var(--new);
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .evar-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #4ADE80;
+    margin-bottom: 6px;
+  }
+  .evar-desc { color: var(--muted); font-size: 13px; margin-bottom: 18px; max-width: 700px; }
+  .evar-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .evar-col {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid rgba(34,197,94,0.15);
+  }
+  .evar-col-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #4ADE80;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .evar-col ul { list-style: none; }
+  .evar-col li {
+    font-size: 12px;
+    color: #86EFAC;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(34,197,94,0.1);
+  }
+  .evar-col li:last-child { border-bottom: none; }
+  .evar-col li::before { content: '✦ '; opacity: 0.5; font-size: 9px; }
+
+  /* ── SYNTHESE ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--c1), var(--c2), var(--c3));
+  }
+  .tl-item {
+    position: relative;
+    padding: 16px 0 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-dot {
+    position: absolute;
+    left: -27px;
+    top: 22px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+  .tl-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .tl-content { font-size: 13px; color: var(--muted); }
+  .tl-content strong { color: var(--text); }
+
+  /* ── COMPARE TABLE ── */
+  .compare-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
+  .compare-table th {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    background: var(--bg3);
+    color: var(--muted);
+  }
+  .compare-table th:nth-child(2) { color: var(--c1); }
+  .compare-table th:nth-child(3) { color: var(--c2); }
+  .compare-table th:nth-child(4) { color: var(--c3); }
+  .compare-table td {
+    padding: 11px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .compare-table td:first-child {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    background: rgba(255,255,255,0.02);
+    white-space: nowrap;
+  }
+  .dot-yes { color: var(--new); font-size: 16px; }
+  .dot-no { color: var(--muted); opacity: 0.3; font-size: 16px; }
+
+  /* ── FONDAMENTAUX ── */
+  .fondamentaux { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+  .fondam-pill {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .fondam-pill:hover { border-color: rgba(255,255,255,0.2); }
+
+  /* ── SECTION DIVIDER ── */
+  .sec-divider {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sec-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── TOOLTIP / INFO ── */
+  .info-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.25);
+    color: #FCD34D;
+    font-size: 11px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-left: 8px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .tabs { padding: 16px 16px 0; }
+    .panel { padding: 20px 16px 40px; }
+    header { padding: 28px 16px 24px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* expand/collapse */
+  details > summary { cursor: pointer; list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::after { content: ' ▾'; font-size: 10px; opacity: 0.5; }
+  details[open] > summary::after { content: ' ▴'; }
+  details { border-radius: 10px; background: rgba(255,255,255,0.02); margin-top: 8px; }
+  details summary { padding: 10px 14px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
+  details .detail-content { padding: 0 14px 14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">📚 Révisions CRPE 2026</div>
+  <h1>Programmes<br><span class="c1">Cycle 1</span> · <span class="c2">Cycle 2</span> · <span class="c3">Cycle 3</span></h1>
+  <p class="subtitle">Guide visuel complet · Réforme 2025 · EVAR inclus · Mise à jour rentrée 2025-2026</p>
+  <div class="fondamentaux">
+    <span class="fondam-pill">📖 Lire</span>
+    <span class="fondam-pill">✏️ Écrire</span>
+    <span class="fondam-pill">🔢 Compter</span>
+    <span class="fondam-pill">🤝 Respecter autrui</span>
+    <span class="fondam-pill">🌱 EVAR (nouveau 2025)</span>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab tab-c1 active" onclick="showPanel('c1', this)">🟠 Cycle 1 – Maternelle</button>
+  <button class="tab tab-c2" onclick="showPanel('c2', this)">🔵 Cycle 2 – CP / CE1 / CE2</button>
+  <button class="tab tab-c3" onclick="showPanel('c3', this)">🟣 Cycle 3 – CM1 / CM2 / 6e</button>
+  <button class="tab tab-synth" onclick="showPanel('synth', this)">📊 Vue d'ensemble</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ CYCLE 1 -->
+<div class="panel active" id="panel-c1">
+
+  <div class="section-header">
+    <span class="cycle-badge badge-c1">Cycle 1</span>
+    <div>
+      <div class="section-title">École maternelle</div>
+      <div class="section-classes">Toute Petite Section · Petite Section · Moyenne Section · Grande Section</div>
+    </div>
+  </div>
+
+  <div class="highlight-box hl-new">
+    <span class="hl-icon">✨</span>
+    <div class="hl-text">
+      <strong>Nouveaux programmes 2025 (BO du 31 octobre 2024)</strong>
+      Deux domaines rénovés : <b>Langage/Français</b> et <b>Mathématiques</b>. Deux nouveaux parcours éducatifs : <b>EVAR</b> et <b>Éducation au développement durable</b>. Organisation par repères annuels (par âge) pour plus de progressivité.
+    </div>
+  </div>
+
+  <div class="sec-divider">6 Domaines d'apprentissage</div>
+
+  <div class="grid grid-2">
+
+    <div class="card c1 new-prog">
+      <span class="card-icon">🗣️</span>
+      <div class="card-title">Mobiliser le langage dans toutes ses dimensions <span class="new-tag">RÉNOVÉ</span></div>
+      <ul>
+        <li><strong>Oral :</strong> comprendre, s'exprimer, raconter, articuler distinctement (nouveauté)</li>
+        <li><strong>Passer de l'oral à l'écrit :</strong> se préparer à lire (phonologie, principe alphabétique) et à écrire (geste graphique)</li>
+        <li><strong>Vocabulaire :</strong> enrichissement par corpus enseignés explicitement</li>
+        <li>Langage en situation : décrire, expliquer, questionner</li>
+      </ul>
+      <details><summary>Précisions clés</summary>
+        <div class="detail-content">
+          <p style="color:var(--muted);font-size:12px;margin-top:4px;">Nouvelle compétence : « articuler distinctement » (intégrée aux activités phonologiques). Le « langage écrit » devient « passer de l'oral à l'écrit », avec deux volets explicites : préparer à lire + préparer à écrire. Objectifs organisés par âge (avant 4 ans / entre 4 et 5 ans / à partir de 5 ans).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card c1">
+      <span class="card-icon">🏃</span>
+      <div class="card-title">Agir, s'exprimer, comprendre à travers l'activité physique</div>
+      <ul>
+        <li><strong>Motricité globale :</strong> courir, sauter, lancer, grimper, nager</li>
+        <li><strong>Espace et durée :</strong> agir dans l'espace, adapter ses équilibres</li>
+        <li><strong>Jeux collectifs :</strong> coopérer, s'opposer, respecter les règles</li>
+        <li>Danse et expression corporelle</li>
+      </ul>
+    </div>
+
+    <div class="card c1">
+      <span class="card-icon">🎨</span>
+      <div class="card-title">Agir, s'exprimer, comprendre à travers les activités artistiques</div>
+      <ul>
+        <li><strong>Arts visuels :</strong> dessin, peinture, modelage, collage, impression</li>
+        <li><strong>Univers sonores :</strong> écouter, produire des sons, chanter, jouer avec la voix</li>
+        <li><strong>Spectacle vivant :</strong> jeu dramatique, marionnettes, danse</li>
+        <li>Découverte d'œuvres artistiques variées (patrimoine)</li>
+      </ul>
+    </div>
+
+    <div class="card c1 new-prog">
+      <span class="card-icon">🔢</span>
+      <div class="card-title">Acquérir les premiers outils mathématiques <span class="new-tag">RÉNOVÉ</span></div>
+      <ul>
+        <li><strong>Nombres :</strong> fonction cardinale (combien) et ordinale (le ième)</li>
+        <li><strong>Résolution de problèmes</strong> (nouveau sous-domaine à part entière)</li>
+        <li><strong>Espace et géométrie :</strong> solides, formes planes, positions</li>
+        <li><strong>Grandeurs et mesures :</strong> longueurs, masses (dès la MS), comparaisons</li>
+        <li><strong>Motifs organisés</strong> (ex « suites organisées ») : patterns, régularités</li>
+      </ul>
+      <details><summary>Précisions clés</summary>
+        <div class="detail-content">
+          <p style="color:var(--muted);font-size:12px;margin-top:4px;">La résolution de problèmes devient un sous-domaine indépendant. La contenance disparaît du programme. Accent sur la verbalisation et l'enseignement explicite du vocabulaire mathématique par l'enseignant. Apprentissages par manipulation, jeu et verbalisation.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card c1">
+      <span class="card-icon">🌍</span>
+      <div class="card-title">Explorer le monde</div>
+      <ul>
+        <li><strong>Monde du vivant :</strong> plantes, animaux, corps humain, besoins vitaux</li>
+        <li><strong>Matière et objets :</strong> observer, trier, transformer, construire</li>
+        <li><strong>Espace :</strong> se repérer dans l'espace scolaire et proche</li>
+        <li><strong>Temps :</strong> se repérer dans la journée, la semaine, les saisons</li>
+      </ul>
+    </div>
+
+    <div class="card c1">
+      <span class="card-icon">👥</span>
+      <div class="card-title">Construire les premiers outils pour structurer sa pensée</div>
+      <ul>
+        <li>Classer, ordonner, sérier, catégoriser</li>
+        <li>Organiser des données : tableaux simples, collections</li>
+        <li>Résoudre des problèmes simples de la vie quotidienne</li>
+        <li>Comparer, mesurer, estimer (longueurs, quantités)</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- EVAR CYCLE 1 -->
+  <div class="sec-divider">Nouveaux parcours éducatifs (2025)</div>
+
+  <div class="evar-banner">
+    <div class="evar-title">🌱 EVAR – Éducation à la Vie Affective et Relationnelle</div>
+    <div class="evar-desc">Nouveau parcours éducatif obligatoire dès l'école maternelle (rentrée 2025). Au moins 3 séances par an. L'EVAR remplace et structure ce qui était dispersé dans les anciens programmes.</div>
+    <div class="evar-cols">
+      <div class="evar-col">
+        <div class="evar-col-title">👶 Petite Section</div>
+        <ul>
+          <li>Nommer ses émotions</li>
+          <li>Reconnaître celles des autres</li>
+          <li>La séparation / retrouvailles</li>
+          <li>Les règles de vie collective</li>
+        </ul>
+      </div>
+      <div class="evar-col">
+        <div class="evar-col-title">🧒 Moyenne Section</div>
+        <ul>
+          <li>Identifier ses besoins affectifs</li>
+          <li>Comprendre la notion d'intimité</li>
+          <li>Résolution de conflits</li>
+          <li>Amitié et coopération</li>
+        </ul>
+      </div>
+      <div class="evar-col">
+        <div class="evar-col-title">🧑 Grande Section</div>
+        <ul>
+          <li>Respect du corps / consentement simple</li>
+          <li>Égalité filles / garçons</li>
+          <li>Les différentes formes de familles</li>
+          <li>Danger du numérique (initiation)</li>
+        </ul>
+      </div>
+      <div class="evar-col">
+        <div class="evar-col-title">🌿 EDD (nouveau)</div>
+        <ul>
+          <li>Éducation au développement durable</li>
+          <li>Parcours parallèle à l'EVAR</li>
+          <li>Gestes écologiques quotidiens</li>
+          <li>Monde vivant et environnement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider">Organisation pédagogique</div>
+  <div class="grid grid-3">
+    <div class="card c1">
+      <div class="card-title">⏰ Volume horaire</div>
+      <ul><li>24h d'enseignement / semaine</li><li>36 semaines / an (5 périodes)</li><li>9 demi-journées / semaine</li></ul>
+    </div>
+    <div class="card c1">
+      <div class="card-title">🎯 Principes pédagogiques</div>
+      <ul><li>Apprentissage par le jeu</li><li>Enseignement explicite renforcé</li><li>Travail en petits groupes</li><li>Manipulation + verbalisation</li></ul>
+    </div>
+    <div class="card c1">
+      <div class="card-title">📋 Suivi des élèves</div>
+      <ul><li>Carnet de suivi des apprentissages</li><li>Portfolio (traces des apprentissages)</li><li>Évaluation par observation</li><li>Valoriser progrès ET réussites</li></ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ CYCLE 2 -->
+<div class="panel" id="panel-c2">
+
+  <div class="section-header">
+    <span class="cycle-badge badge-c2">Cycle 2</span>
+    <div>
+      <div class="section-title">Cycle des apprentissages fondamentaux</div>
+      <div class="section-classes">CP · CE1 · CE2</div>
+    </div>
+  </div>
+
+  <div class="highlight-box hl-new">
+    <span class="hl-icon">✨</span>
+    <div class="hl-text">
+      <strong>Nouveaux programmes Français + Maths (BO 31/10/2024 – en vigueur depuis rentrée 2025)</strong>
+      Priorité absolue : lire, écrire, compter. Retour à l'enseignement explicite et structuré. Progressions annualisées. EVAR obligatoire (≥3 séances/an). EMC rénové (en déploiement progressif).
+    </div>
+  </div>
+
+  <div class="sec-divider">Français – Les 4 grands domaines</div>
+  <div class="grid grid-2">
+    <div class="card c2 new-prog">
+      <span class="card-icon">📖</span>
+      <div class="card-title">Langage oral <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li><strong>CP :</strong> écouter activement, reformuler, réciter</li>
+        <li><strong>CE1 :</strong> raconter, décrire, expliquer un raisonnement</li>
+        <li><strong>CE2 :</strong> prendre la parole en public, débattre, argumenter</li>
+        <li>Présentations orales régulières (nouveauté)</li>
+      </ul>
+    </div>
+    <div class="card c2 new-prog">
+      <span class="card-icon">🔤</span>
+      <div class="card-title">Lecture – Compréhension <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li><strong>CP :</strong> déchiffrage (décodage phonème-graphème), syllabation</li>
+        <li><strong>CE1 :</strong> fluidité, compréhension fine, inférences</li>
+        <li><strong>CE2 :</strong> lecture expressive, textes variés (narratif, documentaire, poésie)</li>
+        <li>Lecture quotidienne obligatoire à voix haute</li>
+      </ul>
+    </div>
+    <div class="card c2 new-prog">
+      <span class="card-icon">✍️</span>
+      <div class="card-title">Écriture – Rédaction <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li><strong>Graphie :</strong> cursive dès le CP, geste maîtrisé</li>
+        <li><strong>Orthographe :</strong> dictées régulières, listes de mots mémorisés</li>
+        <li><strong>Grammaire :</strong> phrase, ponctuation, classes de mots (nom, verbe, adjectif)</li>
+        <li><strong>Production :</strong> écrits courts à longs, récits personnels (CE2)</li>
+      </ul>
+    </div>
+    <div class="card c2">
+      <span class="card-icon">🔡</span>
+      <div class="card-title">Étude de la langue</div>
+      <ul>
+        <li>Conjugaison : présent, passé composé, imparfait, futur</li>
+        <li>Vocabulaire : familles de mots, synonymes, antonymes</li>
+        <li>Grammaire de phrase : sujet, verbe, COD, COI</li>
+        <li>Orthographe grammaticale et lexicale</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider">Mathématiques – Les 4 domaines</div>
+  <div class="grid grid-2">
+    <div class="card c2 new-prog">
+      <span class="card-icon">🔢</span>
+      <div class="card-title">Nombres et calculs <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li><strong>CP :</strong> nombres jusqu'à 100, addition/soustraction, décompositions</li>
+        <li><strong>CE1 :</strong> jusqu'à 1000, multiplication (tables 2,5,10), calcul mental intensif</li>
+        <li><strong>CE2 :</strong> jusqu'à 10 000, division posée, fractions simples (½, ¼, ⅓)</li>
+        <li>Calcul mental quotidien obligatoire</li>
+      </ul>
+    </div>
+    <div class="card c2 new-prog">
+      <span class="card-icon">📐</span>
+      <div class="card-title">Résolution de problèmes <span class="new-tag">CENTRAL</span></div>
+      <ul>
+        <li>Au cœur de toute l'activité mathématique</li>
+        <li>Problèmes additifs, multiplicatifs, de partage</li>
+        <li>Stratégies explicitées : modéliser, schématiser</li>
+        <li>Problèmes à données manquantes ou superflues (CE2)</li>
+      </ul>
+    </div>
+    <div class="card c2">
+      <span class="card-icon">📏</span>
+      <div class="card-title">Grandeurs et mesures</div>
+      <ul>
+        <li>Longueurs (m, cm, mm), masses (kg, g), contenances (L, cL)</li>
+        <li>Temps : heure, minute, durées</li>
+        <li>Monnaie : euros et centimes</li>
+        <li>Périmètre (CE2)</li>
+      </ul>
+    </div>
+    <div class="card c2">
+      <span class="card-icon">🔷</span>
+      <div class="card-title">Espace et géométrie</div>
+      <ul>
+        <li>Figures planes : carré, rectangle, triangle, cercle</li>
+        <li>Solides : cube, pavé, sphère, cône, cylindre</li>
+        <li>Symétrie axiale (CE1-CE2)</li>
+        <li>Codage de déplacements sur quadrillage</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider">Autres enseignements</div>
+  <div class="grid grid-3">
+    <div class="card c2">
+      <span class="card-icon">🌏</span>
+      <div class="card-title">Questionner le monde</div>
+      <ul>
+        <li>Vivant : plantes, animaux, corps humain</li>
+        <li>Matière : états, transformations</li>
+        <li>Espace : cartes, plans, repères</li>
+        <li>Temps : chronologies simples, passé/présent</li>
+        <li>Objets techniques : usage, fonctionnement simple</li>
+      </ul>
+    </div>
+    <div class="card c2">
+      <span class="card-icon">🎨</span>
+      <div class="card-title">Enseignements artistiques</div>
+      <ul>
+        <li><strong>Arts plastiques :</strong> dessin, peinture, volume, photographie</li>
+        <li><strong>Éducation musicale :</strong> chant, écoute, rythme, instruments</li>
+        <li>Histoire des arts : découverte d'œuvres</li>
+      </ul>
+    </div>
+    <div class="card c2">
+      <span class="card-icon">🏅</span>
+      <div class="card-title">EPS – Éducation Physique</div>
+      <ul>
+        <li>Jeux et sports collectifs</li>
+        <li>Activités athlétiques et gymniques</li>
+        <li>Natation (objectif fin cycle 2)</li>
+        <li>Activités d'orientation</li>
+      </ul>
+    </div>
+    <div class="card c2">
+      <span class="card-icon">🌍</span>
+      <div class="card-title">Langue vivante étrangère</div>
+      <ul>
+        <li>Objectif : niveau A1 du CECRL en fin de cycle 2</li>
+        <li>Oral prioritaire : écouter, répéter, s'exprimer</li>
+        <li>Activités ludiques, chansons, comptines</li>
+      </ul>
+    </div>
+    <div class="card c2 new-prog">
+      <span class="card-icon">⚖️</span>
+      <div class="card-title">EMC – Enseignement Moral et Civique <span class="new-tag">RÉNOVÉ</span></div>
+      <ul>
+        <li><strong>CP-CE1 (2024-2025) :</strong> règles de vie, respect d'autrui</li>
+        <li><strong>CE2 (2025-2026) :</strong> vivre en République, dignité humaine</li>
+        <li>Routines explicites, débats, projets transversaux</li>
+      </ul>
+    </div>
+    <div class="card c2 new-prog">
+      <span class="card-icon">🌱</span>
+      <div class="card-title">EVAR <span class="new-tag">NOUVEAU 2025</span></div>
+      <ul>
+        <li>≥ 3 séances obligatoires / an / élève</li>
+        <li>Émotions, relations, consentement simple</li>
+        <li>Égalité filles / garçons</li>
+        <li>Respect du corps propre et d'autrui</li>
+        <li>Sécurité numérique (initiation)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider">Horaires hebdomadaires indicatifs</div>
+  <div class="card c2" style="margin-bottom:0">
+    <div class="card-title">Répartition du temps scolaire (24h/semaine)</div>
+    <div class="horaire-grid">
+      <span class="horaire-pill pill-fr">Français : ~10h</span>
+      <span class="horaire-pill pill-ma">Maths : ~5h</span>
+      <span class="horaire-pill pill-em">EPS : ~3h</span>
+      <span class="horaire-pill pill-autre">Questionner le monde : ~3h</span>
+      <span class="horaire-pill pill-autre">Langue vivante : 1h30</span>
+      <span class="horaire-pill pill-autre">Arts : 2h</span>
+      <span class="horaire-pill pill-autre">EMC + EVAR : 30min</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ CYCLE 3 -->
+<div class="panel" id="panel-c3">
+
+  <div class="section-header">
+    <span class="cycle-badge badge-c3">Cycle 3</span>
+    <div>
+      <div class="section-title">Cycle de consolidation</div>
+      <div class="section-classes">CM1 · CM2 · 6e (collège)</div>
+    </div>
+  </div>
+
+  <div class="highlight-box hl-new">
+    <span class="hl-icon">✨</span>
+    <div class="hl-text">
+      <strong>Nouveaux programmes 2025 (BO 17/04/2025) – Application progressive</strong>
+      CM1 + 6e : nouveaux programmes Français et Maths depuis rentrée 2025. CM2 : nouveaux programmes Français et Maths à la rentrée 2026. Cohérence primaire/collège renforcée. EVAR obligatoire (≥3 séances/an).
+    </div>
+  </div>
+
+  <div class="highlight-box hl-warn">
+    <span class="hl-icon">⚠️</span>
+    <div class="hl-text">
+      <strong>Calendrier d'application à maîtriser pour le CRPE</strong>
+      CM1 + 6e → Français/Maths nouveaux depuis <b>sept. 2025</b>. CM2 → Français/Maths nouveaux depuis <b>sept. 2026</b>. EMC CM2 → nouveau depuis 2025. EMC 6e → nouveau en 2026. Sciences, HGE, EPS, Arts → programmes 2023 inchangés.
+    </div>
+  </div>
+
+  <div class="sec-divider">Français – Domaines renforcés</div>
+  <div class="grid grid-2">
+    <div class="card c3 new-prog">
+      <span class="card-icon">📗</span>
+      <div class="card-title">Langage oral <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li>Exposés, présentations orales régulières</li>
+        <li>Débats argumentés, prise de parole structurée</li>
+        <li>Écoute active, prise de notes</li>
+        <li>Théâtre, lecture à voix haute expressive (6e)</li>
+      </ul>
+    </div>
+    <div class="card c3 new-prog">
+      <span class="card-icon">📚</span>
+      <div class="card-title">Lecture – Littérature <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li>Œuvres complètes : romans jeunesse, contes, fables, poésie</li>
+        <li>Compréhension profonde : implicite, inférences, valeurs</li>
+        <li>Textes documentaires, presse, textes historiques (6e)</li>
+        <li>Histoire de la littérature (6e)</li>
+      </ul>
+    </div>
+    <div class="card c3 new-prog">
+      <span class="card-icon">📝</span>
+      <div class="card-title">Écriture créative et rédaction <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li>Récits personnels, nouvelles, lettres, compte-rendus</li>
+        <li>Écriture créative : poèmes, dialogues, parodies</li>
+        <li>Révision / réécriture : améliorer un texte produit</li>
+        <li>Dictées quotidiennes, textes longs en CM2-6e</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">📐</span>
+      <div class="card-title">Étude de la langue (grammaire)</div>
+      <ul>
+        <li>Phrase complexe, propositions, connecteurs logiques</li>
+        <li>Conjugaison complète : tous les temps de l'indicatif + subjonctif (6e)</li>
+        <li>Orthographe lexicale et grammaticale : accord GN, accord sujet-verbe</li>
+        <li>Vocabulaire : étymologie, familles, registres de langue</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider">Mathématiques – Domaines</div>
+  <div class="grid grid-2">
+    <div class="card c3 new-prog">
+      <span class="card-icon">🔢</span>
+      <div class="card-title">Nombres et calculs <span class="new-tag">RENFORCÉ</span></div>
+      <ul>
+        <li>Grands nombres (millions, milliards), nombres décimaux</li>
+        <li>Fractions : comparaison, addition, soustraction, fraction / nombre décimal</li>
+        <li>Calcul mental : automatisation tables × et ÷</li>
+        <li>Proportionnalité, pourcentages (CM2/6e)</li>
+        <li>Nombres relatifs (6e)</li>
+      </ul>
+    </div>
+    <div class="card c3 new-prog">
+      <span class="card-icon">📊</span>
+      <div class="card-title">Résolution de problèmes <span class="new-tag">CENTRAL</span></div>
+      <ul>
+        <li>Problèmes complexes (plusieurs étapes)</li>
+        <li>Raisonnement, argumentation, communication</li>
+        <li>Modélisation : schémas, tableaux, graphiques</li>
+        <li>Introduction à la logique et au codage (6e)</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">📏</span>
+      <div class="card-title">Grandeurs et mesures</div>
+      <ul>
+        <li>Aires : calcul, formules (rectangle, triangle)</li>
+        <li>Volumes : cubes et pavés droits (6e)</li>
+        <li>Conversions de toutes les unités</li>
+        <li>Vitesse, durées (6e)</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">🔷</span>
+      <div class="card-title">Espace et géométrie</div>
+      <ul>
+        <li>Symétrie centrale (6e), constructions géométriques</li>
+        <li>Triangles, quadrilatères, cercle : propriétés</li>
+        <li>Coordonnées dans un repère (6e)</li>
+        <li>Solides : patrons, vues</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider">Sciences et autres disciplines</div>
+  <div class="grid grid-3">
+    <div class="card c3">
+      <span class="card-icon">🔬</span>
+      <div class="card-title">Sciences et technologie</div>
+      <ul>
+        <li>Vivant : cellule, reproduction, classification, évolution</li>
+        <li>Matière : états, mélanges, réactions chimiques simples</li>
+        <li>Énergie : formes, sources, conversions</li>
+        <li>Objets techniques : systèmes, algorithmes simples</li>
+        <li>Démarche d'investigation scientifique</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">🗺️</span>
+      <div class="card-title">Histoire-Géographie</div>
+      <ul>
+        <li><strong>Histoire :</strong> Antiquité → Révolution française (CM1-CM2) / Antiquité → temps modernes (6e)</li>
+        <li><strong>Géographie :</strong> territoires français, Europe, mondialisation</li>
+        <li>Lecture de cartes, de documents historiques</li>
+        <li>Repères chronologiques et spatiaux</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">🎭</span>
+      <div class="card-title">Arts plastiques + Éducation musicale</div>
+      <ul>
+        <li><strong>Arts plastiques :</strong> pratique sensible, analyse d'œuvres, histoire des arts</li>
+        <li><strong>Éducation musicale :</strong> chant, écoute, pratique instrumentale</li>
+        <li>Histoire des arts intégrée au cycle 3</li>
+        <li>Œuvres du corpus CRPE (cf. programme épreuve)</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">🏃</span>
+      <div class="card-title">EPS</div>
+      <ul>
+        <li>Athlétisme, natation (maîtrise 50m en fin C3)</li>
+        <li>Sports collectifs (basket, handball, foot…)</li>
+        <li>Activités de pleine nature (orientation, escalade)</li>
+        <li>Danse, arts du cirque</li>
+      </ul>
+    </div>
+    <div class="card c3">
+      <span class="card-icon">🌍</span>
+      <div class="card-title">Langue vivante étrangère</div>
+      <ul>
+        <li>Objectif : niveau A2 en fin de CM2 / A2+ en 6e</li>
+        <li>5 activités langagières : CE, EE, CO, EO interaction et production</li>
+        <li>Programme LV 6e rénové (sept. 2025) : objectif B1 fin 3e</li>
+      </ul>
+    </div>
+    <div class="card c3 new-prog">
+      <span class="card-icon">⚖️</span>
+      <div class="card-title">EMC + EVAR <span class="new-tag">NOUVEAU</span></div>
+      <ul>
+        <li><strong>EMC CM1 (depuis 2024) :</strong> Sens et portée de la règle</li>
+        <li><strong>EMC CM2 (2025) :</strong> Vivre en République</li>
+        <li><strong>EMC 6e (2026) :</strong> nouveau programme à venir</li>
+        <li><strong>EVAR :</strong> ≥3 séances/an, consentement, égalité, numérique</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider">Horaires hebdomadaires cycle 3 (école)</div>
+  <div class="card c3" style="margin-bottom:0">
+    <div class="card-title">Répartition du temps scolaire (24h/semaine – CM1/CM2)</div>
+    <div class="horaire-grid">
+      <span class="horaire-pill pill-fr">Français : ~8h</span>
+      <span class="horaire-pill pill-ma">Maths : ~5h</span>
+      <span class="horaire-pill pill-em">EPS : 3h</span>
+      <span class="horaire-pill pill-autre">HGE + Sciences : ~5h</span>
+      <span class="horaire-pill pill-autre">LV : 1h30</span>
+      <span class="horaire-pill pill-autre">Arts : 2h</span>
+      <span class="horaire-pill pill-autre">EMC + EVAR : 30min</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ SYNTHÈSE -->
+<div class="panel" id="panel-synth">
+
+  <div class="section-header">
+    <span class="cycle-badge" style="background:linear-gradient(135deg,var(--c1),var(--c3));color:white">C1→C3</span>
+    <div>
+      <div class="section-title">Vue d'ensemble & récapitulatif CRPE</div>
+      <div class="section-classes">Tous cycles · Réforme 2025 · Points clés pour l'épreuve</div>
+    </div>
+  </div>
+
+  <!-- EVAR GLOBAL -->
+  <div class="evar-banner">
+    <div class="evar-title">🌱 EVAR / EVARS – La grande nouveauté 2025</div>
+    <div class="evar-desc">Programme national entré en application à la rentrée 2025 dans TOUS les cycles. Distinction : EVAR (maternelle + élémentaire) / EVARS (collège + lycée). Minimum 3 séances obligatoires par élève et par an.</div>
+    <div class="evar-cols">
+      <div class="evar-col">
+        <div class="evar-col-title">🟠 C1 – Maternelle</div>
+        <ul>
+          <li>Émotions, besoins affectifs</li>
+          <li>Corps, intimité (premiers mots)</li>
+          <li>Règles de vie / coopération</li>
+          <li>Égalité filles/garçons</li>
+        </ul>
+      </div>
+      <div class="evar-col">
+        <div class="evar-col-title">🔵 C2 – Élémentaire</div>
+        <ul>
+          <li>Consentement simple</li>
+          <li>Respect du corps propre et d'autrui</li>
+          <li>Relations amicales et familiales</li>
+          <li>Sécurité numérique (1ère approche)</li>
+        </ul>
+      </div>
+      <div class="evar-col">
+        <div class="evar-col-title">🟣 C3 – CM/6e</div>
+        <ul>
+          <li>Puberté, transformations corporelles</li>
+          <li>Consentement renforcé</li>
+          <li>Égalité, stéréotypes de genre</li>
+          <li>Cyberharcèlement, numérique responsable</li>
+        </ul>
+      </div>
+      <div class="evar-col">
+        <div class="evar-col-title">📋 Mise en œuvre</div>
+        <ul>
+          <li>≥ 3 séances / an / élève</li>
+          <li>Équipe pluridisciplinaire</li>
+          <li>Infirmier(ère) scolaire associé(e)</li>
+          <li>Formation M@gistère disponible</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDRIER RÉFORME -->
+  <div class="sec-divider">Calendrier de la réforme – À connaître pour le CRPE</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+    <div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--new)"></div>
+          <div class="tl-label" style="color:var(--new)">Rentrée 2024</div>
+          <div class="tl-content"><strong>CM1 :</strong> nouveaux Français + Maths (déjà en vigueur)<br><strong>EMC CM1 :</strong> nouveau programme</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--c1)"></div>
+          <div class="tl-label" style="color:var(--c1)">Rentrée 2025</div>
+          <div class="tl-content">
+            <strong>Cycle 1 :</strong> nouveaux Français + Maths maternelle<br>
+            <strong>Cycle 2 :</strong> nouveaux Français + Maths<br>
+            <strong>CM1 + 6e :</strong> nouveaux Français + Maths C3<br>
+            <strong>EMC CM2 :</strong> nouveau programme<br>
+            <strong>EVAR :</strong> obligatoire tous cycles<br>
+            <strong>LV 6e :</strong> nouveau programme
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--c3)"></div>
+          <div class="tl-label" style="color:var(--c3)">Rentrée 2026</div>
+          <div class="tl-content">
+            <strong>CM2 :</strong> nouveaux Français + Maths C3<br>
+            <strong>EMC 6e :</strong> nouveau programme<br>
+            <strong>CE2 :</strong> nouveau programme EMC
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="highlight-box hl-purple" style="height:100%;align-items:flex-start">
+        <span class="hl-icon">💡</span>
+        <div class="hl-text">
+          <strong>Points piège pour l'épreuve CRPE</strong>
+          <br>• CM2 : français/maths <b>PAS encore renouvelés</b> en 2025-2026 (→ 2026)<br>
+          • EVAR ≠ EVARS : l'EVARS (avec la sexualité) concerne le collège/lycée, pas le primaire<br>
+          • Sciences / HGE / Arts / EPS : <b>programmes inchangés</b> par la réforme 2025<br>
+          • LV cycle 3 : A1 attendu fin CM1 → A2 fin CM2 → A2+ fin 6e → B1 fin 3e<br>
+          • EMC : déploiement CM1 (2024) → CM2 (2025) → 6e (2026)<br>
+          • Les <b>fondamentaux</b> : lire, écrire, compter, respecter autrui
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLEAU COMPARATIF -->
+  <div class="sec-divider">Tableau comparatif des matières par cycle</div>
+  <div style="overflow-x:auto;border-radius:12px;border:1px solid var(--border);">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Matière / Domaine</th>
+          <th>🟠 Cycle 1</th>
+          <th>🔵 Cycle 2</th>
+          <th>🟣 Cycle 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Français / Langage</td><td style="color:#FF9F7E">✦ Rénové 2025</td><td style="color:#5ECAD9">✦ Rénové 2025</td><td style="color:#B794FF">✦ CM1+6e 2025 / CM2 2026</td></tr>
+        <tr><td>Mathématiques</td><td style="color:#FF9F7E">✦ Rénové 2025</td><td style="color:#5ECAD9">✦ Rénové 2025</td><td style="color:#B794FF">✦ CM1+6e 2025 / CM2 2026</td></tr>
+        <tr><td>EVAR / EVARS</td><td style="color:#4ADE80">✦ EVAR (nouveau)</td><td style="color:#4ADE80">✦ EVAR (nouveau)</td><td style="color:#4ADE80">✦ EVAR (nouveau)</td></tr>
+        <tr><td>EMC</td><td style="color:var(--muted)">Intégré aux domaines</td><td style="color:#5ECAD9">✦ Rénové progressif</td><td style="color:#B794FF">✦ CM1✓ CM2(2025) 6e(2026)</td></tr>
+        <tr><td>Histoire-Géographie</td><td style="color:var(--muted)">Explorer le monde</td><td style="color:var(--muted)">Questionner le monde</td><td style="color:var(--muted)">Programme 2023</td></tr>
+        <tr><td>Sciences / Technologie</td><td style="color:var(--muted)">Explorer le monde</td><td style="color:var(--muted)">Questionner le monde</td><td style="color:var(--muted)">Programme 2023</td></tr>
+        <tr><td>Arts plastiques</td><td style="color:#FF9F7E">Activités artistiques</td><td style="color:#5ECAD9">Arts plastiques</td><td style="color:var(--muted)">Programme 2023</td></tr>
+        <tr><td>Éducation musicale</td><td style="color:#FF9F7E">Univers sonores</td><td style="color:#5ECAD9">Éducation musicale</td><td style="color:var(--muted)">Programme 2023</td></tr>
+        <tr><td>EPS</td><td style="color:#FF9F7E">Activité physique</td><td style="color:#5ECAD9">EPS</td><td style="color:var(--muted)">Programme 2023</td></tr>
+        <tr><td>Langue vivante</td><td style="color:var(--muted)">Éveil (facultatif)</td><td style="color:#5ECAD9">A1 (visé)</td><td style="color:#B794FF">A2 → ✦ 6e rénové 2025</td></tr>
+        <tr><td>Histoire des arts</td><td style="color:var(--muted)">–</td><td style="color:var(--muted)">Découverte</td><td style="color:#B794FF">Disciplinaire (cycle 3)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FONDAMENTAUX -->
+  <div class="sec-divider">Les fondamentaux : lire – écrire – compter – respecter autrui</div>
+  <div class="grid grid-2">
+    <div class="card" style="border-color:rgba(255,107,53,0.3)">
+      <span class="card-icon">📖</span>
+      <div class="card-title" style="color:var(--c1)">Lire</div>
+      <ul>
+        <li><strong>C1 :</strong> conscience phonologique, principe alphabétique, geste de lecture</li>
+        <li><strong>C2 :</strong> décodage → fluidité → compréhension fine</li>
+        <li><strong>C3 :</strong> œuvres complètes, textes variés, analyse littéraire</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(33,150,166,0.3)">
+      <span class="card-icon">✍️</span>
+      <div class="card-title" style="color:var(--c2)">Écrire</div>
+      <ul>
+        <li><strong>C1 :</strong> geste graphique, lettres en majuscule d'imprimerie, prénom</li>
+        <li><strong>C2 :</strong> cursive maîtrisée, dictées, productions courtes → longues</li>
+        <li><strong>C3 :</strong> textes élaborés, révision, écriture créative, orthographe</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(124,77,255,0.3)">
+      <span class="card-icon">🔢</span>
+      <div class="card-title" style="color:var(--c3)">Compter</div>
+      <ul>
+        <li><strong>C1 :</strong> dénombrer jusqu'à 10-20, comparer des quantités</li>
+        <li><strong>C2 :</strong> jusqu'à 10 000, quatre opérations, fractions simples</li>
+        <li><strong>C3 :</strong> grands nombres, décimaux, fractions, proportionnalité</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(34,197,94,0.3)">
+      <span class="card-icon">🤝</span>
+      <div class="card-title" style="color:var(--new)">Respecter autrui</div>
+      <ul>
+        <li><strong>C1 :</strong> vie collective, émotions, règles de classe</li>
+        <li><strong>C2 :</strong> EMC + EVAR : droits/devoirs, consentement, numérique</li>
+        <li><strong>C3 :</strong> citoyenneté, laïcité, égalité, institutions républicaines</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRPE – Quiz Programmes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c1: #FF6B35; --c2: #2196A6; --c3: #7C4DFF;
+    --new: #22C55E; --danger: #EF4444; --warn: #F59E0B;
+    --bg: #0F0F14; --bg2: #16161F; --bg3: #1E1E2A;
+    --text: #F0EFF8; --muted: #8888AA; --border: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0F0F14, #1a0a2e);
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+  .logo span { color: var(--c3); }
+  .score-display {
+    display: flex; gap: 16px; align-items: center;
+  }
+  .score-pill {
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    padding: 6px 14px; border-radius: 100px;
+    background: var(--bg3); border: 1px solid var(--border);
+  }
+  .score-pill .num { font-size: 18px; display: block; text-align: center; margin-bottom: 2px; }
+  .score-pill.correct .num { color: var(--new); }
+  .score-pill.wrong .num { color: var(--danger); }
+  .score-pill.total .num { color: var(--c3); }
+
+  /* FILTER BAR */
+  .filter-bar {
+    padding: 14px 24px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .filter-label { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-right: 4px; }
+  .filter-btn {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    padding: 5px 12px; border-radius: 100px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+  .filter-btn.active-all { background: var(--bg3); color: var(--text); border-color: rgba(255,255,255,0.15); }
+  .filter-btn.active-c1 { background: var(--c1); color: white; border-color: var(--c1); }
+  .filter-btn.active-c2 { background: var(--c2); color: white; border-color: var(--c2); }
+  .filter-btn.active-c3 { background: var(--c3); color: white; border-color: var(--c3); }
+  .filter-btn.active-new { background: var(--new); color: white; border-color: var(--new); }
+
+  /* MAIN */
+  main { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* PROGRESS */
+  .progress-wrap { margin-bottom: 24px; }
+  .progress-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-text { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .progress-num { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; color: var(--text); }
+  .progress-bar { height: 6px; background: var(--bg3); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 100px; transition: width 0.4s ease; background: linear-gradient(90deg, var(--c1), var(--c3)); }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    animation: slideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes slideIn { from { opacity:0; transform: translateY(16px) scale(0.97); } to { opacity:1; transform: translateY(0) scale(1); } }
+
+  .q-top {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .q-cycle-badge {
+    font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 100px;
+  }
+  .badge-c1 { background: rgba(255,107,53,0.15); color: var(--c1); border: 1px solid rgba(255,107,53,0.3); }
+  .badge-c2 { background: rgba(33,150,166,0.15); color: var(--c2); border: 1px solid rgba(33,150,166,0.3); }
+  .badge-c3 { background: rgba(124,77,255,0.15); color: var(--c3); border: 1px solid rgba(124,77,255,0.3); }
+  .badge-new { background: rgba(34,197,94,0.15); color: var(--new); border: 1px solid rgba(34,197,94,0.3); }
+  .badge-all { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
+  .q-theme { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); }
+
+  .q-body { padding: 24px; }
+  .q-number { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--muted); margin-bottom: 10px; }
+  .q-text { font-size: 17px; font-weight: 500; line-height: 1.5; margin-bottom: 24px; color: var(--text); }
+  .q-text em { color: var(--warn); font-style: normal; font-weight: 700; }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 18px;
+    text-align: left; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text); transition: all 0.15s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .option-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); transform: translateX(3px); }
+  .option-letter {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--bg2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .option-btn.correct { background: rgba(34,197,94,0.1); border-color: var(--new); }
+  .option-btn.correct .option-letter { background: var(--new); color: white; border-color: var(--new); }
+  .option-btn.wrong { background: rgba(239,68,68,0.1); border-color: var(--danger); }
+  .option-btn.wrong .option-letter { background: var(--danger); color: white; border-color: var(--danger); }
+  .option-btn.missed { background: rgba(34,197,94,0.05); border-color: rgba(34,197,94,0.4); border-style: dashed; }
+  .option-btn:disabled { cursor: default; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 20px; border-radius: 12px; padding: 16px 18px;
+    border: 1px solid; display: none;
+    animation: fadeUp 0.25s ease;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+  .feedback.show { display: block; }
+  .feedback.correct-fb { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.3); }
+  .feedback.wrong-fb { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); }
+  .feedback-emoji { font-size: 20px; margin-bottom: 6px; }
+  .feedback-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+  .feedback.correct-fb .feedback-title { color: var(--new); }
+  .feedback.wrong-fb .feedback-title { color: var(--danger); }
+  .feedback-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .feedback-body strong { color: var(--text); }
+
+  /* ACTIONS */
+  .actions { margin-top: 20px; display: flex; gap: 10px; }
+  .btn-next {
+    flex: 1; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 14px 24px; border-radius: 12px; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--c2), var(--c3));
+    color: white; transition: all 0.2s; display: none;
+  }
+  .btn-next.show { display: block; }
+  .btn-next:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(124,77,255,0.3); }
+  .btn-hint {
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    padding: 10px 16px; border-radius: 10px; border: 1px solid var(--warn);
+    background: rgba(245,158,11,0.08); color: var(--warn); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-hint:hover { background: rgba(245,158,11,0.15); }
+  .btn-hint:disabled { opacity: 0.3; cursor: default; }
+
+  /* HINT */
+  .hint-box {
+    margin-top: 12px; background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2); border-radius: 10px;
+    padding: 12px 16px; font-size: 13px; color: #FCD34D;
+    display: none; animation: fadeUp 0.2s ease;
+  }
+  .hint-box.show { display: block; }
+  .hint-box::before { content: '💡 Indice : '; font-weight: 700; }
+
+  /* END SCREEN */
+  .end-screen { display: none; text-align: center; padding: 40px 20px; }
+  .end-screen.show { display: block; animation: slideIn 0.4s ease; }
+  .end-emoji { font-size: 64px; margin-bottom: 16px; }
+  .end-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .end-score { font-size: 48px; font-weight: 300; margin: 20px 0; color: var(--c3); }
+  .end-score span { font-family: 'Syne', sans-serif; font-weight: 800; }
+  .end-msg { color: var(--muted); font-size: 15px; max-width: 400px; margin: 0 auto 32px; line-height: 1.6; }
+  .end-bars { max-width: 400px; margin: 0 auto 32px; text-align: left; }
+  .end-bar-item { margin-bottom: 12px; }
+  .end-bar-label { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .end-bar-track { height: 8px; background: var(--bg3); border-radius: 100px; overflow: hidden; }
+  .end-bar-fill { height: 100%; border-radius: 100px; transition: width 0.8s ease; }
+  .btn-restart {
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 14px 32px; border-radius: 12px; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--c1), var(--c3)); color: white;
+    transition: all 0.2s; margin: 0 6px;
+  }
+  .btn-restart:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(124,77,255,0.3); }
+  .btn-restart.outline { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+
+  @media (max-width: 480px) {
+    main { padding: 20px 14px 50px; }
+    .q-text { font-size: 15px; }
+    header { padding: 18px 14px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CRPE · <span>Quiz Programmes</span></div>
+  <div class="score-display">
+    <div class="score-pill correct"><span class="num" id="sc-correct">0</span>✅ Correct</div>
+    <div class="score-pill wrong"><span class="num" id="sc-wrong">0</span>❌ Faux</div>
+    <div class="score-pill total"><span class="num" id="sc-total">0</span>📝 Total</div>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <span class="filter-label">Filtrer :</span>
+  <button class="filter-btn active-all" onclick="setFilter('all', this)">Tout</button>
+  <button class="filter-btn" onclick="setFilter('c1', this)">🟠 Cycle 1</button>
+  <button class="filter-btn" onclick="setFilter('c2', this)">🔵 Cycle 2</button>
+  <button class="filter-btn" onclick="setFilter('c3', this)">🟣 Cycle 3</button>
+  <button class="filter-btn" onclick="setFilter('new', this)">🌱 Nouveautés 2025</button>
+</div>
+
+<main>
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-info">
+      <span class="progress-text">Progression</span>
+      <span class="progress-num" id="progress-label">0 / 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="quiz-area">
+    <div class="q-card" id="q-card">
+      <div class="q-top">
+        <span class="q-cycle-badge" id="q-badge"></span>
+        <span class="q-theme" id="q-theme"></span>
+      </div>
+      <div class="q-body">
+        <div class="q-number" id="q-number"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="hint-box" id="hint-box"></div>
+        <div class="options" id="options"></div>
+        <div class="feedback" id="feedback">
+          <div class="feedback-emoji" id="fb-emoji"></div>
+          <div class="feedback-title" id="fb-title"></div>
+          <div class="feedback-body" id="fb-body"></div>
+        </div>
+        <div class="actions">
+          <button class="btn-hint" id="btn-hint" onclick="showHint()">💡 Indice</button>
+          <button class="btn-next show" id="btn-next" onclick="nextQuestion()" style="display:none">Question suivante →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="end-screen" id="end-screen">
+    <div class="end-emoji" id="end-emoji"></div>
+    <div class="end-title" id="end-title"></div>
+    <div class="end-score"><span id="end-score-num"></span> / <span id="end-score-total"></span></div>
+    <div class="end-msg" id="end-msg"></div>
+    <div class="end-bars" id="end-bars"></div>
+    <button class="btn-restart" onclick="restart(false)">🔄 Recommencer (même filtre)</button>
+    <button class="btn-restart outline" onclick="restart(true)">↺ Tout recommencer</button>
+  </div>
+</main>
+
+<script>
+const ALL_QUESTIONS = [
+  // ═══ CYCLE 1 ═══
+  {
+    cycle: 'c1', theme: 'Organisation',
+    q: "Combien de <em>domaines d'apprentissage</em> compte le programme du Cycle 1 ?",
+    options: ["4 domaines", "5 domaines", "6 domaines", "7 domaines"],
+    answer: 2,
+    hint: "Pense à : Langage, Activité physique, Activités artistiques, Maths, Explorer le monde… et un 6e.",
+    expl: "Le programme de maternelle comprend <strong>6 domaines</strong> : (1) Mobiliser le langage, (2) Agir, s'exprimer à travers l'activité physique, (3) Agir, s'exprimer à travers les activités artistiques, (4) Acquérir les premiers outils mathématiques, (5) Explorer le monde, (6) Construire les premiers outils pour structurer sa pensée."
+  },
+  {
+    cycle: 'c1', theme: 'Langage – Cycle 1',
+    q: "Parmi ces compétences, laquelle est une <em>nouveauté 2025</em> du domaine Langage en cycle 1 ?",
+    options: ["Comprendre une histoire lue par l'enseignant", "Articuler distinctement", "Associer des sons à des lettres", "Mémoriser des comptines"],
+    answer: 1,
+    hint: "C'est une compétence liée à la clarté de la parole orale, désormais explicitement mentionnée.",
+    expl: "<strong>Articuler distinctement</strong> est une compétence explicitement ajoutée par les programmes 2025. La phonologie (association sons/lettres) et la compréhension existaient déjà."
+  },
+  {
+    cycle: 'c1', theme: 'Maths – Cycle 1',
+    q: "Quel est le <em>nouveau sous-domaine</em> ajouté aux mathématiques du Cycle 1 par les programmes 2025 ?",
+    options: ["Les grandeurs et mesures", "La résolution de problèmes", "Les motifs organisés", "La géométrie des solides"],
+    answer: 1,
+    hint: "Ce sous-domaine devient autonome : il ne s'agit plus d'une compétence intégrée mais d'un domaine à part entière.",
+    expl: "<strong>La résolution de problèmes</strong> devient un sous-domaine indépendant dans les programmes 2025 de cycle 1. Par ailleurs, 'suites organisées' est renommé <strong>motifs organisés</strong>, et la contenance disparaît du programme."
+  },
+  {
+    cycle: 'c1', theme: 'EVAR',
+    q: "À partir de quelle section l'EVAR est-il obligatoire ?",
+    options: ["Grande Section uniquement", "Moyenne Section et Grande Section", "Dès la Petite Section (tout cycle 1)", "À partir du CP"],
+    answer: 2,
+    hint: "L'EVAR s'applique dès l'entrée à l'école maternelle, sans exception de section.",
+    expl: "L'EVAR est obligatoire <strong>dans tout le cycle 1</strong>, dès la Petite Section. Le minimum est de <strong>3 séances par an</strong> et par élève. À la maternelle, le contenu porte sur les émotions, les besoins affectifs et les règles de vie collective."
+  },
+  {
+    cycle: 'c1', theme: 'EVAR',
+    q: "Quel est le nombre minimum de séances d'EVAR à prévoir par élève et par an ?",
+    options: ["1 séance", "2 séances", "3 séances", "6 séances"],
+    answer: 2,
+    hint: "C'est un minimum légal, pas un objectif idéal.",
+    expl: "Le texte de loi fixe un minimum de <strong>3 séances par an et par élève</strong> pour l'EVAR, dans tous les cycles. Les équipes sont libres d'en faire plus."
+  },
+  {
+    cycle: 'c1', theme: 'Organisation',
+    q: "Quel outil de suivi est prévu en maternelle pour accompagner les apprentissages ?",
+    options: ["Le livret scolaire unique", "Le carnet de suivi des apprentissages + portfolio", "Le bulletin trimestriel", "Le dossier d'évaluation nationale"],
+    answer: 1,
+    hint: "Ce n'est pas un bulletin classique : l'évaluation se fait par observation et traces.",
+    expl: "En maternelle, le suivi se fait via le <strong>carnet de suivi des apprentissages</strong> et un <strong>portfolio</strong> rassemblant les traces de l'élève. Il n'y a pas de notes ni de bulletin trimestriel traditionnel."
+  },
+  {
+    cycle: 'c1', theme: 'Domaines',
+    q: "Dans quel domaine du Cycle 1 s'inscrit la découverte des animaux, des plantes et du corps humain ?",
+    options: ["Mobiliser le langage", "Agir à travers les activités artistiques", "Explorer le monde", "Construire les premiers outils pour structurer sa pensée"],
+    answer: 2,
+    hint: "Ce domaine comprend aussi 'matière et objets', 'espace' et 'temps'.",
+    expl: "<strong>Explorer le monde</strong> comprend : le monde du vivant (plantes, animaux, corps humain), la matière et les objets, l'espace et le temps. C'est le domaine qui prépare à la démarche scientifique."
+  },
+
+  // ═══ CYCLE 2 ═══
+  {
+    cycle: 'c2', theme: 'Structure',
+    q: "Quelles classes composent le Cycle 2 ?",
+    options: ["CP, CE1, CE2", "CE1, CE2, CM1", "GS, CP, CE1", "CP, CE1, CE2, CM1"],
+    answer: 0,
+    hint: "C'est le cycle des 'apprentissages fondamentaux' – lecture, écriture, calcul.",
+    expl: "Le Cycle 2, dit cycle des <strong>apprentissages fondamentaux</strong>, comprend le <strong>CP, le CE1 et le CE2</strong>. La Grande Section est au cycle 1 et le CM1 est au cycle 3."
+  },
+  {
+    cycle: 'c2', theme: 'Français',
+    q: "Quelle compétence de français est <em>prioritairement</em> travaillée au CP selon les programmes 2025 ?",
+    options: ["La production d'écrits longs", "Le décodage phonème-graphème (déchiffrage)", "L'argumentation orale", "L'analyse grammaticale"],
+    answer: 1,
+    hint: "La méthode syllabique est au cœur : on part des sons pour construire les mots.",
+    expl: "Au CP, la priorité absolue est le <strong>décodage phonème-graphème</strong> (déchiffrage, syllabation). C'est le fondement de la lecture. La production d'écrits longs et l'argumentation arrivent plus tard dans le cycle."
+  },
+  {
+    cycle: 'c2', theme: 'Français',
+    q: "Qu'est-ce qui est <em>obligatoire quotidiennement</em> en lecture au Cycle 2 selon les programmes 2025 ?",
+    options: ["Un exposé oral", "Une lecture silencieuse de 20 minutes", "La lecture à voix haute", "L'écriture d'un texte"],
+    answer: 2,
+    hint: "Cela concerne la voix et la fluidité de la lecture.",
+    expl: "Les programmes 2025 rendent <strong>la lecture à voix haute quotidienne obligatoire</strong> au cycle 2. Elle permet de travailler la fluidité, l'articulation, le respect de la ponctuation et la compréhension."
+  },
+  {
+    cycle: 'c2', theme: 'Maths',
+    q: "Jusqu'à quel nombre les élèves doivent-ils maîtriser les nombres en fin de <em>CE2</em> ?",
+    options: ["Jusqu'à 1 000", "Jusqu'à 10 000", "Jusqu'à 100 000", "Jusqu'à 1 000 000"],
+    answer: 1,
+    hint: "Au CP : 100 / CE1 : 1 000 / CE2 : ?",
+    expl: "La progression est : CP jusqu'à <strong>100</strong>, CE1 jusqu'à <strong>1 000</strong>, CE2 jusqu'à <strong>10 000</strong>. Les fractions simples (½, ¼, ⅓) et la division posée apparaissent aussi en CE2."
+  },
+  {
+    cycle: 'c2', theme: 'Maths',
+    q: "Dans les programmes 2025, la résolution de problèmes au Cycle 2 est…",
+    options: ["Un chapitre parmi d'autres, en fin d'année", "Une activité facultative pour les élèves avancés", "Au cœur de toute l'activité mathématique", "Réservée au CE2"],
+    answer: 2,
+    hint: "La réforme place cela comme principe structurant, pas comme un module isolé.",
+    expl: "La résolution de problèmes est désormais <strong>au cœur de toute l'activité mathématique</strong> du cycle 2. Elle est présente dans tous les domaines (nombres, mesures, géométrie) et dès le CP."
+  },
+  {
+    cycle: 'c2', theme: 'Enseignements',
+    q: "Quel est l'objectif de niveau en Langue Vivante Étrangère (LVE) attendu en fin de Cycle 2 ?",
+    options: ["A0 (débutant)", "A1 du CECRL", "A2 du CECRL", "B1 du CECRL"],
+    answer: 1,
+    hint: "Le CECRL va de A1 (débutant) à C2 (maîtrise). L'objectif de fin de cycle 3 est A2.",
+    expl: "Le niveau attendu en fin de Cycle 2 est <strong>A1 du CECRL</strong> (premier niveau, débutant). En fin de Cycle 3 (CM2), l'objectif est A2. La 6e vise A2+, et la fin du collège (3e) vise B1."
+  },
+  {
+    cycle: 'c2', theme: 'Nouveautés 2025',
+    q: "L'EVAR au Cycle 2 aborde notamment…",
+    options: ["La sexualité et la reproduction biologique", "Le consentement simple et le respect du corps", "La politique et la citoyenneté", "L'histoire des droits de l'enfant"],
+    answer: 1,
+    hint: "On reste sur des notions accessibles à des enfants de 6-9 ans.",
+    expl: "Au Cycle 2, l'EVAR aborde : le <strong>consentement simple</strong>, le respect du corps propre et d'autrui, l'égalité filles/garçons, les relations amicales et familiales, et une première approche de la sécurité numérique. La sexualité et la reproduction biologique relèvent de l'EVARS (collège/lycée)."
+  },
+  {
+    cycle: 'c2', theme: 'Horaires',
+    q: "Quel est le volume horaire hebdomadaire approximatif consacré au <em>Français</em> au Cycle 2 ?",
+    options: ["Environ 5h", "Environ 8h", "Environ 10h", "Environ 14h"],
+    answer: 2,
+    hint: "C'est la matière reine du cycle des apprentissages fondamentaux, qui représente presque la moitié du temps scolaire.",
+    expl: "Le Français occupe environ <strong>10h par semaine</strong> au Cycle 2 (sur 24h au total). Les Mathématiques représentent environ 5h. C'est le reflet de la priorité absolue donnée à la maîtrise de la langue."
+  },
+  {
+    cycle: 'c2', theme: 'EMC',
+    q: "À quoi correspond l'acronyme <em>EMC</em> ?",
+    options: ["Éducation Morale et Culturelle", "Enseignement Moral et Civique", "Éveil aux Métiers et Carrières", "Éducation aux Médias et à la Communication"],
+    answer: 1,
+    hint: "Cette matière porte sur la morale républicaine et la citoyenneté.",
+    expl: "<strong>EMC = Enseignement Moral et Civique</strong>. Il aborde les valeurs républicaines, les règles de vie, la dignité humaine et les institutions. L'EDD (Éducation aux médias) est distincte, tout comme l'EVAR."
+  },
+
+  // ═══ CYCLE 3 ═══
+  {
+    cycle: 'c3', theme: 'Structure',
+    q: "Quelles classes composent le Cycle 3 ?",
+    options: ["CM1, CM2, 6e", "CE2, CM1, CM2", "CM1, CM2, 5e", "CM2, 6e, 5e"],
+    answer: 0,
+    hint: "C'est le seul cycle qui enjambe deux degrés : école élémentaire et collège.",
+    expl: "Le Cycle 3, dit cycle de <strong>consolidation</strong>, comprend le <strong>CM1, le CM2 et la 6e</strong>. Il est le seul cycle qui articule primaire et collège, favorisant la continuité pédagogique."
+  },
+  {
+    cycle: 'c3', theme: 'Calendrier réforme',
+    q: "Les nouveaux programmes de Français et Maths pour le <em>CM2</em> entrent en vigueur à quelle rentrée ?",
+    options: ["Rentrée 2024", "Rentrée 2025", "Rentrée 2026", "Rentrée 2027"],
+    answer: 2,
+    hint: "CM1 et 6e ont eu les nouveaux programmes en 2025. Le CM2 suit l'année d'après.",
+    expl: "Les nouveaux programmes Français/Maths du C3 entrent en vigueur : <strong>CM1 + 6e en septembre 2025</strong>, puis <strong>CM2 en septembre 2026</strong>. C'est un point piège fréquent au CRPE !"
+  },
+  {
+    cycle: 'c3', theme: 'Maths',
+    q: "Quelle notion mathématique est <em>propre à la 6e</em> dans le Cycle 3 ?",
+    options: ["Les fractions simples", "La symétrie axiale", "Les nombres relatifs", "La proportionnalité"],
+    answer: 2,
+    hint: "C'est une notion qui introduit les nombres négatifs.",
+    expl: "Les <strong>nombres relatifs</strong> (positifs et négatifs) sont introduits en 6e. La proportionnalité et les pourcentages apparaissent en CM2/6e, la symétrie axiale dès le CE1, les fractions dès le CE2."
+  },
+  {
+    cycle: 'c3', theme: 'Français',
+    q: "En Cycle 3, quel temps verbal est travaillé spécifiquement en <em>6e</em> et pas avant ?",
+    options: ["L'imparfait", "Le futur simple", "Le subjonctif présent", "Le passé composé"],
+    answer: 2,
+    hint: "C'est un mode (pas un temps) qui exprime le doute, le souhait ou la nécessité.",
+    expl: "Le <strong>subjonctif présent</strong> est introduit en 6e. Les autres temps (imparfait, futur, passé composé) sont travaillés dès le cycle 2. En CM1/CM2, on consolide tous les temps de l'indicatif."
+  },
+  {
+    cycle: 'c3', theme: 'Sciences',
+    q: "Les programmes de Sciences et Technologie au Cycle 3 ont-ils été rénovés en 2025 ?",
+    options: ["Oui, depuis la rentrée 2025", "Oui, depuis la rentrée 2024", "Non, ils restent sur le programme 2023", "Oui, mais seulement pour le CM1"],
+    answer: 2,
+    hint: "Seuls Français, Maths et EMC ont été rénovés dans les cycles. Les autres disciplines sont inchangées.",
+    expl: "<strong>Non</strong> – Les programmes de Sciences, d'HGE, d'EPS et d'Arts n'ont <strong>pas été modifiés</strong> par la réforme 2025. Seuls <strong>Français, Maths et EMC</strong> ont de nouveaux programmes. C'est un point essentiel pour le CRPE."
+  },
+  {
+    cycle: 'c3', theme: 'EPS',
+    q: "Quel objectif de natation est attendu en fin de Cycle 3 ?",
+    options: ["Savoir nager 25 mètres", "Maîtriser 50 mètres de natation", "Effectuer un sauvetage en eau vive", "Nager 100 mètres en moins de 2 minutes"],
+    answer: 1,
+    hint: "L'objectif du cycle 2 était d'être 'nageur'. En cycle 3, on va plus loin en distance.",
+    expl: "En fin de Cycle 3, l'élève doit être capable de <strong>nager 50 mètres</strong> de manière autonome. L'objectif du cycle 2 était d'atteindre le statut de nageur (traversée d'un bassin)."
+  },
+  {
+    cycle: 'c3', theme: 'HGE',
+    q: "Quelle est la période historique couverte en Histoire-Géographie au <em>CM1-CM2</em> ?",
+    options: ["De l'Antiquité à la Révolution française", "De la Préhistoire à l'Antiquité", "Des Temps modernes à nos jours", "Du Moyen Âge à la Première Guerre mondiale"],
+    answer: 0,
+    hint: "CM1-CM2 couvre les grandes périodes de l'histoire française, en commençant par les Gaulois.",
+    expl: "En CM1-CM2, le programme d'Histoire couvre <strong>l'Antiquité jusqu'à la Révolution française</strong>. En 6e (collège), le programme reprend de l'Antiquité aux Temps modernes selon une progression propre au collège."
+  },
+  {
+    cycle: 'c3', theme: 'LVE',
+    q: "Quel niveau de langue est attendu en fin de <em>CM2</em> en Langue Vivante Étrangère ?",
+    options: ["A1", "A2", "B1", "B2"],
+    answer: 1,
+    hint: "CM2 se situe entre la fin du cycle 2 (A1) et la fin du collège (B1).",
+    expl: "La progression LVE est : fin Cycle 2 → <strong>A1</strong>, fin CM2 → <strong>A2</strong>, fin 6e → A2+, fin 3e (collège) → <strong>B1</strong>. C'est la progression du CECRL."
+  },
+
+  // ═══ NOUVEAUTÉS 2025 ═══
+  {
+    cycle: 'new', theme: 'Réforme 2025',
+    q: "Quelle est la différence entre <em>EVAR</em> et <em>EVARS</em> ?",
+    options: [
+      "EVAR est pour le primaire, EVARS pour le secondaire (avec la sexualité)",
+      "EVAR est obligatoire, EVARS est facultatif",
+      "Ce sont deux noms pour le même programme",
+      "EVARS s'applique à tous les niveaux, EVAR uniquement à la maternelle"
+    ],
+    answer: 0,
+    hint: "Le 'S' de l'EVARS signifie quelque chose de plus.",
+    expl: "<strong>EVAR</strong> (Éducation à la Vie Affective et Relationnelle) s'applique à <strong>l'école maternelle et élémentaire</strong>. <strong>EVARS</strong> (avec la Sexualité) s'applique au <strong>collège et lycée</strong>. La sexualité n'est donc pas abordée à l'école primaire dans ce cadre."
+  },
+  {
+    cycle: 'new', theme: 'Réforme 2025',
+    q: "Les nouveaux programmes Maths et Français du Cycle 1 sont entrés en vigueur à quelle rentrée ?",
+    options: ["Rentrée 2023", "Rentrée 2024", "Rentrée 2025", "Rentrée 2026"],
+    answer: 2,
+    hint: "C'est la même rentrée que pour les nouveaux programmes du Cycle 2 et d'une partie du Cycle 3.",
+    expl: "Les nouveaux programmes de Français et Maths pour les <strong>Cycles 1 et 2</strong> sont entrés en vigueur à la <strong>rentrée 2025</strong> (BO du 31 octobre 2024). Simultanément, le CM1 et la 6e ont de nouveaux programmes C3."
+  },
+  {
+    cycle: 'new', theme: 'Réforme 2025',
+    q: "Lequel de ces éléments fait partie des <em>4 fondamentaux</em> réaffirmés par la réforme 2025 ?",
+    options: ["Coder et programmer", "Lire, écrire, compter, respecter autrui", "Maîtriser le numérique", "Pratiquer une langue étrangère"],
+    answer: 1,
+    hint: "Ce sont les missions premières de l'école élémentaire, rappelées solennellement.",
+    expl: "Les <strong>4 fondamentaux</strong> réaffirmés sont : <strong>Lire, Écrire, Compter, Respecter autrui</strong>. Ils structurent les priorités de la réforme 2025 pour tous les cycles du primaire."
+  },
+  {
+    cycle: 'new', theme: 'Réforme 2025',
+    q: "Quel nouveau parcours éducatif, en plus de l'EVAR, est introduit par les programmes 2025 de maternelle ?",
+    options: ["L'éducation aux médias et à l'information (EMI)", "L'éducation au développement durable (EDD)", "L'éducation artistique et culturelle (EAC)", "L'éducation à la citoyenneté numérique (ECN)"],
+    answer: 1,
+    hint: "C'est un parcours lié à l'écologie et à la relation à l'environnement.",
+    expl: "En plus de l'EVAR, le programme 2025 de maternelle introduit un parcours d'<strong>Éducation au Développement Durable (EDD)</strong>. Il porte sur les gestes écologiques, le monde vivant et la relation à l'environnement dès la petite section."
+  },
+  {
+    cycle: 'new', theme: 'EMC',
+    q: "Le nouveau programme d'EMC est déployé en CM2 à partir de quelle rentrée ?",
+    options: ["Rentrée 2024", "Rentrée 2025", "Rentrée 2026", "Rentrée 2027"],
+    answer: 1,
+    hint: "CM1 a eu le sien en 2024, CM2 suit l'année d'après.",
+    expl: "Le nouveau programme d'EMC est déployé progressivement : <strong>CM1 à la rentrée 2024</strong>, <strong>CM2 à la rentrée 2025</strong>, 6e à la rentrée 2026. Le thème du CM2 est 'Vivre en République'."
+  },
+  {
+    cycle: 'new', theme: 'Réforme 2025',
+    q: "Quels programmes du Cycle 3 <em>ne sont PAS</em> concernés par la réforme 2025 ?",
+    options: [
+      "Français et Maths",
+      "EMC et EVAR",
+      "Sciences, HGE, EPS et Arts",
+      "La langue vivante étrangère"
+    ],
+    answer: 2,
+    hint: "Seules trois matières ont changé. Tout le reste reste sur l'ancien programme.",
+    expl: "<strong>Sciences, Histoire-Géographie, EPS et Arts</strong> restent sur les <strong>programmes de 2023</strong>. Seuls Français, Maths, EMC et EVAR/EVARS ont été rénovés par la réforme 2025. Cela concerne aussi la LVE 6e, rénovée en 2025."
+  },
+];
+
+let currentFilter = 'all';
+let filteredQuestions = [];
+let shuffledQueue = [];
+let currentIndex = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let hintUsed = false;
+let answered = false;
+
+// Category tracking for results
+let catStats = { c1: {q:0,c:0}, c2: {q:0,c:0}, c3: {q:0,c:0}, new: {q:0,c:0} };
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.className = 'filter-btn');
+  btn.classList.add('active-' + (f === 'all' ? 'all' : f));
+  restart(false);
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getFiltered() {
+  if (currentFilter === 'all') return ALL_QUESTIONS;
+  return ALL_QUESTIONS.filter(q => q.cycle === currentFilter);
+}
+
+function start() {
+  filteredQuestions = getFiltered();
+  shuffledQueue = shuffle(filteredQuestions);
+  currentIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  catStats = { c1: {q:0,c:0}, c2: {q:0,c:0}, c3: {q:0,c:0}, new: {q:0,c:0} };
+  updateScore();
+  document.getElementById('end-screen').classList.remove('show');
+  document.getElementById('quiz-area').style.display = '';
+  document.getElementById('progress-wrap').style.display = '';
+  loadQuestion();
+}
+
+function restart(resetFilter) {
+  if (resetFilter) {
+    currentFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(b => b.className = 'filter-btn');
+    document.querySelector('.filter-btn').classList.add('active-all');
+  }
+  start();
+}
+
+function loadQuestion() {
+  if (currentIndex >= shuffledQueue.length) { showEnd(); return; }
+  const q = shuffledQueue[currentIndex];
+  answered = false;
+  hintUsed = false;
+
+  // Badge
+  const badge = document.getElementById('q-badge');
+  const labels = { c1: '🟠 Cycle 1', c2: '🔵 Cycle 2', c3: '🟣 Cycle 3', new: '🌱 Nouveauté 2025' };
+  const badgeClass = { c1: 'badge-c1', c2: 'badge-c2', c3: 'badge-c3', new: 'badge-new' };
+  badge.textContent = labels[q.cycle];
+  badge.className = 'q-cycle-badge ' + badgeClass[q.cycle];
+  document.getElementById('q-theme').textContent = q.theme;
+  document.getElementById('q-number').textContent = `QUESTION ${currentIndex + 1} / ${shuffledQueue.length}`;
+  document.getElementById('q-text').innerHTML = q.q;
+
+  // Options
+  const opts = document.getElementById('options');
+  const letters = ['A', 'B', 'C', 'D'];
+  // Shuffle options while tracking correct
+  const indices = [0, 1, 2, 3];
+  const shuffledIdx = shuffle(indices);
+  const newCorrect = shuffledIdx.indexOf(q.answer);
+  opts.innerHTML = shuffledIdx.map((origIdx, i) => `
+    <button class="option-btn" onclick="selectAnswer(${i}, ${newCorrect})" id="opt-${i}">
+      <span class="option-letter">${letters[i]}</span>
+      <span>${q.options[origIdx]}</span>
+    </button>
+  `).join('');
+
+  // Store mapped answer
+  opts.dataset.correct = newCorrect;
+
+  // Reset UI
+  document.getElementById('hint-box').classList.remove('show');
+  document.getElementById('hint-box').textContent = '';
+  document.getElementById('feedback').classList.remove('show', 'correct-fb', 'wrong-fb');
+  document.getElementById('btn-hint').disabled = false;
+  document.getElementById('btn-hint').style.display = '';
+  const btnNext = document.getElementById('btn-next');
+  btnNext.style.display = 'none';
+
+  // Progress
+  const pct = (currentIndex / shuffledQueue.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${currentIndex} / ${shuffledQueue.length}`;
+
+  // Animate card
+  const card = document.getElementById('q-card');
+  card.style.animation = 'none';
+  requestAnimationFrame(() => { card.style.animation = ''; });
+}
+
+function selectAnswer(chosen, correct) {
+  if (answered) return;
+  answered = true;
+  const q = shuffledQueue[currentIndex];
+  const isCorrect = chosen === correct;
+
+  // Style buttons
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById('opt-' + i);
+    if (!btn) continue;
+    btn.disabled = true;
+    if (i === correct) btn.classList.add('correct');
+    else if (i === chosen && !isCorrect) btn.classList.add('wrong');
+    else if (i !== chosen && i !== correct) btn.classList.add('missed');
+  }
+
+  // Track stats
+  if (isCorrect) {
+    correctCount++;
+    if (catStats[q.cycle]) catStats[q.cycle].c++;
+  } else {
+    wrongCount++;
+  }
+  if (catStats[q.cycle]) catStats[q.cycle].q++;
+  updateScore();
+
+  // Feedback
+  const fb = document.getElementById('feedback');
+  fb.classList.add('show', isCorrect ? 'correct-fb' : 'wrong-fb');
+  document.getElementById('fb-emoji').textContent = isCorrect
+    ? ['🎉','✨','🔥','💪','👏'][Math.floor(Math.random()*5)]
+    : ['🤔','💡','📚','🧐','💭'][Math.floor(Math.random()*5)];
+  document.getElementById('fb-title').textContent = isCorrect ? 'Bonne réponse !' : 'Pas tout à fait…';
+  document.getElementById('fb-body').innerHTML = q.expl;
+
+  document.getElementById('btn-hint').style.display = 'none';
+  const btnNext = document.getElementById('btn-next');
+  btnNext.style.display = 'block';
+  btnNext.textContent = currentIndex === shuffledQueue.length - 1 ? 'Voir mes résultats 🏁' : 'Question suivante →';
+}
+
+function showHint() {
+  if (answered || hintUsed) return;
+  hintUsed = true;
+  const q = shuffledQueue[currentIndex];
+  const hintBox = document.getElementById('hint-box');
+  hintBox.textContent = q.hint;
+  hintBox.classList.add('show');
+  document.getElementById('btn-hint').disabled = true;
+}
+
+function nextQuestion() {
+  currentIndex++;
+  loadQuestion();
+}
+
+function updateScore() {
+  document.getElementById('sc-correct').textContent = correctCount;
+  document.getElementById('sc-wrong').textContent = wrongCount;
+  document.getElementById('sc-total').textContent = correctCount + wrongCount;
+}
+
+function showEnd() {
+  document.getElementById('quiz-area').style.display = 'none';
+  document.getElementById('progress-wrap').style.display = 'none';
+  const end = document.getElementById('end-screen');
+  end.classList.add('show');
+
+  const total = shuffledQueue.length;
+  const pct = Math.round((correctCount / total) * 100);
+
+  const emojis = pct >= 85 ? '🏆' : pct >= 65 ? '📚' : pct >= 45 ? '💪' : '🤓';
+  const titles = pct >= 85 ? 'Excellent !' : pct >= 65 ? 'Bien joué !' : pct >= 45 ? 'En bonne voie !' : 'À réviser !';
+  const msgs = {
+    high: 'Tu maîtrises très bien les programmes ! Tu es prêt(e) pour l\'épreuve.',
+    mid: 'De bonnes bases ! Revois les points où tu as hésité.',
+    low: 'Courage ! Concentre-toi sur les nouveautés 2025 et les structures des cycles.',
+    verylow: 'Pas de panique ! Reprends le guide visuel et retente le quiz.'
+  };
+  const msg = pct >= 85 ? msgs.high : pct >= 65 ? msgs.mid : pct >= 45 ? msgs.low : msgs.verylow;
+
+  document.getElementById('end-emoji').textContent = emojis;
+  document.getElementById('end-title').textContent = titles;
+  document.getElementById('end-score-num').textContent = correctCount;
+  document.getElementById('end-score-total').textContent = total;
+  document.getElementById('end-msg').textContent = msg + ` Score : ${pct}%`;
+
+  // Per-category bars
+  const catColors = { c1: '#FF6B35', c2: '#2196A6', c3: '#7C4DFF', new: '#22C55E' };
+  const catLabels = { c1: '🟠 Cycle 1', c2: '🔵 Cycle 2', c3: '🟣 Cycle 3', new: '🌱 Nouveautés 2025' };
+  let barsHTML = '';
+  for (const [cat, stat] of Object.entries(catStats)) {
+    if (stat.q === 0) continue;
+    const catPct = Math.round((stat.c / stat.q) * 100);
+    barsHTML += `
+      <div class="end-bar-item">
+        <div class="end-bar-label">
+          <span>${catLabels[cat]}</span>
+          <span>${stat.c} / ${stat.q} (${catPct}%)</span>
+        </div>
+        <div class="end-bar-track">
+          <div class="end-bar-fill" style="width:0%;background:${catColors[cat]}" data-w="${catPct}"></div>
+        </div>
+      </div>`;
+  }
+  document.getElementById('end-bars').innerHTML = barsHTML;
+  setTimeout(() => {
+    document.querySelectorAll('.end-bar-fill').forEach(el => {
+      el.style.width = el.dataset.w + '%';
+    });
+  }, 200);
+}
+
+// Boot
+start();
+</script>
+</body>
+</html>

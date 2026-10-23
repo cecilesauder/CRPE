@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRPE 2026 · Révisions Complètes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e12; --paper: #f7f5f0; --cream: #ede9e0;
+  --gold: #c9a84c; --gold-light: #f0e6c8; --gold-dark: #8a6b1e;
+  --red: #c0392b; --red-light: #fdf0ef; --red-dark: #8b1a1a;
+  --blue: #1a4e6e; --blue-light: #e8f2f8; --blue-mid: #2980b9;
+  --green: #1a6e3e; --green-light: #e8f8ef;
+  --purple: #4a1a6e; --purple-light: #f0e8f8;
+  --teal: #0d6e6e; --teal-light: #e8f8f8;
+  --muted: #7a7060; --border: #d4cfc4; --shadow: rgba(14,14,18,0.12);
+  --r: 10px; --r-lg: 18px;
+  --c1: #e8540a; --c2: #0e6fa8; --c3: #6b35c8;
+  --new: #1a7a40;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--paper); color: var(--ink);
+  min-height: 100vh; font-size: 14px; line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.app-header {
+  background: var(--ink);
+  padding: 0 28px;
+  display: flex; align-items: stretch; gap: 0;
+  border-bottom: 3px solid var(--gold);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo-block {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 14px 24px 14px 0; border-right: 1px solid rgba(255,255,255,0.1);
+  margin-right: 20px;
+}
+.logo-main {
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900;
+  color: var(--gold); letter-spacing: 1px; line-height: 1;
+}
+.logo-sub { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+.nav-tabs { display: flex; gap: 2px; align-items: center; flex: 1; overflow-x: auto; }
+.nav-tab {
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 20px 18px; border: none; background: transparent;
+  color: rgba(255,255,255,0.45); cursor: pointer; white-space: nowrap;
+  transition: all 0.2s; border-bottom: 3px solid transparent; margin-bottom: -3px;
+}
+.nav-tab:hover { color: rgba(255,255,255,0.75); }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.header-score {
+  display: flex; align-items: center; gap: 10px; padding: 12px 0 12px 20px;
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+.hscore { text-align: center; }
+.hscore-num { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; line-height: 1; }
+.hscore-num.g { color: #4ade80; }
+.hscore-num.r { color: #f87171; }
+.hscore-label { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── PANELS ── */
+.panel { display: none; }
+.panel.active { display: block; animation: fadeSlide 0.3s ease; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── SECTION LAYOUT ── */
+.section-wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700;
+  margin-bottom: 6px; line-height: 1.2;
+}
+.section-sub { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+
+/* ── CARDS ── */
+.card {
+  background: white; border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 20px 22px; position: relative; overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.card:hover { box-shadow: 0 6px 24px var(--shadow); transform: translateY(-2px); }
+.card-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+.card h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.card p, .card li { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.card ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.card li::before { content: '›  '; color: var(--gold); font-weight: 700; }
+.tag {
+  font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 100px; display: inline-block;
+}
+.tag-new { background: var(--green-light); color: var(--green); }
+.tag-hot { background: #fff3e0; color: #e65100; }
+.tag-warn { background: #fff8e1; color: #f57f17; }
+.tag-jury { background: var(--blue-light); color: var(--blue); }
+
+/* divider */
+.divider { display: flex; align-items: center; gap: 14px; margin: 28px 0 20px; }
+.divider span { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ══════════════════════════ QUIZ ══════════════════════════ */
+#panel-quiz .section-wrap { max-width: 720px; }
+
+.quiz-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.qf-btn {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border);
+  background: white; color: var(--muted); cursor: pointer; transition: all 0.15s;
+}
+.qf-btn:hover { border-color: var(--ink); color: var(--ink); }
+.qf-btn.on-all { background: var(--ink); color: white; border-color: var(--ink); }
+.qf-btn.on-c1 { background: var(--c1); color: white; border-color: var(--c1); }
+.qf-btn.on-c2 { background: var(--c2); color: white; border-color: var(--c2); }
+.qf-btn.on-c3 { background: var(--c3); color: white; border-color: var(--c3); }
+.qf-btn.on-arts { background: var(--teal); color: white; border-color: var(--teal); }
+.qf-btn.on-fr { background: #8b1a1a; color: white; border-color: #8b1a1a; }
+.qf-btn.on-ma { background: #1a4e6e; color: white; border-color: #1a4e6e; }
+.qf-btn.on-new { background: var(--new); color: white; border-color: var(--new); }
+.qf-btn.on-jury { background: var(--purple); color: white; border-color: var(--purple); }
+
+/* Progress */
+.q-progress { margin-bottom: 18px; }
+.q-prog-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; color: var(--muted); }
+.q-prog-bar { height: 5px; background: var(--cream); border-radius: 100px; overflow: hidden; }
+.q-prog-fill { height: 100%; background: linear-gradient(90deg, var(--c1), var(--c3)); border-radius: 100px; transition: width 0.4s; }
+
+/* Q card */
+.q-wrap { background: white; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); }
+.q-header { padding: 16px 22px; background: var(--cream); border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.q-badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+.q-body { padding: 26px 24px 20px; }
+.q-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.q-text { font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.45; margin-bottom: 22px; }
+.q-text em { color: var(--c1); font-style: normal; font-weight: 700; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  background: var(--paper); border: 1.5px solid var(--border); border-radius: var(--r);
+  padding: 12px 16px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px;
+  transition: all 0.15s; font-size: 13px; text-align: left; width: 100%;
+}
+.opt:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); }
+.opt-letter { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; width: 22px; height: 22px; border-radius: 50%; background: var(--cream); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.opt.correct { background: var(--green-light); border-color: var(--green); }
+.opt.correct .opt-letter { background: var(--green); color: white; border-color: var(--green); }
+.opt.wrong { background: var(--red-light); border-color: var(--red); }
+.opt.wrong .opt-letter { background: var(--red); color: white; border-color: var(--red); }
+.opt.missed { border-style: dashed; border-color: rgba(26,110,62,0.4); }
+
+.feedback-box { margin-top: 18px; padding: 16px 18px; border-radius: var(--r); border: 1px solid; display: none; }
+.feedback-box.show { display: block; animation: fadeSlide 0.2s ease; }
+.feedback-box.fb-ok { background: var(--green-light); border-color: rgba(26,110,62,0.3); }
+.feedback-box.fb-ko { background: var(--red-light); border-color: rgba(192,57,43,0.3); }
+.fb-title { font-weight: 600; font-size: 13px; margin-bottom: 5px; }
+.fb-ok .fb-title { color: var(--green); }
+.fb-ko .fb-title { color: var(--red); }
+.fb-body { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.fb-body strong { color: var(--ink); }
+
+.q-actions { margin-top: 18px; display: flex; gap: 10px; align-items: center; }
+.btn-next {
+  flex: 1; background: var(--ink); color: var(--gold); border: none;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+  padding: 13px 20px; border-radius: var(--r); cursor: pointer; transition: all 0.2s; display: none;
+}
+.btn-next.show { display: block; }
+.btn-next:hover { background: #1a1a24; box-shadow: 0 4px 16px rgba(14,14,18,0.25); }
+.btn-hint {
+  background: white; border: 1px solid var(--gold); color: var(--gold-dark);
+  font-size: 11px; font-weight: 600; padding: 8px 14px; border-radius: var(--r); cursor: pointer; transition: all 0.15s;
+}
+.btn-hint:disabled { opacity: 0.3; cursor: default; }
+.hint-text { margin-top: 10px; background: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 10px 14px; font-size: 12.5px; color: var(--gold-dark); display: none; }
+.hint-text.show { display: block; }
+.hint-text::before { content: '💡 '; }
+
+/* End screen */
+.end-screen { display: none; text-align: center; padding: 48px 24px; }
+.end-screen.show { display: block; }
+.end-big { font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; line-height: 1; color: var(--gold); }
+.end-label { font-size: 13px; color: var(--muted); margin: 8px 0 4px; }
+.end-h { font-family: 'Playfair Display', serif; font-size: 24px; }
+.end-msg { color: var(--muted); font-size: 14px; max-width: 400px; margin: 14px auto 28px; }
+.end-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 420px; margin: 0 auto 28px; text-align: left; }
+.end-cat { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.end-cat-label { font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+.end-cat-bar { height: 6px; background: var(--cream); border-radius: 100px; overflow: hidden; margin-bottom: 5px; }
+.end-cat-fill { height: 100%; border-radius: 100px; transition: width 0.8s ease; }
+.end-cat-num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); }
+.btn-restart { background: var(--ink); color: var(--gold); border: none; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 12px 24px; border-radius: var(--r); cursor: pointer; margin: 4px; transition: all 0.2s; }
+.btn-restart:hover { transform: translateY(-2px); }
+.btn-restart.outline { background: white; border: 1px solid var(--border); color: var(--muted); }
+
+/* ══════════════════════════ FLASHCARDS ══════════════════════════ */
+#panel-flash .section-wrap { max-width: 820px; }
+.flash-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+.flash-deck-select { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 600; padding: 8px 14px; border: 1px solid var(--border); border-radius: var(--r); background: white; cursor: pointer; }
+.flash-counter { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); }
+.flash-audio-btn { background: var(--ink); color: var(--gold); border: none; font-size: 11px; font-weight: 600; padding: 8px 14px; border-radius: var(--r); cursor: pointer; letter-spacing: 0.5px; }
+.flash-audio-btn.playing { background: var(--red); color: white; }
+.flash-card-area { perspective: 1200px; margin-bottom: 20px; cursor: pointer; }
+.flash-card-inner {
+  position: relative; width: 100%; height: 240px;
+  transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.flash-card-inner.flipped { transform: rotateY(180deg); }
+.flash-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: var(--r-lg);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 28px 32px; text-align: center;
+}
+.flash-front { background: var(--ink); color: white; border: none; }
+.flash-front .flash-q-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 14px; }
+.flash-front .flash-q-text { font-family: 'Playfair Display', serif; font-size: 19px; line-height: 1.4; color: white; }
+.flash-front .flash-hint { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 18px; }
+.flash-back { background: var(--gold-light); border: 2px solid var(--gold); transform: rotateY(180deg); }
+.flash-back .flash-a-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 12px; }
+.flash-back .flash-a-text { font-size: 15px; line-height: 1.5; color: var(--ink); font-weight: 500; }
+.flash-nav { display: flex; gap: 10px; justify-content: center; align-items: center; }
+.flash-nav-btn { background: white; border: 1px solid var(--border); color: var(--ink); font-size: 22px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.flash-nav-btn:hover { border-color: var(--gold); color: var(--gold-dark); }
+.flash-know-btns { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
+.fkb { font-size: 12px; font-weight: 600; padding: 8px 20px; border-radius: 100px; border: none; cursor: pointer; transition: all 0.15s; }
+.fkb-no { background: var(--red-light); color: var(--red); border: 1px solid rgba(192,57,43,0.2); }
+.fkb-yes { background: var(--green-light); color: var(--green); border: 1px solid rgba(26,110,62,0.2); }
+.fkb:hover { transform: scale(1.03); }
+.flash-progress-dots { display: flex; gap: 4px; justify-content: center; margin: 14px 0 0; flex-wrap: wrap; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cream); border: 1px solid var(--border); transition: all 0.2s; }
+.dot.seen { background: var(--gold); border-color: var(--gold-dark); }
+.dot.known { background: var(--green); border-color: var(--green); }
+.dot.unknown { background: var(--red); border-color: var(--red); }
+.dot.current { transform: scale(1.5); }
+.audio-bar { background: var(--ink); color: rgba(255,255,255,0.7); border-radius: var(--r); padding: 12px 18px; margin-bottom: 14px; display: none; align-items: center; gap: 12px; font-size: 12px; }
+.audio-bar.show { display: flex; }
+.audio-indicator { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.8); } }
+
+/* ══════════════════════════ SUJETS PROBABLES ══════════════════════════ */
+.sujet-card { background: white; border: 1px solid var(--border); border-radius: var(--r-lg); margin-bottom: 18px; overflow: hidden; }
+.sujet-header { padding: 16px 22px; background: var(--cream); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+.sujet-num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: var(--muted); }
+.sujet-matiere { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+.mat-fr { background: #fdf0ef; color: var(--red); }
+.mat-ma { background: var(--blue-light); color: var(--blue); }
+.mat-arts { background: var(--teal-light); color: var(--teal); }
+.mat-hge { background: var(--purple-light); color: var(--purple); }
+.mat-sc { background: var(--green-light); color: var(--green); }
+.sujet-proba { font-size: 11px; font-weight: 600; color: var(--gold-dark); background: var(--gold-light); padding: 3px 10px; border-radius: 100px; margin-left: auto; }
+.sujet-body { padding: 20px 22px; }
+.sujet-q { font-family: 'Playfair Display', serif; font-size: 16px; line-height: 1.5; margin-bottom: 14px; }
+.sujet-why { font-size: 12px; color: var(--muted); line-height: 1.6; border-left: 3px solid var(--gold); padding-left: 12px; }
+.sujet-why strong { color: var(--ink); }
+.toggle-corrige { background: none; border: 1px solid var(--border); font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: var(--r); cursor: pointer; color: var(--muted); margin-top: 14px; transition: all 0.15s; }
+.toggle-corrige:hover { border-color: var(--gold); color: var(--gold-dark); }
+.corrige-box { display: none; margin-top: 14px; background: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); border-radius: var(--r); padding: 14px 16px; font-size: 13px; line-height: 1.7; }
+.corrige-box.show { display: block; animation: fadeSlide 0.2s ease; }
+
+/* ══════════════════════════ JURY TIPS ══════════════════════════ */
+.jury-tip { background: white; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 18px 22px; margin-bottom: 14px; }
+.jury-tip-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.jury-tip-icon { font-size: 20px; }
+.jury-tip-title { font-weight: 600; font-size: 14px; }
+.jury-tip-body { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.jury-tip-body strong { color: var(--ink); }
+.jury-tip.danger { border-left: 4px solid var(--red); }
+.jury-tip.success { border-left: 4px solid var(--green); }
+.jury-tip.warn { border-left: 4px solid var(--gold); }
+
+/* ══════════════════════════ PROGRAMMES ══════════════════════════ */
+.prog-tab-row { display: flex; gap: 6px; margin-bottom: 22px; flex-wrap: wrap; }
+.prog-tab {
+  font-size: 12px; font-weight: 600; padding: 8px 16px; border-radius: 100px;
+  border: 1.5px solid var(--border); background: white; cursor: pointer; transition: all 0.15s;
+}
+.prog-tab:hover { border-color: var(--ink); }
+.prog-tab.act-c1 { background: var(--c1); border-color: var(--c1); color: white; }
+.prog-tab.act-c2 { background: var(--c2); border-color: var(--c2); color: white; }
+.prog-tab.act-c3 { background: var(--c3); border-color: var(--c3); color: white; }
+.prog-panel { display: none; }
+.prog-panel.active { display: block; animation: fadeSlide 0.2s ease; }
+
+/* ══════════════════════════ OEUVRES ══════════════════════════ */
+.oeuvre-card {
+  background: white; border: 1px solid var(--border); border-radius: var(--r-lg);
+  margin-bottom: 14px; overflow: hidden;
+}
+.oeuvre-header { padding: 14px 20px; background: var(--cream); border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.oeuvre-cat { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+.cat-ap { background: var(--teal-light); color: var(--teal); }
+.cat-mu { background: var(--purple-light); color: var(--purple); }
+.cat-hda { background: var(--gold-light); color: var(--gold-dark); }
+.oeuvre-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; }
+.oeuvre-artist { font-size: 12px; color: var(--muted); }
+.oeuvre-body { padding: 16px 20px; }
+.oeuvre-desc { font-size: 13px; color: var(--ink); line-height: 1.6; margin-bottom: 12px; }
+.oeuvre-cycles { display: flex; flex-direction: column; gap: 6px; }
+.cycle-link { font-size: 12px; padding: 6px 10px; border-radius: 7px; line-height: 1.5; }
+.cl-c1 { background: rgba(232,84,10,0.07); color: #8b3000; }
+.cl-c2 { background: rgba(14,111,168,0.07); color: #0a4060; }
+.cl-c3 { background: rgba(107,53,200,0.07); color: #3d0a8b; }
+.cycle-link strong { font-weight: 600; }
+
+/* ══════════════════════════ MINDMAP ══════════════════════════ */
+.mindmap-svg { width: 100%; max-width: 860px; margin: 0 auto; display: block; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .section-wrap { padding: 20px 14px 48px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .app-header { padding: 0 12px; }
+  .logo-main { font-size: 16px; }
+  .nav-tab { padding: 16px 12px; font-size: 10px; }
+  .q-text { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="logo-block">
+    <div class="logo-main">CRPE</div>
+    <div class="logo-sub">Session 2026</div>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('quiz',this)">📝 Quiz</button>
+    <button class="nav-tab" onclick="showPanel('flash',this)">🃏 Flashcards</button>
+    <button class="nav-tab" onclick="showPanel('sujets',this)">🔮 Sujets 2026</button>
+    <button class="nav-tab" onclick="showPanel('jury',this)">⚖️ Jury</button>
+    <button class="nav-tab" onclick="showPanel('prog',this)">📚 Programmes</button>
+    <button class="nav-tab" onclick="showPanel('oeuvres',this)">🎨 Œuvres</button>
+    <button class="nav-tab" onclick="showPanel('mindmap',this)">🗺️ Mindmap</button>
+  </nav>
+  <div class="header-score">
+    <div class="hscore"><div class="hscore-num g" id="hsc-ok">0</div><div class="hscore-label">✓</div></div>
+    <div class="hscore"><div class="hscore-num r" id="hsc-ko">0</div><div class="hscore-label">✗</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════════ QUIZ ═══════════════════ -->
+<div class="panel active" id="panel-quiz">
+<div class="section-wrap">
+  <div class="section-title">Quiz d'entraînement</div>
+  <div class="section-sub">60 questions · Toutes matières · Niveau CRPE bac+5</div>
+
+  <div class="quiz-filters">
+    <button class="qf-btn on-all" onclick="qFilter('all',this)">Tout</button>
+    <button class="qf-btn" onclick="qFilter('c1',this)">🟠 Cycle 1</button>
+    <button class="qf-btn" onclick="qFilter('c2',this)">🔵 Cycle 2</button>
+    <button class="qf-btn" onclick="qFilter('c3',this)">🟣 Cycle 3</button>
+    <button class="qf-btn" onclick="qFilter('arts',this)">🎨 Arts</button>
+    <button class="qf-btn" onclick="qFilter('fr',this)">📖 Français</button>
+    <button class="qf-btn" onclick="qFilter('ma',this)">🔢 Maths</button>
+    <button class="qf-btn" onclick="qFilter('new',this)">🌱 Nouveautés</button>
+    <button class="qf-btn" onclick="qFilter('jury',this)">⚖️ Méthode jury</button>
+  </div>
+
+  <div class="q-progress">
+    <div class="q-prog-row"><span id="q-prog-txt">Question 1</span><span id="q-prog-num">0/0</span></div>
+    <div class="q-prog-bar"><div class="q-prog-fill" id="q-prog-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="quiz-main">
+    <div class="q-wrap" id="q-wrap">
+      <div class="q-header" id="q-header"></div>
+      <div class="q-body">
+        <div class="q-num" id="q-num"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="hint-text" id="q-hint"></div>
+        <div class="options" id="q-opts"></div>
+        <div class="feedback-box" id="q-feedback"></div>
+        <div class="q-actions">
+          <button class="btn-hint" id="q-hint-btn" onclick="qHint()">💡 Indice</button>
+          <button class="btn-next" id="q-next" onclick="qNext()">Question suivante →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="end-screen" id="q-end">
+    <div class="end-big" id="e-pct"></div>
+    <div class="end-label">%</div>
+    <div class="end-h" id="e-title"></div>
+    <div class="end-msg" id="e-msg"></div>
+    <div class="end-cats" id="e-cats"></div>
+    <button class="btn-restart" onclick="qRestart(false)">🔄 Recommencer</button>
+    <button class="btn-restart outline" onclick="qRestart(true)">↺ Tout mélanger</button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════ FLASHCARDS ═══════════════════ -->
+<div class="panel" id="panel-flash">
+<div class="section-wrap">
+  <div class="section-title">Flashcards</div>
+  <div class="section-sub">Clic sur la carte pour révéler la réponse · Mode audio pour réviser en dormant</div>
+
+  <div class="flash-controls">
+    <select class="flash-deck-select" id="deck-select" onchange="loadDeck()">
+      <option value="prog">📚 Programmes (cycles 1-2-3)</option>
+      <option value="arts">🎨 Œuvres artistiques</option>
+      <option value="fr">📖 Français (didactique)</option>
+      <option value="ma">🔢 Maths (didactique)</option>
+      <option value="hge">🗺️ Histoire-Géo-EMC</option>
+      <option value="nouveau">🌱 Nouveautés 2025</option>
+    </select>
+    <span class="flash-counter" id="flash-counter">1 / 20</span>
+    <button class="flash-audio-btn" id="audio-btn" onclick="toggleAudio()">🔊 Mode audio sommeil</button>
+    <button class="flash-audio-btn" onclick="shuffleDeck()" style="background:var(--gold-dark);color:white">🔀 Mélanger</button>
+  </div>
+
+  <div class="audio-bar" id="audio-bar">
+    <div class="audio-indicator"></div>
+    <span id="audio-status">Lecture en cours...</span>
+    <button onclick="toggleAudio()" style="margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.2);color:white;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px">Arrêter</button>
+  </div>
+
+  <div class="flash-card-area" onclick="flipCard()">
+    <div class="flash-card-inner" id="flash-inner">
+      <div class="flash-face flash-front">
+        <div class="flash-q-label" id="f-label"></div>
+        <div class="flash-q-text" id="f-q"></div>
+        <div class="flash-hint">Cliquez pour révéler la réponse</div>
+      </div>
+      <div class="flash-face flash-back">
+        <div class="flash-a-label">Réponse</div>
+        <div class="flash-a-text" id="f-a"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flash-know-btns">
+    <button class="fkb fkb-no" onclick="markCard(false)">❌ À revoir</button>
+    <div class="flash-nav">
+      <button class="flash-nav-btn" onclick="prevCard()">‹</button>
+      <button class="flash-nav-btn" onclick="nextCard()">›</button>
+    </div>
+    <button class="fkb fkb-yes" onclick="markCard(true)">✅ Je sais</button>
+  </div>
+
+  <div class="flash-progress-dots" id="flash-dots"></div>
+</div>
+</div>
+
+<!-- ═══════════════════ SUJETS PROBABLES ═══════════════════ -->
+<div class="panel" id="panel-sujets">
+<div class="section-wrap">
+  <div class="section-title">Sujets probables 2026</div>
+  <div class="section-sub">Générés à partir des annales 2022–2025, rapports de jury et actualité pédagogique</div>
+
+  <div class="card" style="border-left: 4px solid var(--gold); margin-bottom: 24px;">
+    <div class="card-accent" style="background:var(--gold)"></div>
+    <h3>📊 Analyse des tendances (sessions 2022–2025)</h3>
+    <p>Français 2025 : <strong>l'art et le réel</strong> (Yourcenar). Français 2024 : <strong>les pouvoirs de l'écriture</strong>. Maths 2025 : grandeurs, probabilités, algorithmique, voyages scolaires. Arts 2025 : univers sonores + analyse d'œuvre plastique. HGE 2025 : histoire + EMC. Sciences : vivant + technologie. Tendances 2026 : <strong>numérique, égalité, lien entre disciplines.</strong></p>
+  </div>
+
+  <div id="sujets-list"></div>
+</div>
+</div>
+
+<!-- ═══════════════════ JURY TIPS ═══════════════════ -->
+<div class="panel" id="panel-jury">
+<div class="section-wrap">
+  <div class="section-title">Leçons des rapports de jury</div>
+  <div class="section-sub">Synthèse des rapports 2022–2025 (Paris, Lyon, Nantes, Toulouse) · Ce que les correcteurs valorisent et sanctionnent</div>
+  <div id="jury-tips-list"></div>
+</div>
+</div>
+
+<!-- ═══════════════════ PROGRAMMES ═══════════════════ -->
+<div class="panel" id="panel-prog">
+<div class="section-wrap">
+  <div class="section-title">Programmes détaillés</div>
+  <div class="section-sub">Cycle 1 · Cycle 2 · Cycle 3 · Réforme 2025 intégrée</div>
+  <div class="prog-tab-row">
+    <button class="prog-tab act-c1" onclick="showProgPanel('p-c1',this,'c1')">🟠 Cycle 1 – Maternelle</button>
+    <button class="prog-tab" onclick="showProgPanel('p-c2',this,'c2')">🔵 Cycle 2 – CP/CE1/CE2</button>
+    <button class="prog-tab" onclick="showProgPanel('p-c3',this,'c3')">🟣 Cycle 3 – CM1/CM2/6e</button>
+  </div>
+  <div id="p-c1" class="prog-panel active"></div>
+  <div id="p-c2" class="prog-panel"></div>
+  <div id="p-c3" class="prog-panel"></div>
+</div>
+</div>
+
+<!-- ═══════════════════ OEUVRES ═══════════════════ -->
+<div class="panel" id="panel-oeuvres">
+<div class="section-wrap">
+  <div class="section-title">Corpus d'œuvres 2025–2026</div>
+  <div class="section-sub">Arts plastiques · Éducation musicale · Histoire des arts · Liens pédagogiques cycles 1–3</div>
+  <div id="oeuvres-list"></div>
+</div>
+</div>
+
+<!-- ═══════════════════ MINDMAP ═══════════════════ -->
+<div class="panel" id="panel-mindmap">
+<div class="section-wrap" style="max-width:900px">
+  <div class="section-title">Mindmap CRPE</div>
+  <div class="section-sub">Vue d'ensemble des programmes et épreuves · Cliquez sur un nœud pour zoomer</div>
+  <svg class="mindmap-svg" viewBox="0 0 860 600" id="mindmap-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════
+
+const QUESTIONS = [
+  // CYCLE 1
+  {cat:'c1',sub:'Cycle 1',q:"Combien de <em>domaines d'apprentissage</em> au Cycle 1 ?",opts:["4","5","6","7"],ans:2,hint:"Pense : Langage, physique, artistique, maths, explorer le monde, structurer la pensée.",expl:"<strong>6 domaines</strong> : langage, activité physique, arts, maths, explorer le monde, structurer la pensée."},
+  {cat:'c1',sub:'C1 – Nouveautés',q:"Quelle compétence est <em>explicitement ajoutée</em> au domaine Langage du C1 en 2025 ?",opts:["Lire des albums","Articuler distinctement","Écrire son prénom","Compter jusqu'à 30"],ans:1,hint:"C'est lié à la clarté de la parole orale.",expl:"<strong>Articuler distinctement</strong> est une nouveauté 2025. Elle s'ajoute aux activités phonologiques et à la conscience des sons."},
+  {cat:'c1',sub:'C1 – Maths',q:"Quelle <em>nouveauté mathématique</em> des programmes 2025 concerne le cycle 1 ?",opts:["Les fractions","La résolution de problèmes comme sous-domaine autonome","La trigonométrie","Les équations"],ans:1,hint:"Un domaine jusqu'alors intégré devient indépendant.",expl:"La <strong>résolution de problèmes</strong> devient un sous-domaine à part entière. La contenance disparaît. 'Suites organisées' → 'motifs organisés'."},
+  {cat:'c1',sub:'C1 – Organisation',q:"Quel outil de suivi est prévu au cycle 1 ?",opts:["Bulletin trimestriel","Livret A/B/C","Carnet de suivi + portfolio","Évaluation nationale"],ans:2,hint:"Ce n'est pas un bulletin classique.",expl:"Le <strong>carnet de suivi des apprentissages</strong> et le <strong>portfolio</strong> (traces) sont les outils de cycle 1. Pas de notes, évaluation par observation."},
+  // CYCLE 2
+  {cat:'c2',sub:'Cycle 2',q:"Quel est le volume horaire hebdomadaire du <em>Français</em> au Cycle 2 ?",opts:["~5h","~7h","~10h","~14h"],ans:2,hint:"C'est la matière principale du cycle des apprentissages fondamentaux.",expl:"Le français occupe <strong>~10h/semaine</strong> sur 24h au C2. Il comprend : langage oral, lecture, écriture, étude de la langue."},
+  {cat:'c2',sub:'C2 – Lecture',q:"Quelle pratique est <em>quotidienne et obligatoire</em> en lecture au Cycle 2 (2025) ?",opts:["Lecture silencieuse","Lecture à voix haute","Dictée","Exposé oral"],ans:1,hint:"Cela concerne la fluidité et la mise en voix.",expl:"La <strong>lecture à voix haute quotidienne</strong> est imposée par les programmes 2025. Elle développe fluidité, articulation et compréhension."},
+  {cat:'c2',sub:'C2 – Maths',q:"Jusqu'à quel nombre va la numération en <em>CE1</em> ?",opts:["100","1 000","10 000","100 000"],ans:1,hint:"CP→100 / CE1→? / CE2→10 000",expl:"CE1 : jusqu'à <strong>1 000</strong>. Tables de × 2, 5, 10. Division introductive. Fractions simples dès CE2."},
+  {cat:'c2',sub:'C2 – LVE',q:"Quel niveau CECRL est attendu en fin de <em>CE2</em> (Cycle 2) ?",opts:["Pré-A1","A1","A2","B1"],ans:1,hint:"C'est le niveau débutant. Fin de cycle 3 = A2.",expl:"Fin C2 = <strong>A1</strong> du CECRL. Fin CM2 = A2. Fin 6e = A2+. Fin 3e = B1."},
+  {cat:'c2',sub:'EVAR',q:"L'EVAR au Cycle 2 aborde principalement…",opts:["La sexualité biologique","Le consentement simple et le respect du corps","La politique","Les droits de l'homme"],ans:1,hint:"Adapté à 6-9 ans. La sexualité = collège (EVARS).",expl:"C2 : <strong>consentement simple</strong>, respect du corps, égalité F/G, relations amicales, première approche numérique. La sexualité relève de l'EVARS (collège)."},
+  // CYCLE 3
+  {cat:'c3',sub:'Cycle 3',q:"Quelles classes composent le <em>Cycle 3</em> ?",opts:["CE2, CM1, CM2","CM1, CM2, 6e","CM2, 6e, 5e","CM1, CM2, 5e"],ans:1,hint:"Seul cycle qui enjambe deux degrés.",expl:"<strong>CM1, CM2, 6e</strong> = Cycle 3 (consolidation). Seul cycle articlant primaire et collège."},
+  {cat:'c3',sub:'C3 – Calendrier',q:"Les nouveaux programmes C3 Français/Maths entrent pour le <em>CM2</em> à quelle rentrée ?",opts:["2024","2025","2026","2027"],ans:2,hint:"CM1+6e : 2025. CM2 l'année d'après.",expl:"CM1+6e depuis <strong>sept. 2025</strong>. CM2 depuis <strong>sept. 2026</strong>. Point piège clé du CRPE !"},
+  {cat:'c3',sub:'C3 – Maths',q:"Quelle notion mathématique est <em>propre à la 6e</em> en Cycle 3 ?",opts:["Fractions","Symétrie axiale","Nombres relatifs","Proportionnalité"],ans:2,hint:"Introduction des nombres négatifs.",expl:"Les <strong>nombres relatifs</strong> (positifs/négatifs) sont introduits en 6e. La proportionnalité et les % arrivent en CM2/6e."},
+  {cat:'c3',sub:'C3 – Sciences',q:"Les programmes de Sciences du Cycle 3 ont-ils été rénovés en 2025 ?",opts:["Oui, rentrée 2025","Oui, rentrée 2026","Non, restent sur 2023","Oui, partiellement"],ans:2,hint:"Seuls Français, Maths et EMC ont changé.",expl:"<strong>Non</strong>. Sciences, HGE, EPS et Arts restent sur les <strong>programmes 2023</strong>. Seuls Français, Maths, EMC et EVAR ont été rénovés."},
+  {cat:'c3',sub:'C3 – EPS',q:"Objectif de natation en fin de <em>Cycle 3</em> ?",opts:["25m","50m","100m","Traversée d'un bassin"],ans:1,hint:"Cycle 2 = nageur. Cycle 3 = plus long.",expl:"Fin C3 : <strong>50 mètres</strong> en autonomie. Cycle 2 : atteindre le statut de nageur (traversée)."},
+  // ARTS
+  {cat:'arts',sub:'Corpus – Arts plastiques',q:"Yayoi Kusama, <em>Dancing Pumpkin</em> (2020) : quelle technique ?",opts:["Huile sur toile","Aquarelle","Bronze et peinture uréthane","Photomontage"],ans:2,hint:"C'est une sculpture monumentale.",expl:"<strong>Bronze et peinture uréthane</strong>, 490 × 777 × 744 cm. Installation au New York Botanical Garden. Thème obsessionnel : les pois."},
+  {cat:'arts',sub:'Corpus – Arts plastiques',q:"Pierre Alechinsky, <em>Sorti de la poche</em> (1992) : sur quel support insolite est peint cette œuvre ?",opts:["Carton recyclé","Vergé du XVIIe siècle (avec écritures et essais de plume)","Mur d'un musée","Tissu de soie"],ans:1,hint:"Le support porte déjà des traces d'une autre époque.",expl:"Encre de Chine + aquarelle sur <strong>vergé du XVIIe siècle</strong> déjà porteur d'écriture. Notion de palimpseste. Petit format : 19,5 × 13 cm."},
+  {cat:'arts',sub:'Corpus – HDA',q:"La <em>Tête de femme</em> de Picasso (1957) est étudiée en HDA sous quel axe ?",opts:["Indicateurs d'usages ou de sens","Caractéristiques d'un langage formel","Œuvres et lieux","Formes et symboles"],ans:1,hint:"Cet axe s'intéresse au style propre à un artiste.",expl:"Axe HDA : <strong>caractéristiques d'un langage formel</strong>. Le cubisme de Picasso : fragmentation, polyvision, géométrisation. Bois peint, 78,5 cm de haut."},
+  {cat:'arts',sub:'Corpus – Arts plastiques',q:"Nicolas de Staël, <em>Parc des Princes</em> (1952) : quelle est la technique caractéristique ?",opts:["Pastel sec","Empâtement (huile épaisse)","Aquarelle diluée","Collage"],ans:1,hint:"La matière est dense, presque en relief.",expl:"<strong>Empâtement</strong> : couches épaisses de peinture à l'huile. Représentation abstraite d'un match de football nocturne. 250 × 200 cm."},
+  {cat:'arts',sub:'Corpus – Éducation musicale',q:"Hindi Zahra, <em>Beautiful Tango</em> : pourquoi est-elle au corpus HDA ?",opts:["Caractéristiques d'un langage formel","Indicateurs d'usages ou de sens","Œuvres et lieux","Formes sonores"],ans:1,hint:"L'axe HDA concerne le sens social et culturel de l'œuvre.",expl:"Axe HDA : <strong>indicateurs d'usages ou de sens</strong>. Le tango est une danse sociale à valeur culturelle forte (patrimoine UNESCO). Hindi Zahra = métissage musical."},
+  {cat:'arts',sub:'Corpus – Éducation musicale',q:"Vivaldi, <em>L'Été 3e mouvement</em> (1725) : quel phénomène naturel décrit-il ?",opts:["Une averse de printemps","Un lever de soleil","Une tempête/orage estival","Un coucher de soleil sur mer"],ans:2,hint:"C'est le 3e mouvement, le plus intense (Presto).",expl:"<strong>Tempête estivale (orage)</strong>. Traits rapides du violon solo, tutti frénétique = la grêle et le vent. Première forme de <strong>musique à programme</strong>."},
+  {cat:'arts',sub:'Corpus – HDA',q:"La <em>Grande Vague de Kanagawa</em> de Hokusai (v.1829) appartient à quelle série ?",opts:["Cent vues du mont Fuji","Trente-six vues du mont Fuji","Vues d'Edo","Les Quatre Saisons"],ans:1,hint:"Le mont Fuji est en arrière-plan de la vague.",expl:"Série : <strong>Trente-six vues du mont Fuji</strong>. Estampe xylographique. Bleu de Prusse. Influence déterminante sur l'impressionnisme européen (japonisme)."},
+  {cat:'arts',sub:'Corpus – Éducation musicale',q:"Bizet, <em>Marche (trompette et tambour)</em> est extrait de…",opts:["Carmen","Les pêcheurs de perles","La Petite suite d'orchestre, Op.22","Jeux d'enfants pour piano"],ans:2,hint:"Cette pièce a d'abord été écrite pour piano à 4 mains.",expl:"Extrait de la <strong>Petite suite d'orchestre Op.22</strong>, orchestration de <em>Jeux d'enfants</em> pour piano à 4 mains. Illustre le timbre (trompette) et la marche rythmique."},
+  // FRANÇAIS
+  {cat:'fr',sub:'Didactique Français',q:"En cycle 2, la <em>conscience phonologique</em> précède logiquement…",opts:["La grammaire de phrase","Le décodage phonème-graphème et la lecture","La production d'écrits longs","L'étude des registres de langue"],ans:1,hint:"On part de l'oral pour aller vers l'écrit.",expl:"La <strong>conscience phonologique</strong> (discrimination des sons) précède le <strong>décodage</strong> (association phonème-graphème). C'est la base de l'apprentissage de la lecture au CP."},
+  {cat:'fr',sub:'Grammaire / Épreuve',q:"Quelle confusion est <em>très fréquente</em> selon les rapports de jury CRPE ?",opts:["Nom commun / nom propre","Terminaison et suffixe","Virgule et point-virgule","COD et sujet"],ans:1,hint:"Les rapports de jury 2022-2025 la citent régulièrement.",expl:"Confusion <strong>terminaison / suffixe</strong> : la terminaison est la partie finale variable (conjugaison, pluriel) ; le suffixe est un morphème lexical (coureur, boulangerie). Erreur fréquemment signalée."},
+  {cat:'fr',sub:'Français / Épreuve',q:"Le sujet de français 2025 portait sur quel texte et quelle thématique ?",opts:["Hugo, Les Misérables / la justice","Yourcenar, Comment Wang-Fô fut sauvé / l'art et le réel","Zola, Germinal / le travail","Flaubert, Madame Bovary / l'amour"],ans:1,hint:"C'est une autrice du XXe siècle, Nouvelles orientales.",expl:"Sujet 2025 : <strong>Yourcenar, « Comment Wang-Fô fut sauvé »</strong> (Nouvelles orientales, 1963). Thème : <strong>l'art et le réel</strong>. Sujet 2024 : les pouvoirs de l'écriture."},
+  {cat:'fr',sub:'Étude de la langue',q:"Quelle est la <em>différence</em> entre mode et temps en conjugaison ?",opts:["Aucune, c'est synonyme","Le mode exprime l'attitude du locuteur (indicatif, subjonctif…), le temps situe l'action","Le temps = oral, le mode = écrit","Le mode concerne le verbe, le temps concerne le nom"],ans:1,hint:"Le subjonctif est un mode, pas un temps.",expl:"Le <strong>mode</strong> exprime l'attitude du locuteur envers l'action (indicatif=réel, subjonctif=doute, impératif=ordre). Le <strong>temps</strong> situe chronologiquement l'action (présent, passé, futur)."},
+  // MATHS
+  {cat:'ma',sub:'Didactique Maths',q:"Le <em>modèle en barre</em> (bar model) est particulièrement adapté pour…",opts:["Enseigner les fractions au CM2","Résoudre des problèmes additifs et multiplicatifs au cycle 2-3","Expliquer les probabilités","Construire des figures géométriques"],ans:1,hint:"Les rapports de jury 2025 le mentionnent explicitement.",expl:"Le <strong>modèle en barre</strong> (bar model, d'inspiration singapourienne) est recommandé pour visualiser et résoudre des <strong>problèmes additifs et multiplicatifs</strong>. Mentionné favorablement dans plusieurs rapports de jury 2025."},
+  {cat:'ma',sub:'Maths / Épreuve',q:"Quelle lacune mathématique est la plus souvent citée dans les rapports de jury 2025 ?",opts:["Les tables de multiplication","La géométrie","Valeur exacte vs valeur approchée ; notations incorrectes","La numération décimale"],ans:2,hint:"C'est souvent une question de rigueur et de précision.",expl:"Rapports 2025 : lacunes sur <strong>valeur exacte vs approchée</strong>, utilisation incorrecte du signe =, arrondis mal gérés, manque d'unités. Aussi : mise en équation difficile."},
+  {cat:'ma',sub:'Maths – Cycle 4',q:"Le programme de Maths du CRPE inclut 'Nombres et calculs' jusqu'à quel niveau ?",opts:["CM2","Cycle 4 (collège)","Seconde générale","Terminale"],ans:2,hint:"Le programme du CRPE va au-delà du primaire pour que l'enseignant ait du recul.",expl:"Le programme CRPE Maths inclut : tout le <strong>Cycle 4</strong> + la partie « Nombres et calculs » de la <strong>Seconde générale</strong> (BO 2019). Cela inclut les statistiques, la programmation, les fonctions simples."},
+  {cat:'ma',sub:'Algorithmique',q:"Quel langage de programmation visuel est explicitement cité pour le CRPE ?",opts:["Python","JavaScript","Scratch","R"],ans:2,hint:"C'est un outil accessible dès le cycle 3.",expl:"<strong>Scratch</strong> est cité dans les rapports de jury (Paris 2025 notamment). Les questions algorithmiques en Scratch sont mieux réussies selon les jurys. Outil incontournable du cycle 3."},
+  // NOUVEAUTÉS
+  {cat:'new',sub:'Réforme 2025',q:"Quelle différence entre <em>EVAR</em> (primaire) et <em>EVARS</em> (collège) ?",opts:["EVAR = facultatif, EVARS = obligatoire","EVAR = élémentaire sans sexualité, EVARS = secondaire avec sexualité","EVAR = HGE, EVARS = arts","Aucune différence"],ans:1,hint:"Le 'S' signifie quelque chose de plus.",expl:"<strong>EVAR</strong> = Éducation à la Vie Affective et Relationnelle → <strong>primaire</strong>. <strong>EVARS</strong> (+ Sexualité) → <strong>collège et lycée</strong>. Les deux sont obligatoires (≥3 séances/an)."},
+  {cat:'new',sub:'Réforme 2025',q:"À quelles rentrées les nouveaux programmes C1 et C2 entrent-ils en vigueur ?",opts:["2024","2025","2026","2027"],ans:1,hint:"C'est la même rentrée pour C1, C2, et CM1+6e.",expl:"<strong>Rentrée 2025</strong> pour C1 (maternelle), C2 (CP/CE1/CE2), et C3 partiellement (CM1 + 6e). CM2 → <strong>2026</strong>."},
+  {cat:'new',sub:'Réforme 2025',q:"Quels sont les <em>4 fondamentaux</em> réaffirmés par la réforme ?",opts:["Lire, compter, nager, coder","Lire, écrire, compter, respecter autrui","Écrire, calculer, dessiner, chanter","Lire, écrire, nager, parler"],ans:1,hint:"Ce sont les missions premières de l'école primaire.",expl:"<strong>Lire · Écrire · Compter · Respecter autrui</strong> : les 4 fondamentaux structurant la réforme 2025. Ils guident la priorité horaire et les objectifs de chaque cycle."},
+  // JURY MÉTHODE
+  {cat:'jury',sub:'Méthode – Jury',q:"Selon les rapports de jury, quelle est la première cause d'échec à l'épreuve de français ?",opts:["Manque de connaissances littéraires","Réponse hors sujet / mauvaise lecture de la consigne","Orthographe défaillante","Manque de temps"],ans:1,hint:"Le jury insiste : lire la consigne, c'est déjà répondre à la moitié.",expl:"<strong>Réponse hors sujet</strong> ou partielle par défaut de lecture fine de l'énoncé : c'est la première cause d'échec signalée (rapports Paris, Lyon, Nantes 2025). Cela révèle un défaut de méthode, pas de connaissances."},
+  {cat:'jury',sub:'Méthode – Jury',q:"Pour l'épreuve d'arts, qu'est-ce que le jury valorise en priorité ?",opts:["Le nombre d'œuvres citées","La culture artistique personnelle + la compréhension didactique","La longueur de la copie","La maîtrise du vocabulaire musical"],ans:1,hint:"Le jury veut voir un enseignant, pas un encyclopédiste.",expl:"Le jury valorise : <strong>culture artistique personnelle (hors corpus)</strong> + <strong>compréhension didactique approfondie</strong> + sensibilité. Il sanctionne les copies se restreignant au corpus sans apport extérieur."},
+  {cat:'jury',sub:'Méthode – Jury',q:"Pour l'épreuve de maths, que déplore fréquemment le jury ?",opts:["Les erreurs de vocabulaire géographique","L'absence d'unités et les arrondis mal gérés","Le manque d'exemples littéraires","Les fautes d'orthographe"],ans:1,hint:"C'est lié à la rigueur du raisonnement mathématique.",expl:"<strong>Absence d'unités, mauvaise utilisation du signe =, arrondis prématurés</strong> : les 3 erreurs phares signalées dans presque tous les rapports de jury 2023–2025."},
+  {cat:'jury',sub:'Méthode – Arts',q:"Selon le jury, quel défaut récurrent affecte les copies en épreuve d'application Arts ?",opts:["Trop d'exemples extérieurs au corpus","Connaissances restreintes au corpus + peu ou pas d'apports culturels externes","Trop de vocabulaire technique","Méconnaissance des programmes"],ans:1,hint:"Le jury encourage l'ouverture culturelle personnelle.",expl:"<strong>Connaissances limitées au seul corpus</strong> avec des apports culturels rares ou hors sujet. Le jury encourage « une approche sensible, critique et structurée ». Toujours citer des œuvres hors corpus que vous connaissez bien."},
+  // HGE / SCIENCES
+  {cat:'c3',sub:'HGE',q:"Quelle période historique est au programme en <em>CM1-CM2</em> ?",opts:["Préhistoire → Antiquité","Antiquité → Révolution française","Moyen Âge → nos jours","XIXe siècle → nos jours"],ans:1,hint:"CM1-CM2 commence aux Gaulois et finit avant Napoléon.",expl:"CM1-CM2 : <strong>Antiquité → Révolution française</strong>. La 6e reprend l'Antiquité jusqu'aux Temps Modernes selon la progression collège."},
+  {cat:'c3',sub:'Sciences',q:"Dans 'Explorer le monde' au <em>Cycle 1</em>, que désigne le 'monde du vivant' ?",opts:["Les pays et les continents","Les plantes, animaux et corps humain","Les saisons et le temps","Les objets techniques"],ans:1,hint:"C'est la partie biologie du domaine.",expl:"Le <strong>monde du vivant</strong> au C1 = plantes, animaux, corps humain, besoins vitaux. Il prépare la démarche scientifique et les sciences naturelles du cycle 2."},
+  {cat:'fr',sub:'Grammaire avancée',q:"Quelle est la <em>différence</em> entre un COD et un attribut du sujet ?",opts:["Aucune, synonymes","COD désigne un objet distinct du sujet ; l'attribut qualifie/identifie le sujet via un verbe d'état","COD = verbe actif, attribut = passif","COD suit toujours un verbe transitif indirect"],ans:1,hint:"'Paul mange une pomme' vs 'Paul est médecin'.",expl:"<strong>COD</strong> (complément d'objet direct) désigne quelque chose de distinct du sujet (Paul mange UNE POMME). L'<strong>attribut du sujet</strong> qualifie ou identifie le sujet via un verbe d'état (être, paraître, sembler) : Paul EST MÉDECIN."},
+  {cat:'ma',sub:'Maths – Fraction',q:"Comment expliquer à un élève de CE2 que ½ > ⅓ ?",opts:["½ > ⅓ car 2 > 3","En partageant le même tout en 2 parts puis en 3 parts : plus on partage, plus les parts sont petites","⅓ > ½ car 3 > 2","Cela ne s'enseigne pas en CE2"],ans:1,hint:"La didactique des fractions repose sur la manipulation et la visualisation.",expl:"Didactique : <strong>partager le même tout</strong> (gâteau, bande) en 2 puis en 3 parts égales. Plus le dénominateur est grand, plus les parts sont petites. ½ correspond à une plus grande part que ⅓."},
+  {cat:'arts',sub:'Corpus – HDA',q:"Moussorgski, <em>Tableaux d'une exposition – Promenade</em> : pourquoi l'étudier en HDA au C3 ?",opts:["Car c'est une danse traditionnelle russe","Car cette œuvre illustre le dialogue entre arts (musique/peinture) et la transformation d'une œuvre","Car c'est la plus longue pièce pour piano","Pour le timbre de la trompette"],ans:1,hint:"L'œuvre est née d'une exposition de peintures.",expl:"HDA C3 : <strong>dialogue entre arts</strong> (musique inspirée par peinture), <strong>transformation d'une œuvre</strong> (piano→orchestre par Ravel 1922). Notion de musique à programme + hommage amical."},
+  {cat:'arts',sub:'Arts – Didactique',q:"Dans quelle <em>approche pédagogique</em> s'inscrit l'éducation musicale au cycle 1 ?",opts:["Apprentissage formel de la notation musicale","Pratique sensible : chanter, écouter, explorer les sons, jouer avec la voix","Analyse musicologique des œuvres","Maîtrise d'un instrument dès la PS"],ans:1,hint:"Cycle 1 = approche ludique et sensorielle.",expl:"Au Cycle 1 ('Univers sonores'), la démarche est <strong>pratique et sensorielle</strong> : écouter, produire des sons, jouer avec la voix, chanter. Pas de notation musicale ni d'analyse formelle."},
+  {cat:'new',sub:'EMC',q:"Le nouveau programme d'<em>EMC pour le CM1</em> est en vigueur depuis quelle rentrée ?",opts:["2023","2024","2025","2026"],ans:1,hint:"CM1 avant CM2 qui arrive l'année suivante.",expl:"EMC CM1 : <strong>rentrée 2024</strong>. EMC CM2 : rentrée <strong>2025</strong>. EMC 6e : rentrée <strong>2026</strong>. Thème CM2 2025 : 'Vivre en République'."},
+  {cat:'c2',sub:'Français – Grammaire',q:"Quelles classes grammaticales sont prioritaires au Cycle 2 ?",opts:["Proposition subordonnée, apposition, complément circonstanciel","Nom, verbe, adjectif, déterminant et pronoms simples","Conjonction de subordination, adverbe","Participe présent, gérondif"],ans:1,hint:"Ce sont les notions de base, avant la grammaire complexe.",expl:"Cycle 2 : <strong>nom, verbe, adjectif, déterminant, pronoms personnels simples</strong>. La proposition subordonnée et les fonctions complexes arrivent au Cycle 3."},
+  {cat:'fr',sub:'Orthographe',q:"Que signifie 'orthographe lexicale' vs 'orthographe grammaticale' ?",opts:["Lexicale = les noms, grammaticale = les verbes","Lexicale = orthographe propre aux mots (ex: charrette, femme), grammaticale = marques de genre, nombre, accord","Lexicale = cycle 2, grammaticale = cycle 3","Aucune différence"],ans:1,hint:"L'une concerne le mot lui-même, l'autre ses relations dans la phrase.",expl:"<strong>Orthographe lexicale</strong> = graphie propre à un mot (ex : chariot, nénuphar). <strong>Orthographe grammaticale</strong> = marques d'accord (genre, nombre, conjugaison). Distinction fondamentale pour enseigner l'orthographe."},
+  {cat:'ma',sub:'Probabilités',q:"Les probabilités apparaissent dans le programme du <em>CRPE</em> à partir de quel niveau ?",opts:["CE2","CM1","Cycle 4 (programme CRPE)","Terminale"],ans:2,hint:"Ce n'est pas au primaire, mais c'est dans le programme du concours.",expl:"Les <strong>probabilités</strong> sont au programme du Cycle 4 et de Seconde, qui constituent le programme CRPE. À l'école primaire, on travaille la <strong>statistiques descriptives</strong> (tableaux, graphiques) mais pas encore les probabilités formelles."},
+  {cat:'arts',sub:'Corpus – Arts plastiques',q:"Dora Maar, <em>Main-coquillage</em> (v.1934) : à quel mouvement artistique appartient-elle ?",opts:["Impressionnisme","Cubisme","Surréalisme","Fauvisme"],ans:2,hint:"L'association inattendue d'une main et de coquillages évoque l'inconscient.",expl:"Dora Maar est une figure du <strong>surréalisme</strong>. Cette photomontage illustre l'hybridation corps/nature, caractéristique des procédés surréalistes (inconscient, défamiliarisation, rencontre improbable)."},
+  {cat:'arts',sub:'Corpus – HDA',q:"L'affiche de Zig pour Joséphine Baker (1930) s'inscrit dans quel style visuel ?",opts:["Art nouveau","Impressionnisme","Art déco","Expressionnisme"],ans:2,hint:"Style géométrique et graphique des années 20-30.",expl:"<strong>Art déco</strong> : formes géométrisées, aplats de couleur, typographie audacieuse. L'affiche documente les <strong>Années folles</strong>, le music-hall parisien, et la place de Joséphine Baker – artiste, icône, future résistante."},
+  {cat:'c3',sub:'Arts – HDA',q:"Dans quel domaine d'apprentissage s'inscrit l'Histoire des arts au Cycle 3 ?",opts:["Discipline autonome avec horaire dédié","Intégrée aux enseignements artistiques et à l'HGE","Projet facultatif","Programme de l'école maternelle"],ans:1,hint:"Elle transversale, pas isolée.",expl:"L'<strong>Histoire des arts</strong> est <strong>intégrée</strong> aux enseignements artistiques (arts plastiques, éducation musicale) ET à l'histoire-géographie au Cycle 3. Elle n'a pas d'horaire dédié propre mais traverse les disciplines."},
+  {cat:'fr',sub:'Compréhension de texte',q:"Que désigne une inférence dans la compréhension d'un texte ?",opts:["Une erreur de lecture","Une information implicite que le lecteur reconstruit à partir du contexte","Une figure de style","Un temps verbal"],ans:1,hint:"Ce n'est pas écrit noir sur blanc dans le texte.",expl:"Une <strong>inférence</strong> est une information non explicite dans le texte mais que le lecteur reconstruit par raisonnement (contexte, connaissances du monde). Compétence centrale en lecture au C2 et C3."},
+  {cat:'ma',sub:'Géométrie',q:"Quelle est la définition didactique correcte d'un <em>axe de symétrie</em> ?",opts:["Une droite qui coupe une figure en deux","Une droite telle que la figure est superposable à son image par pliage","Une droite qui passe par le centre","Une diagonale"],ans:1,hint:"Le critère clé est la superposition par pliage.",expl:"Un <strong>axe de symétrie</strong> est une droite telle qu'en pliant la figure le long de cette droite, les deux parties se superposent exactement. Définition à maîtriser pour l'enseigner au cycle 2-3."},
+  {cat:'c1',sub:'C1 – Langage',q:"À quel âge la conscience phonémique (identification des phonèmes) est-elle généralement développée ?",opts:["2-3 ans","4-5 ans (MS-GS)","6-7 ans","Dès la naissance"],ans:1,hint:"Elle précède l'apprentissage de la lecture et s'acquiert surtout en GS.",expl:"La <strong>conscience phonémique</strong> (identifier, manipuler les phonèmes) se développe principalement entre <strong>4 et 5 ans</strong> (MS/GS) en maternelle, préparant l'apprentissage du déchiffrage au CP."},
+  {cat:'c2',sub:'C2 – Écriture',q:"En quelle classe l'écriture cursive doit-elle être maîtrisée selon les programmes 2025 ?",opts:["En GS","Dès le début du CP","En fin de CE1","En fin de CE2"],ans:1,hint:"Les nouveaux programmes insistent sur la précocité de l'apprentissage de l'écriture.",expl:"La <strong>cursive est introduite dès le CP</strong> (programmes 2025). L'automatisation du geste graphique est prioritaire en début de C2 pour libérer des ressources cognitives pour la rédaction."},
+];
+
+// FLASHCARDS
+const FLASH_DECKS = {
+  prog: [
+    {q:"Combien de domaines au Cycle 1 ?", a:"6 domaines : Langage, Activité physique, Arts, Maths, Explorer le monde, Structurer la pensée", cat:"Cycle 1"},
+    {q:"Nouveauté 2025 du domaine langage en C1 ?", a:"Articulation distincte + résolution de problèmes comme sous-domaine maths autonome", cat:"C1 – Nouveautés"},
+    {q:"Classes du Cycle 2 ?", a:"CP · CE1 · CE2 (apprentissages fondamentaux)", cat:"Cycle 2"},
+    {q:"Horaire Français / Semaine au C2 ?", a:"~10 heures (sur 24h/semaine au total)", cat:"C2 – Horaires"},
+    {q:"Numération CE2 ?", a:"Jusqu'à 10 000 · fractions simples · division posée", cat:"C2 – Maths"},
+    {q:"Classes du Cycle 3 ?", a:"CM1 · CM2 · 6e (cycle de consolidation)", cat:"Cycle 3"},
+    {q:"Rentrée nouveaux programmes C3 CM2 ?", a:"Rentrée 2026 (CM1+6e : 2025 ; CM2 : 2026)", cat:"C3 – Calendrier"},
+    {q:"Niveau LVE fin Cycle 2 ?", a:"A1 du CECRL · Fin C3 = A2 · Fin 3e = B1", cat:"LVE"},
+    {q:"4 fondamentaux de la réforme 2025 ?", a:"Lire · Écrire · Compter · Respecter autrui", cat:"Réforme"},
+    {q:"EVAR vs EVARS ?", a:"EVAR = primaire (sans sexualité) · EVARS = collège/lycée (avec sexualité)", cat:"EVAR"},
+    {q:"Minimum séances EVAR/an ?", a:"≥ 3 séances par élève et par an, dans tous les cycles", cat:"EVAR"},
+    {q:"Quels programmes NE sont PAS rénovés en 2025 ?", a:"Sciences, HGE, EPS, Arts → restent sur les programmes 2023", cat:"Réforme"},
+    {q:"Outil de suivi en maternelle ?", a:"Carnet de suivi des apprentissages + Portfolio (traces)", cat:"C1 – Évaluation"},
+    {q:"Objectif natation fin Cycle 2 ?", a:"Atteindre le statut de nageur (traverser un bassin)", cat:"EPS"},
+    {q:"Objectif natation fin Cycle 3 ?", a:"Nager 50 mètres en autonomie", cat:"EPS"},
+    {q:"Algorthmique et programmation : quel outil au C3 ?", a:"Scratch (cité par les rapports de jury 2025)", cat:"Numérique"},
+    {q:"Nouveau sous-domaine maths C1 ?", a:"Résolution de problèmes (autonome) + motifs organisés (ex suites organisées)", cat:"C1 – Maths"},
+    {q:"EMC CM1 depuis quand ?", a:"Rentrée 2024 · EMC CM2 : 2025 · EMC 6e : 2026", cat:"EMC"},
+  ],
+  arts: [
+    {q:"Kusama, Dancing Pumpkin → technique ?", a:"Bronze et peinture uréthane · 490×777×744 cm · Installation New York Botanical Garden 2021", cat:"Arts plastiques"},
+    {q:"Alechinsky, Sorti de la poche → support ?", a:"Vergé du XVIIe siècle déjà porteur d'écritures · encre de Chine + aquarelle · 19,5×13 cm", cat:"Arts plastiques"},
+    {q:"Picasso, Tête de femme → axe HDA ?", a:"Caractéristiques d'un langage formel (cubisme : fragmentation, polyvision, géométrisation)", cat:"HDA"},
+    {q:"De Staël, Parc des Princes → technique caractéristique ?", a:"Empâtement (huile épaisse) · 250×200 cm · Inspiré d'un match de football nocturne 1952", cat:"Arts plastiques"},
+    {q:"Dora Maar, Main-coquillage → mouvement ?", a:"Surréalisme · photomontage · corps hybride homme/nature · vers 1934", cat:"Arts plastiques"},
+    {q:"La Dame à la licorne → époque et technique ?", a:"1484-1500 · Tapisserie (laine et soie) · Musée de Cluny · 6 tentures (5 sens + mystérieux)", cat:"Arts plastiques"},
+    {q:"Hindi Zahra, Beautiful Tango → axe HDA ?", a:"Indicateurs d'usages ou de sens (le tango : danse sociale, patrimoine UNESCO, métissage)", cat:"HDA – Musique"},
+    {q:"Vivaldi, L'Été 3e mouvement → ce qu'il décrit ?", a:"Tempête estivale (orage, grêle, vent) · Presto · 1ère forme de musique à programme", cat:"Éducation musicale"},
+    {q:"Bizet, Marche trompette et tambour → œuvre source ?", a:"Petite suite d'orchestre Op.22 · orchestration de Jeux d'enfants pour piano à 4 mains", cat:"Éducation musicale"},
+    {q:"Jean-Petit qui danse → structure musicale ?", a:"Structure cumulative (ajout progressif de parties du corps) · Chanson traditionnelle béarnaise", cat:"Éducation musicale"},
+    {q:"Moussorgski, Promenade → pourquoi HDA C3 ?", a:"Dialogue entre arts (musique/peinture) + transformation d'une œuvre piano→orchestre (Ravel 1922)", cat:"HDA – Musique"},
+    {q:"Affiche Zig / Joséphine Baker → style ?", a:"Art déco 1930 · formes géométrisées · Années folles · Casino de Paris", cat:"HDA – Arts visuels"},
+    {q:"Hokusai, Grande Vague → série d'appartenance ?", a:"Trente-six vues du mont Fuji · estampe xylographique · bleu de Prusse · vers 1829-1834", cat:"HDA – Arts visuels"},
+    {q:"Morgan Jourdain, Le troupeau → ressource ?", a:"Chanson Radio France VOX (vox.radiofrance.fr) · 2019 · structure répétitive · animaux", cat:"Éducation musicale"},
+    {q:"Lise Borel, La ronde des mois → structure ?", a:"Structure en ronde/cyclique · 12 mois de l'année · forme ABA' répétitive", cat:"Éducation musicale"},
+  ],
+  fr: [
+    {q:"Différence terminaison / suffixe ?", a:"Terminaison = partie finale variable (flexion) · Suffixe = morphème lexical dérivationnel (coureur, boulangerie)", cat:"Grammaire"},
+    {q:"Définition d'une inférence ?", a:"Information non explicite que le lecteur reconstruit par raisonnement à partir du contexte", cat:"Compréhension"},
+    {q:"Différence COD / attribut du sujet ?", a:"COD = objet distinct du sujet (manger une pomme) · Attribut = qualifie le sujet via verbe d'état (être médecin)", cat:"Grammaire"},
+    {q:"Sujet français CRPE 2025 ?", a:"Yourcenar, « Comment Wang-Fô fut sauvé » → thème : l'art et le réel", cat:"Épreuves"},
+    {q:"Sujet français CRPE 2024 ?", a:"Thème : les pouvoirs de l'écriture", cat:"Épreuves"},
+    {q:"Orthographe lexicale vs grammaticale ?", a:"Lexicale = graphie du mot (charrette) · Grammaticale = marques d'accord (genre, nombre, temps)", cat:"Orthographe"},
+    {q:"Différence mode / temps verbal ?", a:"Mode = attitude du locuteur (indicatif, subjonctif, impératif) · Temps = situation chronologique de l'action", cat:"Grammaire"},
+    {q:"Conscience phonémique : à quel âge ?", a:"4-5 ans (MS/GS) · précède le déchiffrage au CP", cat:"Didactique lecture"},
+    {q:"Programme Français CRPE 2026 ?", a:"Cycle 4 + partie 'Étude de la langue au lycée' (Seconde, Première, BO 2019)", cat:"Programme épreuve"},
+    {q:"Qu'est-ce qu'une proposition subordonnée relative ?", a:"Proposition qui qualifie un nom/pronom antécédent, introduite par un pronom relatif (qui, que, dont, où…)", cat:"Grammaire"},
+  ],
+  ma: [
+    {q:"Programme Maths CRPE 2026 ?", a:"Cycle 4 + partie 'Nombres et calculs' de la Seconde générale (BO 2019)", cat:"Programme épreuve"},
+    {q:"Modèle en barre : pour quoi ?", a:"Visualiser et résoudre des problèmes additifs et multiplicatifs (recommandé rapports jury 2025)", cat:"Didactique"},
+    {q:"Probabilités : à partir de quel cycle ?", a:"Cycle 4 (collège) dans le programme CRPE · pas de probabilités formelles au primaire", cat:"Probabilités"},
+    {q:"Définition didactique axe de symétrie ?", a:"Droite telle que la figure est superposable à son image par pliage le long de cette droite", cat:"Géométrie"},
+    {q:"Comment enseigner ½ > ⅓ en CE2 ?", a:"Partager le même tout en 2 puis 3 parts : plus le dénominateur est grand, plus les parts sont petites", cat:"Fractions"},
+    {q:"3 erreurs récurrentes en maths au CRPE ?", a:"1. Absence d'unités · 2. Signe = utilisé comme '→' · 3. Arrondis prématurés / valeur approchée confondue avec exacte", cat:"Méthode"},
+    {q:"Scratch : pour quoi faire au C3 ?", a:"Algorithmique et programmation : créer des scripts, boucles, conditions · objectif cycle 3 et 4", cat:"Numérique"},
+    {q:"Numération CP / CE1 / CE2 ?", a:"CP → 100 · CE1 → 1 000 · CE2 → 10 000", cat:"Nombres"},
+  ],
+  hge: [
+    {q:"Programme HGE CRPE 2026 ?", a:"Programmes HGE et EMC des cycles 3 ET 4 (en vigueur rentrée 2025)", cat:"Programme épreuve"},
+    {q:"Période historique CM1-CM2 ?", a:"Antiquité → Révolution française", cat:"Histoire"},
+    {q:"Qu'étudie l'histoire au Cycle 1 ?", a:"'Se repérer dans le temps' : journée, semaine, saisons, avant/maintenant", cat:"Cycle 1"},
+    {q:"EMC : quelles valeurs au cœur ?", a:"Dignité humaine · liberté · égalité · fraternité · laïcité · solidarité", cat:"EMC"},
+    {q:"EVAR C3 : quels thèmes ?", a:"Puberté · consentement renforcé · égalité / stéréotypes · cyberharcèlement / numérique responsable", cat:"EVAR"},
+    {q:"Nouveau programme EMC CM2 depuis quand ?", a:"Rentrée 2025 · Thème : 'Vivre en République'", cat:"EMC"},
+  ],
+  nouveau: [
+    {q:"Quels cycles ont de nouveaux programmes à la rentrée 2025 ?", a:"C1 (maternelle), C2 (CP/CE1/CE2), C3 partiellement : CM1 + 6e (CM2 → 2026)", cat:"Réforme"},
+    {q:"EVAR : à quelle fréquence ?", a:"Minimum 3 séances par an et par élève · obligatoire dans tous les cycles depuis rentrée 2025", cat:"EVAR"},
+    {q:"Nouveau sous-domaine maths maternelle 2025 ?", a:"Résolution de problèmes (devient autonome) · contenance disparaît · 'motifs organisés' remplace 'suites organisées'", cat:"C1 Maths"},
+    {q:"Nouveauté langage C1 2025 ?", a:"'Articuler distinctement' (nouveau) · 'passer de l'oral à l'écrit' (nouveau titre) · objectifs par tranche d'âge", cat:"C1 Langage"},
+    {q:"Nouveau parcours EDD au cycle 1 ?", a:"Éducation au Développement Durable (EDD) · gestes écologiques · monde vivant · parallèle à l'EVAR", cat:"Nouveaux parcours"},
+    {q:"Calendrier déploiement EMC ?", a:"CM1 : rentrée 2024 · CM2 : rentrée 2025 · 6e : rentrée 2026", cat:"EMC"},
+    {q:"Lecture à voix haute : obligation 2025 ?", a:"Quotidienne et obligatoire au Cycle 2 (nouveaux programmes 2025)", cat:"C2 Lecture"},
+    {q:"Cursive : dès quelle classe ?", a:"Dès le CP (programmes 2025) · automatisation prioritaire en début de C2", cat:"C2 Écriture"},
+  ]
+};
+
+// SUJETS PROBABLES
+const SUJETS = [
+  {num:1, mat:"Français", matClass:"mat-fr", proba:"★★★ Très probable",
+   q:"En vous appuyant sur un texte littéraire contemporain traitant du numérique ou des écrans, vous répondrez aux questions de langue, réécrirez un passage, puis développerez une réflexion personnelle sur le thème : « L'école doit-elle former les élèves à une citoyenneté numérique ? »",
+   why:"<strong>Tendance 2026 :</strong> Le numérique est au cœur des nouveaux programmes (EVAR, Scratch, LVE 6e). Après l'art (2025) et l'écriture (2024), un thème liant <strong>école, société et nouveaux défis</strong> est cohérent avec la progression. La question de la citoyenneté numérique articule EMC, français et didactique.",
+   corrige:"Structure attendue : Partie I – questions de langue (5-6 pts) : analyse grammaticale précise du texte (temps verbaux, nature et fonction, subordonnées). Partie II – réécriture (3-4 pts) : transposer au passé ou changer de personne en maîtrisant les accords. Partie III – réflexion (8-10 pts) : plan en 3 parties, introduction avec problématique, exemples littéraires ET pédagogiques (programmes, EVAR, EMC). Valorisé : citer des compétences du socle commun."},
+
+  {num:2, mat:"Français", matClass:"mat-fr", proba:"★★☆ Probable",
+   q:"À partir d'un extrait de roman de littérature jeunesse (ex. conte ou récit initiatique), analysez les principales caractéristiques linguistiques du texte, proposez une réécriture, puis réfléchissez au rôle de la littérature jeunesse dans la construction de l'identité de l'élève.",
+   why:"<strong>La littérature jeunesse</strong> est au cœur des programmes C2-C3 (œuvres complètes obligatoires). C'est un angle didactique fort qui permet d'articuler analyse linguistique et réflexion sur l'enseignement. Non tombé récemment = plausible en 2026.",
+   corrige:"Partie I : identifier les temps narratifs (imparfait/passé simple), les discours rapportés, les connecteurs logiques. Partie II : passage au discours indirect, ou changement de temps. Partie III : définir la littérature jeunesse, son rôle dans la construction du lecteur, les programmes (œuvres au corpus C3), la médiation de l'enseignant."},
+
+  {num:3, mat:"Maths", matClass:"mat-ma", proba:"★★★ Très probable",
+   q:"EXERCICE 1 – Algorithmique (Scratch) : on vous demande d'analyser un script et de prévoir le résultat. EXERCICE 2 – Statistiques et proportionnalité dans le contexte d'une sortie scolaire ou d'un projet EPS. EXERCICE 3 – Géométrie : symétries et transformations. EXERCICE 4 – Didactique : analyser une copie d'élève, identifier l'erreur et proposer une remédiation.",
+   why:"<strong>Scratch</strong> est cité explicitement dans les rapports 2025 (Paris, Toulouse). Les <strong>statistiques</strong> (sujet 2025) et la <strong>proportionnalité</strong> sont récurrentes. L'<strong>analyse d'erreur d'élève</strong> est une tendance forte depuis 2023 (dimension didactique valorisée).",
+   corrige:"Exercice 4 (didactique) : identifier précisément l'erreur (ex : confusion diviseur/multiple), l'expliquer en termes cognitifs (surextension de règle), proposer une situation de remédiation concrète avec manipulation ou représentation visuelle. Éviter les réponses vagues ('faire plus d'exercices')."},
+
+  {num:4, mat:"Arts plastiques", matClass:"mat-arts", proba:"★★★ Très probable",
+   q:"À partir d'une œuvre du corpus (ex. Dancing Pumpkin de Kusama ou Parc des Princes de de Staël), analysez les caractéristiques plastiques de l'œuvre, puis proposez une séquence pédagogique pour le cycle 2 ou 3 en articulant pratique artistique, culture artistique et histoire des arts.",
+   why:"<strong>Kusama</strong> (nouvelle au corpus 2025-2026) et <strong>de Staël</strong> (émotions, abstraction) sont des choix typiques de la construction d'une séquence. Le jury 2025 insiste sur la <strong>dimension didactique approfondie</strong> et les apports hors corpus.",
+   corrige:"Structure : 1) Analyse formelle de l'œuvre (couleur, matière, espace, procédé) ; 2) Contextualisation artistique (mouvement, biographie artiste, liens avec d'autres œuvres hors corpus) ; 3) Séquence pédagogique : objectifs liés aux programmes, activités de pratique, moment de regard sur l'œuvre, évaluation. Toujours citer le programme officiel."},
+
+  {num:5, mat:"Arts – Éducation musicale", matClass:"mat-arts", proba:"★★☆ Probable",
+   q:"En vous appuyant sur Jean-Petit qui danse et un extrait de Vivaldi (L'Été), montrez comment ces deux œuvres permettent d'aborder les notions de pulsation, de rythme et de caractère musical du cycle 1 au cycle 3. Proposez une progression pédagogique sur les trois cycles.",
+   why:"<strong>Jean-Petit qui danse</strong> (C1) + <strong>Vivaldi</strong> (C3 HDA) permettent une progression C1→C3, dimension favorite des sujets d'application. La pulsation et le rythme sont des notions fondamentales récurrentes.",
+   corrige:"C1 : chanter + bouger en pulsation + structure cumulative. C2 : analyser le rythme de marche de Jean-Petit, identifier instruments dans Vivaldi, produire une partition rythmique. C3 : analyser le tempo (Presto), la dynamique, le concerto baroque, écrire sur les émotions musicales. Utiliser vocabulaire disciplinaire précis."},
+
+  {num:6, mat:"HGE-EMC", matClass:"mat-hge", proba:"★★★ Très probable",
+   q:"PARTIE A – Histoire : à partir de documents sur la Révolution française (textes, images), montrez comment construire une séance d'HGE au CM2 développant la pensée historique des élèves. PARTIE B – EMC : en lien avec le nouveau programme de CM2 'Vivre en République', proposez une séquence sur la laïcité et ses enjeux à l'école.",
+   why:"<strong>Révolution française</strong> = fin du programme CM1-CM2 = sujet probable. Le <strong>nouveau programme EMC CM2 2025</strong> ('Vivre en République') est un point chaud que le jury est susceptible d'interroger dès 2026.",
+   corrige:"Partie HGE : distinguer le travail du document historique (source, nature, contexte, point de vue) vs la connaissance des faits. Proposer une pédagogie de l'enquête. Partie EMC : définir la laïcité (1905, 2004), distinguer liberté de conscience et neutralité de l'institution, relier au vécu scolaire concret."},
+
+  {num:7, mat:"Sciences", matClass:"mat-sc", proba:"★★☆ Probable",
+   q:"À partir d'une situation-problème sur l'alimentation et la santé (ou sur l'énergie et l'environnement), analysez les notions scientifiques en jeu, puis proposez une séquence pédagogique pour le cycle 3 intégrant la démarche d'investigation et les liens avec le développement durable.",
+   why:"<strong>Alimentation/santé</strong> + <strong>développement durable</strong> sont des thèmes transversaux liés à l'EDD (nouveau parcours 2025) et aux programmes de sciences C3. La démarche d'investigation est au cœur des attentes du jury.",
+   corrige:"Notions : régime alimentaire équilibré, chaîne alimentaire, énergie renouvelable. Séquence en 5 temps : situation déclenchante → questionnement → hypothèses → expérience/recherche → bilan/institutionnalisation. Inclure des liens EDD, EVAR (corps, santé)."},
+];
+
+// JURY TIPS DATA
+const JURY_TIPS_DATA = [
+  {type:'danger', icon:'🚫', title:"Erreur #1 : Répondre hors sujet par mauvaise lecture de consigne",
+   body:"<strong>Cité dans 100% des rapports 2023-2025.</strong> La simple lecture attentive de l'énoncé est déjà un facteur de sélection. Prenez 5 minutes pour lire et souligner ce qui est demandé EXACTEMENT avant d'écrire."},
+  {type:'danger', icon:'📐', title:"Erreur #2 maths : Absence d'unités, signe = mal utilisé, arrondis prématurés",
+   body:"<strong>Paris, Lyon, Nantes, Toulouse 2025 :</strong> les 3 malus les plus fréquents. Ne jamais écrire '3 = 12 ÷ 4 = 3'. Chaque résultat doit avoir son unité (cm, €, élèves). La valeur exacte et la valeur approchée ne sont pas interchangeables."},
+  {type:'danger', icon:'📝', title:"Erreur #3 français : Confusion terminaison / suffixe",
+   body:"Erreur récurrente signalée depuis 2022. <strong>Terminaison</strong> = flexion variable (pluriel, conjugaison). <strong>Suffixe</strong> = morphème lexical dérivationnel. Ne jamais les confondre dans une copie de futur professeur des écoles."},
+  {type:'warn', icon:'🎨', title:"Arts : Les copies se restreignant au seul corpus sont pénalisées",
+   body:"Le jury 2025 est explicite : '<strong>les apports culturels externes sont rares et parfois hors sujet</strong>'. Préparez 3-4 œuvres hors corpus que vous maîtrisez vraiment. Qualité > quantité : une référence bien connue vaut mieux que 5 noms mal cités."},
+  {type:'warn', icon:'⏱️', title:"Gestion du temps : traiter l'épreuve en 3 heures",
+   body:"<strong>Nantes 2025 :</strong> les copies incomplètes sont pénalisées. Conseil : 5 min lecture + 20 min partie I + 20 min partie II + 90 min partie III (dissertation/séquence). Laissez 10 min de relecture."},
+  {type:'success', icon:'✅', title:"Ce que le jury valorise en arts : sensibilité + didactique",
+   body:"'Le jury a apprécié les copies mettant en valeur la <strong>sensibilité du candidat au champ artistique</strong>. Les meilleures copies témoignent d'intérêt, de curiosité et d'une compréhension didactique approfondie.' (Rapport Nantes 2025)"},
+  {type:'success', icon:'✅', title:"En maths : raisonner avec le modèle en barre",
+   body:"<strong>Toulouse 2025 :</strong> 'L'utilisation du modèle en barre permettait de résoudre cette question très facilement et sans erreur, certains candidats s'en sont saisis.' Maîtrisez ce modèle pour les problèmes multiplicatifs."},
+  {type:'success', icon:'✅', title:"Qualités d'un enseignant dans la copie",
+   body:"<strong>Lyon 2025 :</strong> 'Le jury souhaite voir : la réflexion pour répondre au sujet, la structuration de la pensée, l'argumentation pour justifier les choix pédagogiques, la documentation pour rendre le propos clair.' Chaque réponse doit témoigner d'un futur professionnel."},
+  {type:'warn', icon:'🔤', title:"Orthographe et langue soignées : jusqu'à -1,5 point",
+   body:"<strong>Paris 2025 :</strong> malus explicite de -1,5 pt pour lisibilité, orthographe, correction grammaticale. Absence d'accents aigus fréquemment citée ('ecole', 'experience'). Relisez systématiquement avant de rendre."},
+  {type:'warn', icon:'🎓', title:"Didactique maths : analyser les erreurs d'élèves",
+   body:"Compétence valorisée depuis 2023 : <strong>identifier précisément l'erreur cognitive</strong> d'un élève (confusion, surextension de règle) et proposer une remédiation concrète. Éviter 'refaire des exercices' : proposer une situation de manipulation ou de représentation."},
+  {type:'success', icon:'💡', title:"Astuce : les questions sont indépendantes en maths",
+   body:"Les jurys de maths 2024-2025 précisent : '<strong>de nombreux résultats sont donnés, rendant les questions indépendantes</strong>'. Si vous bloquez sur une question, passez à la suivante sans perdre de points sur les suivantes."},
+  {type:'danger', icon:'📚', title:"Références erronées : catastrophique pour l'image",
+   body:"<strong>Lyon 2025 :</strong> 'Les références doivent être connues et maîtrisées, sans erreur sur le nom de l'auteur ou le titre.' N'inventez pas de références. Un exemple bien connu est préférable à un auteur dont vous confondez le titre ou l'époque."},
+];
+
+// PROGRAMMES DATA
+const PROG_DATA = {
+  c1: {
+    title:"Cycle 1 · École maternelle",
+    classes:"TPS · PS · MS · GS",
+    note:"Programmes BO 31/10/2024 · En vigueur rentrée 2025",
+    domains:[
+      {icon:"🗣️", title:"Mobiliser le langage dans toutes ses dimensions", tag:"RÉNOVÉ 2025", items:["Oral : écouter, s'exprimer, raconter, articuler distinctement (nouveau)","Passer de l'oral à l'écrit : préparer à lire + préparer à écrire","Vocabulaire : corpus enseignés explicitement","Objectifs organisés par tranches d'âge (avant 4 ans / 4-5 ans / 5+ ans)"]},
+      {icon:"🔢", title:"Acquérir les premiers outils mathématiques", tag:"RÉNOVÉ 2025", items:["Nombres : cardinal (combien) et ordinal (le ième)","Résolution de problèmes (sous-domaine autonome, nouveau)","Espace et géométrie : solides, formes planes, positions","Grandeurs et mesures : longueurs, masses (dès MS)","Motifs organisés (ex-suites organisées)"]},
+      {icon:"🏃", title:"Agir, s'exprimer à travers l'activité physique", tag:"", items:["Motricité globale : courir, sauter, lancer, grimper","Espace et durée : adapter ses équilibres","Jeux collectifs : coopérer, règles","Danse et expression corporelle"]},
+      {icon:"🎨", title:"Agir, s'exprimer à travers les activités artistiques", tag:"", items:["Arts visuels : dessin, peinture, modelage, collage","Univers sonores : écouter, chanter, jouer avec la voix","Spectacle vivant : jeu dramatique, marionnettes","Découverte d'œuvres variées (patrimoine)"]},
+      {icon:"🌍", title:"Explorer le monde", tag:"", items:["Vivant : plantes, animaux, corps humain","Matière : observer, trier, transformer","Espace : se repérer dans l'espace scolaire","Temps : journée, semaine, saisons"]},
+      {icon:"💭", title:"Construire les premiers outils pour structurer sa pensée", tag:"", items:["Classer, ordonner, sérier, catégoriser","Organiser des données","Résoudre des problèmes simples de vie quotidienne"]},
+    ],
+    new:[
+      {icon:"🌱", title:"EVAR · Nouveau 2025", items:["≥ 3 séances/an/élève · obligatoire","PS : émotions, séparation, règles de vie","MS : besoins affectifs, intimité, résolution conflits","GS : consentement simple, égalité F/G, formes de famille"]},
+      {icon:"🌿", title:"EDD · Nouveau 2025", items:["Éducation au Développement Durable","Gestes écologiques quotidiens","Lien avec Explorer le monde (vivant)"]},
+    ]
+  },
+  c2: {
+    title:"Cycle 2 · Apprentissages fondamentaux",
+    classes:"CP · CE1 · CE2",
+    note:"Programmes BO 31/10/2024 · En vigueur rentrée 2025",
+    domains:[
+      {icon:"📖", title:"Français – Langage oral", tag:"RENFORCÉ", items:["CP : écouter, reformuler, réciter","CE1 : raconter, expliquer un raisonnement","CE2 : prise de parole en public, débat","Présentations orales régulières"]},
+      {icon:"🔤", title:"Français – Lecture", tag:"RENFORCÉ", items:["CP : déchiffrage (phonème-graphème), syllabation","CE1 : fluidité, compréhension fine, inférences","CE2 : lecture expressive, textes variés","Lecture à voix haute quotidienne (OBLIGATOIRE)"]},
+      {icon:"✍️", title:"Français – Écriture", tag:"RENFORCÉ", items:["Cursive dès le CP (automatisation prioritaire)","Dictées régulières, listes de mots mémorisés","Conjugaison : présent, passé composé, imparfait, futur","Productions courtes → longues (CE2)"]},
+      {icon:"🔢", title:"Maths – Nombres et calculs", tag:"RENFORCÉ", items:["CP→100, CE1→1000, CE2→10 000","Tables ×2,5,10 (CE1), complètes en CE2","Division posée, fractions simples (CE2)","Calcul mental quotidien obligatoire"]},
+      {icon:"📐", title:"Maths – Résolution de problèmes", tag:"CENTRAL", items:["Au cœur de toute l'activité mathématique","Problèmes additifs, multiplicatifs, de partage","Modèle en barre recommandé","Stratégies explicitées"]},
+      {icon:"🌏", title:"Questionner le monde", tag:"", items:["Vivant, matière, espace, temps, objets techniques"]},
+      {icon:"🌱", title:"EVAR · Nouveau 2025", tag:"NOUVEAU", items:["≥ 3 séances/an · consentement simple · respect du corps","Égalité filles/garçons · sécurité numérique (initiation)"]},
+      {icon:"⚖️", title:"EMC · Rénové", tag:"RÉNOVÉ", items:["CP-CE1 (2024-25) : règles de vie, respect","CE2 (2025-26) : vivre en République, dignité"]},
+    ],
+    new:[]
+  },
+  c3: {
+    title:"Cycle 3 · Consolidation",
+    classes:"CM1 · CM2 · 6e",
+    note:"CM1+6e : nouveaux programmes 2025 · CM2 : nouveaux programmes 2026",
+    domains:[
+      {icon:"📚", title:"Français – Lecture & Littérature", tag:"RENFORCÉ", items:["Œuvres complètes (romans, contes, fables, poésie)","Compréhension profonde : implicite, inférences, valeurs","Textes documentaires, presse, historiques (6e)","Histoire de la littérature (6e)"]},
+      {icon:"📝", title:"Français – Écriture créative", tag:"RENFORCÉ", items:["Récits, nouvelles, lettres, poèmes, dialogues","Révision/réécriture : améliorer un texte produit","Dictées quotidiennes","Conjugaison complète + subjonctif (6e)"]},
+      {icon:"🔢", title:"Maths – Nombres et calculs", tag:"RENFORCÉ", items:["Grands nombres, décimaux, fractions (tous types)","Proportionnalité, pourcentages (CM2/6e)","Nombres relatifs (6e)","Calcul mental : automatisation ×÷"]},
+      {icon:"📊", title:"Maths – Résolution de problèmes", tag:"CENTRAL", items:["Problèmes complexes multi-étapes","Modélisation : schémas, tableaux, graphiques","Introduction à la logique et au codage (Scratch, 6e)"]},
+      {icon:"🔬", title:"Sciences et technologie", tag:"Programme 2023", items:["Vivant : cellule, reproduction, classification","Énergie : formes, sources, conversions","Objets techniques : systèmes, algorithmes","Démarche d'investigation scientifique"]},
+      {icon:"🗺️", title:"Histoire-Géographie", tag:"Programme 2023", items:["CM1-CM2 : Antiquité → Révolution française","6e : Antiquité → Temps modernes","Géographie : territoires FR, Europe, mondialisation","Lecture de cartes et de documents historiques"]},
+      {icon:"🌱", title:"EVAR · Nouveau 2025", tag:"NOUVEAU", items:["Puberté, transformations corporelles","Consentement renforcé","Cyberharcèlement, numérique responsable","Stéréotypes de genre"]},
+      {icon:"⚖️", title:"EMC · Déploiement progressif", tag:"", items:["CM1 (2024) : sens et portée de la règle","CM2 (2025) : Vivre en République, laïcité","6e (2026) : nouveau programme en cours"]},
+    ],
+    new:[]
+  }
+};
+
+// OEUVRES DATA
+const OEUVRES = [
+  {cat:"ap", catLabel:"Arts plastiques", titre:"Dancing Pumpkin", artiste:"Yayoi Kusama (1929 –)", annee:"2020",
+   desc:"Sculpture monumentale en bronze et peinture uréthane (490×777×744 cm). Citrouille couverte de pois noirs sur fond jaune, motif obsessionnel de l'artiste japonaise. Installation au New York Botanical Garden 2021.",
+   c1:"Explorer le monde du vivant (citrouille) · Formes rondes et répétition · Émerveillement face à l'art monumental",
+   c2:"Couleur (contraste jaune/noir) · Répétition et motif · Art contemporain · Découverte d'une artiste singulière",
+   c3:"Sculpture et installation in situ · Langage formel (pois = signature) · Art contemporain japonais · Rapport art/espace public"},
+  {cat:"ap", catLabel:"Arts plastiques", titre:"Sorti de la poche", artiste:"Pierre Alechinsky (1927 –)", annee:"1992",
+   desc:"Encre de Chine + aquarelle sur vergé du XVIIe siècle déjà porteur d'écritures et essais de plume. 19,5×13 cm. Centre Pompidou.",
+   c1:"Trace et geste · Supports variés · Explorer les outils (encre, pinceau)",
+   c2:"Trace, geste, outil · Dessin d'expression · Palimpseste (écrire par-dessus) · Mouvement CoBrA",
+   c3:"Support comme élément signifiant · Réemploi/détournement · Expressionnisme abstrait · Histoire de l'écriture"},
+  {cat:"ap", catLabel:"Arts plastiques · ★HDA", titre:"Tête de femme", artiste:"Pablo Picasso (1881–1973)", annee:"1957",
+   desc:"Bois peint, 78,5×34×36 cm. Musée Picasso, Paris. *HDA : caractéristiques d'un langage formel.",
+   c1:"Le portrait · Formes géométriques simples · Découverte de la sculpture",
+   c2:"Le portrait, la déformation expressive, la couleur · Cubisme accessible · Point de vue multiple",
+   c3:"HDA – langage formel cubiste : fragmentation, polyvision, géométrisation · Influences africaines/ibériques · Unité stylistique"},
+  {cat:"ap", catLabel:"Arts plastiques", titre:"Parc des Princes", artiste:"Nicolas de Staël (1913–1955)", annee:"1952",
+   desc:"Huile sur toile, 250×200 cm. Empâtement. Représentation abstraite d'un match de football nocturne.",
+   c1:"Couleurs vives sur fond sombre · Sensation de lumière · Relier l'art à une expérience vécue",
+   c2:"Empâtement · Frontière figuration/abstraction · Émotion → image · Lumière et contraste",
+   c3:"Matière picturale · Abstraction lyrique française années 1950 · Transposition d'une sensation en peinture"},
+  {cat:"ap", catLabel:"Arts plastiques", titre:"Main-coquillage", artiste:"Dora Maar (1907–1997)", annee:"v.1934",
+   desc:"Négatif gélatino-argentique, 23,4×17,5 cm. Centre Pompidou. Photomontage surréaliste : main aux doigts remplacés par des coquillages.",
+   c1:"Images étonnantes et imaginaires · Associations inattendues · Photographie comme création",
+   c2:"Photographie artistique · Corps transformé, chimères · Le surréalisme (association inattendue) · Réel vs imaginaire",
+   c3:"Photographie comme art plastique · Surréalisme (inconscient, hybridation) · Place de la femme dans l'art"},
+  {cat:"ap", catLabel:"Arts plastiques", titre:"La Dame à la licorne", artiste:"Anonyme (Bas Moyen Âge)", annee:"1484–1500",
+   desc:"Tapisserie (laine et soie), 311–377 cm H × 290–473 cm L. Musée de Cluny, Paris. 6 tentures (5 sens + « À mon seul désir »).",
+   c1:"Observer détails (animaux, plantes) · Bestiaire imaginaire (licorne) · Tissu et matière",
+   c2:"Image médiévale (aplats, pas de perspective) · Les cinq sens comme thème · Iconographie symbolique",
+   c3:"Art médiéval · Tapisserie flamande · Culture courtoise · Comparaison avec enluminures et vitraux"},
+  {cat:"mu", catLabel:"Éducation musicale · ★HDA", titre:"Beautiful Tango", artiste:"Hindi Zahra", annee:"2009",
+   desc:"Chanson mêlant tango argentin, influences berbères et blues. Voix grave, guitare acoustique. *HDA : indicateurs d'usages ou de sens.",
+   c1:"Caractère mélancolique, intime · Découverte de la voix et de la guitare · Musiques du monde",
+   c2:"Timbre, phrasé, tempo · Genre musical (tango) · Diversité culturelle dans la musique",
+   c3:"HDA – usages ou de sens du tango (danse sociale, patrimoine UNESCO) · Métissage musical · Voix comme instrument"},
+  {cat:"mu", catLabel:"Éducation musicale", titre:"Le troupeau", artiste:"Morgan Jourdain", annee:"2019",
+   desc:"Chanson pour jeune public sur Radio France VOX. Structure répétitive, images d'animaux.",
+   c1:"Chanter en groupe · Mémoriser · Imiter des sons d'animaux",
+   c2:"Structure musicale, pulsation · Chant collectif · Lien sons/images",
+   c3:"Analyse de la construction musicale · Interprétation collective · Création jeunesse contemporaine"},
+  {cat:"mu", catLabel:"Éducation musicale", titre:"La ronde des mois", artiste:"Lise Borel", annee:"s.d.",
+   desc:"Chanson pédagogique sur les 12 mois. Structure en ronde (forme cyclique). Radio France VOX.",
+   c1:"Comptines et chansons · Repérer dans le temps (mois, saisons)",
+   c2:"Forme musicale en ronde · Chant collectif · Lien maths/calendrier",
+   c3:"Forme musicale cyclique (rondo) · Interprétation nuancée · Lien sciences (saisons)"},
+  {cat:"mu", catLabel:"Éducation musicale", titre:"L'Été – 3e mouvement, Les Quatre Saisons", artiste:"Antonio Vivaldi (1678–1741)", annee:"1725",
+   desc:"Concerto baroque (violon solo + orchestre à cordes). Presto : tempête estivale. L'une des premières formes de musique à programme.",
+   c1:"Rapide, agité, fort · Associer musique et orage · Cordes",
+   c2:"Tempo, nuances, caractère · Instruments à cordes · Associer musique à récit/image",
+   c3:"Concerto baroque (soliste vs orchestre) · Musique à programme · Représentation musicale de la nature"},
+  {cat:"mu", catLabel:"Éducation musicale", titre:"Jean-Petit qui danse", artiste:"Chanson traditionnelle du Béarn", annee:"",
+   desc:"Comptine traditionnelle à structure cumulative : chaque partie du corps est ajoutée progressivement.",
+   c1:"Chanter, danser, bouger en rythme · Schéma corporel · Mémoriser par répétition",
+   c2:"Structure cumulative · Pulsation, rythme, coordination · Patrimoine traditionnel",
+   c3:"Structure musicale (variation cumulative) · Patrimoine immatériel · Chanson et identité régionale"},
+  {cat:"mu", catLabel:"Éducation musicale", titre:"Marche (trompette et tambour)", artiste:"Georges Bizet (1838–1875)", annee:"1872",
+   desc:"Extrait de la Petite suite d'orchestre Op.22 (orchestration de Jeux d'enfants pour piano à 4 mains). Mélodie de trompette sur pulsation de tambour.",
+   c1:"Reconnaître trompette et tambour · Marcher en cadence",
+   c2:"Familles d'instruments (cuivres, percussions) · Timbre · Pulsation de marche",
+   c3:"Forme de marche · Rôle des instruments (soliste/accompagnement) · Bizet et musique française XIXe"},
+  {cat:"hda", catLabel:"Histoire des arts", titre:"Promenade – Tableaux d'une exposition", artiste:"Modeste Moussorgski (1839–1881)", annee:"1874 (piano) / 1922 (orch.)",
+   desc:"Suite pianistique en hommage au peintre Hartmann. Version orchestrale par Ravel (1922). La Promenade représente le compositeur se promenant dans l'exposition.",
+   c1:"Imaginer une promenade, un personnage qui marche",
+   c2:"Caractère, tempo, dynamique · Associer musique à récit",
+   c3:"Dialogue arts visuels/musique · Transformation piano→orchestre · Musique à programme · Hommage et création"},
+  {cat:"hda", catLabel:"Histoire des arts", titre:"Casino de Paris – Joséphine Baker", artiste:"Louis Gaudin, dit Zig (1882–1936)", annee:"1930",
+   desc:"Lithographie couleur. Affiche pour la revue du Casino de Paris. Style Art déco, formes géométrisées, typographie audacieuse.",
+   c1:"Observer couleurs et formes décoratives · L'affiche comme image",
+   c2:"Affiche, typographie, Art déco · Fonction de l'image · Music-hall, années folles",
+   c3:"Affiche = document historique et artistique · Art déco · Joséphine Baker (artiste, icône, résistante) · Regard exotisant"},
+  {cat:"hda", catLabel:"Histoire des arts", titre:"La grande vague de Kanagawa", artiste:"Hokusai Katsushika (1760–1849)", annee:"v.1829–1834",
+   desc:"Estampe xylographique, 248×370 mm. BNF, Paris. Série : Trente-six vues du mont Fuji. Bleu de Prusse. Influence majeure sur le japonisme occidental.",
+   c1:"Observer la mer, les vagues · Bleu dominant · Sensation de force",
+   c2:"Composition (plans) · Couleur · Mouvement dans l'image · Estampe japonaise",
+   c3:"Art japonais (ukiyo-e) · Japonisme · Sublime naturel · Diffusion interculturelle d'une œuvre"},
+];
+
+// ══════════════════════════════════════════════════
+// QUIZ STATE
+// ══════════════════════════════════════════════════
+let qFilter = 'all', qPool = [], qIdx = 0, qCorrect = 0, qWrong = 0, qAnswered = false;
+let catSt = {c1:{q:0,c:0},c2:{q:0,c:0},c3:{q:0,c:0},arts:{q:0,c:0},fr:{q:0,c:0},ma:{q:0,c:0},new:{q:0,c:0},jury:{q:0,c:0}};
+
+function shuffle(a) { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+function qFilterFn(cat) {
+  if(cat==='all') return QUESTIONS;
+  return QUESTIONS.filter(q=>q.cat===cat);
+}
+
+function qStart() {
+  qPool = shuffle(qFilterFn(qFilter));
+  qIdx = qCorrect = qWrong = 0;
+  catSt = {c1:{q:0,c:0},c2:{q:0,c:0},c3:{q:0,c:0},arts:{q:0,c:0},fr:{q:0,c:0},ma:{q:0,c:0},new:{q:0,c:0},jury:{q:0,c:0}};
+  document.getElementById('q-end').classList.remove('show');
+  document.getElementById('quiz-main').style.display='';
+  document.getElementById('q-progress').style.display='';
+  qLoad();
+}
+
+function qFilter_set(cat, btn) {
+  qFilter = cat;
+  document.querySelectorAll('.qf-btn').forEach(b=>{b.className='qf-btn'});
+  btn.classList.add('on-'+cat);
+  qStart();
+}
+
+// expose
+window.qFilter = qFilter_set;
+
+function qLoad() {
+  if(qIdx>=qPool.length){qEnd();return;}
+  const q=qPool[qIdx]; qAnswered=false;
+  // header
+  const colors={c1:'#e8540a',c2:'#0e6fa8',c3:'#6b35c8',arts:'#0d6e6e',fr:'#8b1a1a',ma:'#1a4e6e',new:'#1a7a40',jury:'#4a1a6e'};
+  document.getElementById('q-header').innerHTML=`<span class="q-badge" style="background:${colors[q.cat]}15;color:${colors[q.cat]};border:1px solid ${colors[q.cat]}40">${q.sub}</span>`;
+  document.getElementById('q-num').textContent=`Q${qIdx+1} / ${qPool.length}`;
+  document.getElementById('q-text').innerHTML=q.q;
+  document.getElementById('q-hint').classList.remove('show');
+  document.getElementById('q-hint').textContent='';
+  document.getElementById('q-feedback').className='feedback-box';
+  document.getElementById('q-hint-btn').disabled=false;
+  document.getElementById('q-next').classList.remove('show');
+  document.getElementById('q-next').style.display='none';
+  // shuffle options
+  const idxs=shuffle([0,1,2,3]);
+  const newCorr=idxs.indexOf(q.ans);
+  const opts=document.getElementById('q-opts');
+  opts.innerHTML='';
+  idxs.forEach((origIdx,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt';
+    btn.innerHTML=`<span class="opt-letter">${'ABCD'[i]}</span><span>${q.opts[origIdx]}</span>`;
+    btn.onclick=()=>qSelect(i,newCorr,q);
+    opts.appendChild(btn);
+  });
+  // progress
+  const pct=qIdx/qPool.length*100;
+  document.getElementById('q-prog-fill').style.width=pct+'%';
+  document.getElementById('q-prog-num').textContent=`${qIdx}/${qPool.length}`;
+  document.getElementById('q-prog-txt').textContent=`Question ${qIdx+1}`;
+  // animate
+  const w=document.getElementById('q-wrap');
+  w.style.animation='none'; requestAnimationFrame(()=>w.style.animation='');
+}
+
+function qSelect(chosen,correct,q) {
+  if(qAnswered)return; qAnswered=true;
+  const isOk=chosen===correct;
+  document.querySelectorAll('.opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===correct)b.classList.add('correct');
+    else if(i===chosen&&!isOk)b.classList.add('wrong');
+  });
+  if(isOk){qCorrect++;document.getElementById('hsc-ok').textContent=qCorrect;if(catSt[q.cat])catSt[q.cat].c++;}
+  else{qWrong++;document.getElementById('hsc-ko').textContent=qWrong;}
+  if(catSt[q.cat])catSt[q.cat].q++;
+  const fb=document.getElementById('q-feedback');
+  fb.innerHTML=`<div class="fb-title">${isOk?'✅ Bonne réponse !':'❌ Pas tout à fait…'}</div><div class="fb-body">${q.expl}</div>`;
+  fb.className='feedback-box show '+(isOk?'fb-ok':'fb-ko');
+  document.getElementById('q-hint-btn').style.display='none';
+  const nb=document.getElementById('q-next');
+  nb.style.display='block'; nb.classList.add('show');
+  nb.textContent=qIdx===qPool.length-1?'Voir mes résultats →':'Question suivante →';
+}
+
+function qHint() {
+  const q=qPool[qIdx];
+  const h=document.getElementById('q-hint');
+  h.textContent=q.hint; h.classList.add('show');
+  document.getElementById('q-hint-btn').disabled=true;
+}
+
+function qNext() { qIdx++; qLoad(); }
+
+function qEnd() {
+  document.getElementById('quiz-main').style.display='none';
+  const end=document.getElementById('q-end');
+  end.classList.add('show');
+  const tot=qPool.length, pct=Math.round(qCorrect/tot*100);
+  document.getElementById('e-pct').textContent=pct;
+  const t=pct>=85?'Excellent ✨':pct>=65?'Bien joué 📚':pct>=45?'En progression 💪':'À renforcer 🔄';
+  document.getElementById('e-title').textContent=t;
+  const m=pct>=85?'Tu es prêt(e) ! Peaufine les sujets probables.':pct>=65?'Revois les points en rouge ci-dessous.':pct>=45?'Concentre-toi sur les filtres où tu perds.':'Reprends les flashcards avant de relancer le quiz.';
+  document.getElementById('e-msg').textContent=m+` (${qCorrect}/${tot} bonnes réponses)`;
+  const colors={c1:getComputedStyle(document.documentElement).getPropertyValue('--c1'),c2:'#0e6fa8',c3:'#6b35c8',arts:'#0d6e6e',fr:'#8b1a1a',ma:'#1a4e6e',new:'#1a7a40',jury:'#4a1a6e'};
+  const labels={c1:'Cycle 1',c2:'Cycle 2',c3:'Cycle 3',arts:'Arts',fr:'Français',ma:'Maths',new:'Nouveautés',jury:'Méthode'};
+  let bh='';
+  for(const[cat,st]of Object.entries(catSt)){if(!st.q)continue;const cp=Math.round(st.c/st.q*100);bh+=`<div class="end-cat"><div class="end-cat-label">${labels[cat]}</div><div class="end-cat-bar"><div class="end-cat-fill" style="width:0%;background:${colors[cat]}" data-w="${cp}"></div></div><div class="end-cat-num">${st.c}/${st.q} · ${cp}%</div></div>`;}
+  document.getElementById('e-cats').innerHTML=bh;
+  setTimeout(()=>document.querySelectorAll('.end-cat-fill').forEach(e=>e.style.width=e.dataset.w+'%'),200);
+}
+
+function qRestart(all) { if(all){qFilter='all';document.querySelectorAll('.qf-btn').forEach(b=>b.className='qf-btn');document.querySelector('.qf-btn').classList.add('on-all');} qStart(); }
+
+// ══════════════════════════════════════════════════
+// FLASHCARDS
+// ══════════════════════════════════════════════════
+let fDeck=[], fIdx=0, fFlipped=false, fStatus=[], fAudio=false, fAudioTimeout=null;
+
+function loadDeck() {
+  const dk=document.getElementById('deck-select').value;
+  fDeck=FLASH_DECKS[dk]||[];
+  fStatus=fDeck.map(()=>null); fIdx=0; fFlipped=false;
+  showCard();
+}
+
+function shuffleDeck() {
+  const dk=document.getElementById('deck-select').value;
+  fDeck=shuffle(FLASH_DECKS[dk]||[]);
+  fStatus=fDeck.map(()=>null); fIdx=0; fFlipped=false;
+  showCard();
+}
+
+function showCard() {
+  if(!fDeck.length)return;
+  const c=fDeck[fIdx];
+  document.getElementById('f-label').textContent=c.cat||'';
+  document.getElementById('f-q').textContent=c.q;
+  document.getElementById('f-a').textContent=c.a;
+  document.getElementById('flash-inner').classList.remove('flipped'); fFlipped=false;
+  document.getElementById('flash-counter').textContent=`${fIdx+1} / ${fDeck.length}`;
+  renderDots();
+}
+
+function flipCard() {
+  fFlipped=!fFlipped;
+  document.getElementById('flash-inner').classList.toggle('flipped',fFlipped);
+}
+
+function nextCard() { fIdx=(fIdx+1)%fDeck.length; showCard(); }
+function prevCard() { fIdx=(fIdx-1+fDeck.length)%fDeck.length; showCard(); }
+
+function markCard(known) {
+  fStatus[fIdx]=known; renderDots();
+  setTimeout(()=>nextCard(),300);
+}
+
+function renderDots() {
+  const dotsEl=document.getElementById('flash-dots');
+  dotsEl.innerHTML=fDeck.map((c,i)=>{
+    let cls='dot';
+    if(fStatus[i]===true)cls+=' known';
+    else if(fStatus[i]===false)cls+=' unknown';
+    else if(i<=fIdx)cls+=' seen';
+    if(i===fIdx)cls+=' current';
+    return `<div class="${cls}" title="${c.q.substring(0,40)}..."></div>`;
+  }).join('');
+}
+
+function toggleAudio() {
+  fAudio=!fAudio;
+  const btn=document.getElementById('audio-btn');
+  const bar=document.getElementById('audio-bar');
+  if(fAudio) {
+    btn.classList.add('playing'); btn.textContent='⏹ Arrêter l\'audio';
+    bar.classList.add('show');
+    runAudio();
+  } else {
+    btn.classList.remove('playing'); btn.textContent='🔊 Mode audio sommeil';
+    bar.classList.remove('show');
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+    clearTimeout(fAudioTimeout);
+  }
+}
+
+function runAudio() {
+  if(!fAudio)return;
+  const c=fDeck[fIdx];
+  document.getElementById('audio-status').textContent=`🔊 Lecture : ${c.cat} – ${c.q.substring(0,50)}...`;
+  if('speechSynthesis' in window) {
+    const u=new SpeechSynthesisUtterance(`Question. ${c.q}. Réponse. ${c.a}.`);
+    u.lang='fr-FR'; u.rate=0.85;
+    u.onend=()=>{ fIdx=(fIdx+1)%fDeck.length; showCard(); fAudioTimeout=setTimeout(runAudio,1500); };
+    window.speechSynthesis.speak(u);
+  } else {
+    fAudioTimeout=setTimeout(()=>{ fIdx=(fIdx+1)%fDeck.length; showCard(); runAudio(); },4000);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// RENDERS
+// ══════════════════════════════════════════════════
+function renderSujets() {
+  document.getElementById('sujets-list').innerHTML=SUJETS.map(s=>`
+    <div class="sujet-card">
+      <div class="sujet-header">
+        <span class="sujet-num">Sujet ${s.num}</span>
+        <span class="sujet-matiere ${s.matClass}">${s.mat}</span>
+        <span class="sujet-proba">${s.proba}</span>
+      </div>
+      <div class="sujet-body">
+        <div class="sujet-q">${s.q}</div>
+        <div class="sujet-why">${s.why}</div>
+        <button class="toggle-corrige" onclick="toggleCorrige(this)">📋 Voir pistes de correction</button>
+        <div class="corrige-box">${s.corrige}</div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleCorrige(btn) {
+  const box=btn.nextElementSibling;
+  box.classList.toggle('show');
+  btn.textContent=box.classList.contains('show')?'▲ Masquer':'📋 Voir pistes de correction';
+}
+
+function renderJuryTips() {
+  document.getElementById('jury-tips-list').innerHTML=JURY_TIPS_DATA.map(t=>`
+    <div class="jury-tip ${t.type}">
+      <div class="jury-tip-head"><span class="jury-tip-icon">${t.icon}</span><span class="jury-tip-title">${t.title}</span></div>
+      <div class="jury-tip-body">${t.body}</div>
+    </div>`).join('');
+}
+
+function renderProg() {
+  ['c1','c2','c3'].forEach(k=>{
+    const d=PROG_DATA[k];
+    const el=document.getElementById('p-'+k);
+    el.innerHTML=`
+      <div class="card" style="margin-bottom:18px;border-left:4px solid var(--gold)">
+        <h3>📋 ${d.title} · ${d.classes}</h3>
+        <p>${d.note}</p>
+      </div>
+      <div class="grid-2">${d.domains.map(dm=>`
+        <div class="card" style="border-left:4px solid ${k==='c1'?'var(--c1)':k==='c2'?'var(--c2)':'var(--c3)'}">
+          <h3>${dm.icon} ${dm.title} ${dm.tag?`<span class="tag tag-new">${dm.tag}</span>`:''}</h3>
+          <ul>${dm.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+        </div>`).join('')}
+      </div>
+      ${d.new.length?`<div class="divider"><span>Nouveaux parcours 2025</span></div><div class="grid-2">${d.new.map(nm=>`
+        <div class="card" style="border-left:4px solid var(--new)">
+          <h3>${nm.icon} ${nm.title} <span class="tag tag-new">NOUVEAU</span></h3>
+          <ul>${nm.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+        </div>`).join('')}</div>`:''}`;
+  });
+}
+
+function showProgPanel(id,btn,k) {
+  document.querySelectorAll('.prog-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.prog-tab').forEach(b=>{b.className='prog-tab'});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('act-'+k);
+}
+
+function renderOeuvres() {
+  document.getElementById('oeuvres-list').innerHTML=OEUVRES.map(o=>`
+    <div class="oeuvre-card">
+      <div class="oeuvre-header">
+        <span class="oeuvre-cat ${o.cat==='ap'?'cat-ap':o.cat==='mu'?'cat-mu':'cat-hda'}">${o.catLabel}</span>
+        <div>
+          <div class="oeuvre-title">${o.titre}</div>
+          <div class="oeuvre-artist">${o.artiste} · ${o.annee}</div>
+        </div>
+      </div>
+      <div class="oeuvre-body">
+        <div class="oeuvre-desc">${o.desc}</div>
+        <div class="oeuvre-cycles">
+          <div class="cycle-link cl-c1"><strong>🟠 Cycle 1 :</strong> ${o.c1}</div>
+          <div class="cycle-link cl-c2"><strong>🔵 Cycle 2 :</strong> ${o.c2}</div>
+          <div class="cycle-link cl-c3"><strong>🟣 Cycle 3 :</strong> ${o.c3}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderMindmap() {
+  const svg=document.getElementById('mindmap-svg');
+  const W=860, H=600, cx=430, cy=300;
+  const nodes=[
+    {id:'crpe',x:cx,y:cy,r:50,fill:'#0e0e12',tc:'#c9a84c',txt:'CRPE\n2026',size:13},
+    // Épreuves
+    {id:'fr',x:150,y:100,r:40,fill:'#8b1a1a',tc:'white',txt:'Français',size:11},
+    {id:'ma',x:150,y:280,r:40,fill:'#1a4e6e',tc:'white',txt:'Maths',size:11},
+    {id:'app',x:150,y:460,r:40,fill:'#0d6e6e',tc:'white',txt:'Application',size:10},
+    {id:'c1',x:700,y:100,r:36,fill:'#e8540a',tc:'white',txt:'Cycle 1',size:11},
+    {id:'c2',x:730,y:250,r:36,fill:'#0e6fa8',tc:'white',txt:'Cycle 2',size:11},
+    {id:'c3',x:700,y:410,r:36,fill:'#6b35c8',tc:'white',txt:'Cycle 3',size:11},
+    {id:'evar',x:580,y:530,r:30,fill:'#1a7a40',tc:'white',txt:'EVAR',size:10},
+    // Sub
+    {id:'fr1',x:60,y:60,r:24,fill:'#fdf0ef',tc:'#8b1a1a',txt:'Langue\n(Cycle4)',size:9},
+    {id:'fr2',x:60,y:150,r:24,fill:'#fdf0ef',tc:'#8b1a1a',txt:'Lycée\n2019',size:9},
+    {id:'ma1',x:60,y:230,r:24,fill:'#e8f2f8',tc:'#1a4e6e',txt:'Cycle 4',size:9},
+    {id:'ma2',x:60,y:330,r:24,fill:'#e8f2f8',tc:'#1a4e6e',txt:'Seconde\nNombres',size:9},
+    {id:'app1',x:60,y:410,r:24,fill:'#e8f8f8',tc:'#0d6e6e',txt:'Arts',size:9},
+    {id:'app2',x:60,y:500,r:24,fill:'#e8f8f8',tc:'#0d6e6e',txt:'HGE\nEMC',size:9},
+    {id:'app3',x:150,y:560,r:24,fill:'#e8f8f8',tc:'#0d6e6e',txt:'Sciences',size:9},
+    {id:'4fond',x:430,y:510,r:30,fill:'#c9a84c',tc:'white',txt:'4 fond.',size:9},
+    {id:'jury',x:300,y:160,r:28,fill:'#4a1a6e',tc:'white',txt:'Jury',size:10},
+    {id:'annal',x:300,y:430,r:28,fill:'#4a1a6e',tc:'white',txt:'Annales\n2022–25',size:9},
+  ];
+  const edges=[
+    ['crpe','fr'],['crpe','ma'],['crpe','app'],
+    ['crpe','c1'],['crpe','c2'],['crpe','c3'],
+    ['crpe','4fond'],['crpe','jury'],['crpe','annal'],['crpe','evar'],
+    ['fr','fr1'],['fr','fr2'],
+    ['ma','ma1'],['ma','ma2'],
+    ['app','app1'],['app','app2'],['app','app3'],
+    ['c1','evar'],['c2','evar'],['c3','evar'],
+  ];
+  const nmap={};
+  nodes.forEach(n=>nmap[n.id]=n);
+  let out='';
+  edges.forEach(([a,b])=>{
+    const na=nmap[a],nb=nmap[b];
+    if(!na||!nb)return;
+    out+=`<line x1="${na.x}" y1="${na.y}" x2="${nb.x}" y2="${nb.y}" stroke="#d4cfc4" stroke-width="1.5" stroke-dasharray="${a==='crpe'||b==='crpe'?'0':'4,3'}"/>`;
+  });
+  nodes.forEach(n=>{
+    const lines=n.txt.split('\n');
+    const lh=14;
+    const ty=n.y-(lines.length-1)*lh/2;
+    out+=`<circle cx="${n.x}" cy="${n.y}" r="${n.r}" fill="${n.fill}" stroke="${n.tc}40" stroke-width="1.5"/>`;
+    lines.forEach((l,i)=>{
+      out+=`<text x="${n.x}" y="${ty+i*lh}" text-anchor="middle" dominant-baseline="middle" fill="${n.tc}" font-family="IBM Plex Sans,sans-serif" font-size="${n.size}" font-weight="600">${l}</text>`;
+    });
+  });
+  svg.innerHTML=out;
+}
+
+// ══════════════════════════════════════════════════
+// PANEL ROUTER
+// ══════════════════════════════════════════════════
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── INIT ──
+loadDeck();
+renderSujets();
+renderJuryTips();
+renderProg();
+renderOeuvres();
+renderMindmap();
+qStart();
+</script>
+</body>
+</html>
